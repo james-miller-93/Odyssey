@@ -36,6 +36,26 @@ export default class Profile extends Component {
                 displayText={"View Profile"}
                 />    
 
+                <ProfileView
+                handlePress={this.handleProfilePress}
+                profileImage={require('../assets/images/profile2.png')}
+                profileName={"Robert Wilson"}
+                ratingImage={require('../assets/images/5star.png')}
+                stickerImage1={require('../assets/images/stickers/carSticker.png')}
+                stickerImage2={require('../assets/images/stickers/mapSticker.png')}
+                displayText={"View Profile"}
+                />
+
+                <ProfileView
+                handlePress={this.handleProfilePress}
+                profileImage={require('../assets/images/profile2.png')}
+                profileName={"Robert Wilson"}
+                ratingImage={require('../assets/images/5star.png')}
+                stickerImage1={require('../assets/images/stickers/carSticker.png')}
+                stickerImage2={require('../assets/images/stickers/mapSticker.png')}
+                displayText={"View Profile"}
+                />
+
 
             </ScrollView>
 
