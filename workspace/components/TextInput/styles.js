@@ -6,16 +6,18 @@ export default EStyleSheet.create({
         height: '10%',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '$white',
-        borderRightWidth: EStyleSheet.hairlineWidth,
-        borderLeftWidth: EStyleSheet.hairlineWidth,
-        borderTopWidth: EStyleSheet.hairlineWidth,
-        borderBottomWidth: EStyleSheet.hairlineWidth,
+        backgroundColor: '$transparentGray',
+        //borderRightWidth: EStyleSheet.hairlineWidth,
+        //borderLeftWidth: EStyleSheet.hairlineWidth,
+        //borderTopWidth: EStyleSheet.hairlineWidth,
+        borderBottomWidth: EStyleSheet.hairlineWidth *3,
     },
 
     generalText: {
         textAlign: 'left',
-        fontSize: 22
+        fontSize: 22,
+        color: '$white',
+        //placeholderTextColor : '$white',
     },
 
 });

@@ -9,18 +9,19 @@ import Settings from '../screens/Settings';
 import TourGuide from '../screens/TourGuide';
 
 export default StackNavigator({
+    Login: {
+        screen: Login,
+        navigationOptions: {
+            header: () => null,
+        },
+    },   
     Profile: {
         screen: Profile,
         navigationOptions: {
             header: () => null,
         },
     },
-    Login: {
-        screen: Login,
-        navigationOptions: {
-            header: () => null,
-        },
-    },
+    
     Filter: {
         screen: Filter,
     },

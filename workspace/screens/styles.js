@@ -22,6 +22,13 @@ export default EStyleSheet.create({
     loginTextPadding: {
         height: '4%',
         width: '100%',
+    },
+
+    transparentCover: {
+        height: '100%',
+        width: '100%',
+        backgroundColor: '#A9A9A980',
+        alignItems: 'center',
     }
     
 });

@@ -73,8 +73,10 @@ export default class Login extends Component {
     
         <ImageBackground
         style={styles.loginBackground}
-        source={require('../assets/images/odyssey.png')}
-        
+        source={require('../assets/images/appBackground.jpeg')}
+        >
+        <View
+        style={styles.transparentCover}
         >
         <KeyboardAvoidingView 
         behavior={'padding'}
@@ -104,7 +106,7 @@ export default class Login extends Component {
             handlePress={this.handleSubmitPress.bind(this)}
         />
        
-       
+        </View>
         
         </ImageBackground>
 

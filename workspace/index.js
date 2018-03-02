@@ -11,6 +11,7 @@ EStyleSheet.build({
     $black: '#000000',
     $white: '#FFFFFF',
     $gray: '#808080',
+    $transparentGray: '#80808050',
     $textBar1: 48,
 });
 
