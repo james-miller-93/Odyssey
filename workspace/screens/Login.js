@@ -5,6 +5,7 @@ import { Container, Top, ContainerLogo } from '../components/Container';
 import { GeneralTextInput } from '../components/TextInput';
 import { BigLogo } from '../components/Logo';
 import { ButtonText } from '../components/Button';
+import styles from '../screens/styles';
 
 
 export default class Login extends Component {
@@ -71,40 +72,23 @@ export default class Login extends Component {
         return (
     
         <ImageBackground
-        style={{
-            height: '100%',
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-            backgroundColor: '#5D87A8'
-        }}
+        style={styles.loginBackground}
         source={require('../assets/images/odyssey.png')}
         
         >
         <KeyboardAvoidingView 
         behavior={'padding'}
-        style={{
-        height: '80%',
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        }}
+        style={styles.loginKeyboard}
         >
         <View
-        style={{
-            height: '50%',
-            width: '100%',
-        }}
+        style={styles.loginTopPadding}
         />
         <GeneralTextInput
             displayText={'Username'}
             handleTextChange={(val) => this.setState({username: val})}
         />
         <View
-        style={{
-            height: '4%',
-            width: '100%',
-        }}
+        style={styles.loginTextPadding}
         />
         <GeneralTextInput
             displayText={'Password'}
