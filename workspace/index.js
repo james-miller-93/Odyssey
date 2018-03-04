@@ -5,7 +5,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import Navigator from './config/routes';
 
 EStyleSheet.build({
-    $secondaryColor: '#E59400',
+    $secondaryColor: '#F9A602',
     $primaryColor: '#5D87A8',
     $tertiaryColor: '#000000',
     $black: '#000000',

@@ -26,3 +26,4 @@ export default class GeneralTextInput extends Component {
         )
     }
 }
+

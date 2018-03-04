@@ -4,7 +4,7 @@ import { View, Text, KeyboardAvoidingView, ImageBackground, Image } from 'react-
 import { Container, Top, ContainerLogo } from '../components/Container';
 import { GeneralTextInput } from '../components/TextInput';
 import { BigLogo } from '../components/Logo';
-import { ButtonText } from '../components/Button';
+import { ButtonText, ButtonContainer} from '../components/Button';
 import styles from '../screens/styles';
 
 
@@ -19,13 +19,13 @@ export default class Login extends Component {
         }
     }
 
-    handleSubmitPress = () => {
-        this.props.navigation.navigate('Home');
-    };
+   // handleSignUpPress = () => {
+    //    this.props.navigation.navigate('Home');
+    //};
 
-    handleRegisterPress = () => {
-        this.props.navigation.navigate('Register');
-    };
+  //  handleLoginPress = () => {
+   //     this.props.navigation.navigate('Register');
+   // };
 
     /*
     async handleButtonPress() {
@@ -75,39 +75,22 @@ export default class Login extends Component {
         style={styles.loginBackground}
         source={require('../assets/images/appBackground.jpeg')}
         >
+     
         <View
-        style={styles.transparentCover}
-        >
-        <KeyboardAvoidingView 
-        behavior={'padding'}
-        style={styles.loginKeyboard}
-        >
-        <View
-        style={styles.loginTopPadding}
-        />
-        <GeneralTextInput
-            displayText={'Username'}
-            handleTextChange={(val) => this.setState({username: val})}
-        />
-        <View
-        style={styles.loginTextPadding}
-        />
-        <GeneralTextInput
-            displayText={'Password'}
-            handleTextChange={(val) => this.setState({password: val})}
-            secure={true}
-        />
+            style={styles.transparentCover}
+            >
         
-        </KeyboardAvoidingView>
-        
-        
-        <ButtonText 
-            displayText = {'Submit'}
-            handlePress={this.handleSubmitPress.bind(this)}
-        />
-       
+            <View ><Text style= {styles.odyssey}>Odyssey</Text>
+            </View> 
+            <ButtonContainer/> 
+
+                
+                
+              
+               
+
+           
         </View>
-        
         </ImageBackground>
 
     
@@ -131,4 +114,27 @@ export default class Login extends Component {
             displayText = {'Not registered?'}
             onPress={this.handleRegisterPress.bind(this)}
         />
+
+copied
+<KeyboardAvoidingView 
+        behavior={'padding'}
+        style={styles.loginKeyboard}
+        >
+        <View
+        style={styles.loginTopPadding}
+        />
+        <GeneralTextInput
+            displayText={'Username'}
+            handleTextChange={(val) => this.setState({username: val})}
+        />
+        <View
+        style={styles.loginTextPadding}
+        />
+        <GeneralTextInput
+            displayText={'Password'}
+            handleTextChange={(val) => this.setState({password: val})}
+            secure={true}
+        />
+        
+        </KeyboardAvoidingView> 
         */

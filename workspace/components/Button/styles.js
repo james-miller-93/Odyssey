@@ -7,6 +7,9 @@ export default EStyleSheet.create({
         alignItems: 'center',
         backgroundColor: '$secondaryColor',
         borderRadius: 20,
+
+        //position: 'absolute',
+        //bottom: 30
         
     },
     generalButton: {
@@ -17,13 +20,45 @@ export default EStyleSheet.create({
 
     },
     buttonText: {
-        height: '100%',
-        width: '100%',
+        //height: '100%',
+        //width: '100%',
         textAlign: 'center',
-        top: 5,
+        margin: 10,
         color: '$white',
-        fontSize: 28,
-        fontWeight: 'bold'
+        fontSize: 16,
+        fontWeight: 'bold',
+        
     },
+
+
+    button: {
+        width: 250,
+        height: 40,
+        margin: 10,
+        //backgroundColor: '$secondaryColor',
+        borderRadius: 40,
+        //width: '70%',
+        //height: '8%',
+        //alignSelf: 'center',
+        //backgroundColor: '$secondaryColor',
+        //borderRadius: 20,
+        //width: "60%"
+    },
+    facebookButton: {
+        width: 250,
+        height: 40,
+        margin: 10,
+        backgroundColor: '#4682B4',
+        borderRadius: 40,
+    },
+
+      buttonContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        //alignItems: 'center',
+        
+    }
+
+
 
 });
