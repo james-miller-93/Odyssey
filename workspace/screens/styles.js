@@ -43,12 +43,12 @@ export default EStyleSheet.create({
   
     odyssey: {
         textAlign: 'center',
-        margin: 20,
+        //margin: 10,
         top: 100,
         color: '$white',
-        fontSize: 52,
+        fontSize: 120,
         fontWeight: 'bold',
-        //fontFamily: 'Peaches-and-Cream-Regular.otf',
+        fontFamily: 'Peaches-and-Cream',
     }
     
 });
