@@ -16,26 +16,38 @@ export default class SignUpContainer extends Component {
     	<View style={styles.SignUpContainer}>
             
     		<GeneralTextInput
-                    displayText={'Full Name'}
+                    displayText={'First Name'}
+                    handleTextChange={this.props.firstname}
                     //handleTextChange={(val) => this.setState({email: val})}
                 />
                 <GeneralTextInput
+                    displayText={'Last Name'}
+                    handleTextChange={this.props.lastname}
+                    //handleTextChange={(val) => this.setState({email: val})}
+                />
+                <GeneralTextInput
+                    handleTextChange={this.props.email}
                     displayText={'Email'}
                     //handleTextChange={(val) => this.setState({password: val})}
                     //secure={true}
                 />
                 <GeneralTextInput
+                    handleTextChange={this.props.password}
                     displayText={'Password'}
                     //handleTextChange={(val) => this.setState({password: val})}
                     //secure={true}
                 />
                 <GeneralTextInput
+                    handleTextChange={this.props.passwordConfirm}
                     displayText={'Confirm Password'}
                     //handleTextChange={(val) => this.setState({password: val})}
                     //secure={true}
                 />
         
-            <ButtonText displayText = {"Sign Up"} bgColor = {{backgroundColor: '#80808090', top: 40, width: 150}} />
+            <ButtonText
+                displayText = {"Sign Up"}
+                bgColor = {{backgroundColor: '#80808090', top: 40, width: 150}}
+                handlePress={this.props.handlePress}/>
 
     	</View> 
         </ScrollView>

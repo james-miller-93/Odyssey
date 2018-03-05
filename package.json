@@ -2,7 +2,7 @@
   "name": "Odyssey",
   "version": "0.1.0",
   "private": true,
-   "rnpm": {
+  "rnpm": {
     "assets": [
       ".workspace/assets/fonts"
     ]
@@ -27,7 +27,7 @@
     "expo": "^25.0.0",
     "react": "16.2.0",
     "react-native": "0.52.0",
-    "react-native-hideable-view": "^1.0.3"
+    "react-native-hideable-view": "^1.0.3",
+    "redux-logger": "^3.0.6"
   }
-
 }

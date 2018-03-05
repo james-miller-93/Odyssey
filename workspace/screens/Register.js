@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, KeyboardAvoidingView, ImageBackground } from 'react-native';
+import { connect } from 'react-redux';
 
 import { Container } from '../components/Container';
 import { GeneralTextInput } from '../components/TextInput';
@@ -7,8 +8,13 @@ import { ButtonText } from '../components/Button';
 import { Errors } from '../components/Errors';
 import styles from '../screens/styles';
 import { SignUpContainer} from '../components/Container';
+import { connectAlert } from '../components/Alert';
 
-export default class Register extends Component {
+import { changeRegisterFirstNameValue, changeRegisterLastNameValue, changeRegisterEmailValue,
+        changeRegisterPasswordValue, changeRegisterPasswordConfirmationValue,
+        pressRegisterSubmit} from '../actions/Register';
+
+class Register extends Component {
 
     constructor(props) {
         super(props);
@@ -71,8 +77,29 @@ export default class Register extends Component {
 */
 
     
+    handleFirstNameChange = (text) => {
+        this.props.dispatch(changeRegisterFirstNameValue(text))
+    };
 
+    handleLastNameChange = (text) => {
+        this.props.dispatch(changeRegisterLastNameValue(text))
+    };
 
+    handleEmailChange = (text) => {
+        this.props.dispatch(changeRegisterEmailValue(text))
+    };
+
+    handlePassChange = (text) => {
+        this.props.dispatch(changeRegisterPasswordValue(text))
+    };
+
+    handlePassConfChange = (text) => {
+        this.props.dispatch(changeRegisterPasswordConfirmationValue(text))
+    };
+
+    handleSubmitPress = () => {
+        this.props.dispatch(pressRegisterSubmit(this.props.user))
+    };
 
     render() {
         return (
@@ -86,7 +113,13 @@ export default class Register extends Component {
             style={styles.transparentCover}
             >
 
-            <SignUpContainer/>
+            <SignUpContainer
+            firstname={this.handleFirstNameChange}
+            lastname={this.handleLastNameChange}
+            email={this.handleEmailChange}
+            password={this.handlePassChange}
+            passwordConfirm={this.handlePassConfChange}
+            handlePress={this.handleSubmitPress}/>
 
         </View>
 
@@ -154,3 +187,25 @@ export default class Register extends Component {
         );
     };
 };
+
+const mapStateToProps = (state) => {
+    const user = {
+        firstname: state.Register.firstname,
+        lastname: state.Register.lastname,
+        email: state.Register.email,
+        password: state.Register.password,
+        password_confirmation: state.Register.passwordConfirmation
+    }
+    //const name = state.Register.name;
+    //const email = state.Register.email;
+    //const password = state.Register.password;
+    //const passwordConfirmation = state.Register.passwordConfirmation;
+    const errors = state.Register.errors;
+
+    return {
+        user,
+        errors
+    };
+};
+
+export default connect(mapStateToProps)(Register);
