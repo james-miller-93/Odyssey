@@ -28,7 +28,10 @@ export default class SignInContainer extends Component {
                 />
            
         
-            <ButtonText displayText = {"Login"} bgColor = {{backgroundColor: '#80808090', top: 40, width: 150}} />
+            <ButtonText 
+            displayText = {"Login"}
+             bgColor = {{backgroundColor: '#80808090', top: 40, width: 150}}
+             handlePress={this.props.login} />
 
     	</View> 
         </ScrollView>

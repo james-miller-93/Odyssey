@@ -90,7 +90,9 @@ export default class Login extends Component {
         
             <View ><Text style= {styles.odyssey}>Odyssey</Text>
             </View> 
-            <ButtonContainer signUp = {this.handleSignUpPress.bind(this)} login = {this.handleLoginPress.bind(this)} /> 
+            <ButtonContainer 
+            signUp = {this.handleSignUpPress.bind(this)} 
+            login = {this.handleLoginPress.bind(this)} /> 
 
                 
                 

@@ -21,6 +21,10 @@ export default class Register extends Component {
         }
     }
 
+    handleLoginPress = () => {
+        this.props.navigation.navigate('Home');
+    };
+
     render() {
         return (
 
@@ -33,7 +37,8 @@ export default class Register extends Component {
             style={styles.transparentCover}
             >
 
-            <SignInContainer/>
+            <SignInContainer
+            login={this.handleLoginPress.bind(this)}/>
 
         </View>
 
