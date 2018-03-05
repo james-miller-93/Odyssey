@@ -67,6 +67,14 @@ export default class Login extends Component {
         }
     }
     */
+    handleSignUpPress = () => {
+        this.props.navigation.navigate('Register');
+    };
+
+     handleLoginPress = () => {
+        this.props.navigation.navigate('SignIn');
+    };
+
 
     render() {
         return (
@@ -82,7 +90,7 @@ export default class Login extends Component {
         
             <View ><Text style= {styles.odyssey}>Odyssey</Text>
             </View> 
-            <ButtonContainer/> 
+            <ButtonContainer signUp = {this.handleSignUpPress.bind(this)} login = {this.handleLoginPress.bind(this)} /> 
 
                 
                 

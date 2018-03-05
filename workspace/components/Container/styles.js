@@ -37,5 +37,19 @@ export default EStyleSheet.create({
         height: '100%',
         width: '100%',
         alignItems: 'center'
+    },
+      SignUpContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        
+    },
+      title: {
+        textAlign: 'center',
+        fontSize: 40,
+        margin: 10,
+        top: '15%',
+        color: '$white',
     }
+
 });
