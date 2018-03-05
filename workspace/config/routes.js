@@ -8,6 +8,7 @@ import Register from '../screens/Register';
 import Settings from '../screens/Settings';
 import TourGuide from '../screens/TourGuide';
 import SignIn from '../screens/SignIn';
+import userRole from '../screens/userRole';
 
 export default StackNavigator({
     Login: {
@@ -24,6 +25,9 @@ export default StackNavigator({
     },
     SignIn: {
         screen: SignIn
+    },
+    userRole: {
+        screen: userRole
     },
     
     Filter: {

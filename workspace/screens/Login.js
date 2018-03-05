@@ -6,18 +6,49 @@ import { GeneralTextInput } from '../components/TextInput';
 import { BigLogo } from '../components/Logo';
 import { ButtonText, ButtonContainer} from '../components/Button';
 import styles from '../screens/styles';
+import { Font, AppLoading } from 'expo';
 
 
 export default class Login extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: "",
-            password: "",
-            error: []
-        }
+        handleSignUpPress = () => {
+        this.props.navigation.navigate('Register');
+    };
+
+     handleLoginPress = () => {
+        this.props.navigation.navigate('SignIn');
+    };
+
+    state = { isReady: false,}
+
+    componentWillMount() {
+
+    (async() => {
+
+    await Font.loadAsync({
+
+    'Peaches-and-Cream': require('../assets/fonts/Peaches-and-Cream-Regular.otf')
+
+    });
+
+    this.setState({ isReady: true});
+
+    })();
+
     }
+
+    render() {
+
+    if (!this.state.isReady) {
+
+    return <AppLoading />;
+
+    } 
+
+   
+
+
+
 
    // handleSignUpPress = () => {
     //    this.props.navigation.navigate('Home');
@@ -67,16 +98,10 @@ export default class Login extends Component {
         }
     }
     */
-    handleSignUpPress = () => {
-        this.props.navigation.navigate('Register');
-    };
-
-     handleLoginPress = () => {
-        this.props.navigation.navigate('SignIn');
-    };
+ 
 
 
-    render() {
+
         return (
     
         <ImageBackground
