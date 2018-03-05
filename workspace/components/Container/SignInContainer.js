@@ -18,13 +18,15 @@ export default class SignInContainer extends Component {
 
                 <GeneralTextInput
                     displayText={'Email'}
+                    handleTextChange={this.props.email}
                     //handleTextChange={(val) => this.setState({password: val})}
                     //secure={true}
                 />
                 <GeneralTextInput
                     displayText={'Password'}
+                    handleTextChange={this.props.password}
                     //handleTextChange={(val) => this.setState({password: val})}
-                    //secure={true}
+                    secure={true}
                 />
            
         

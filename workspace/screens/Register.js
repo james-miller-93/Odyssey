@@ -12,7 +12,7 @@ import { connectAlert } from '../components/Alert';
 
 import { changeRegisterFirstNameValue, changeRegisterLastNameValue, changeRegisterEmailValue,
         changeRegisterPasswordValue, changeRegisterPasswordConfirmationValue,
-        pressRegisterSubmit} from '../actions/Register';
+        pressRegisterSubmit, clearErrorLog} from '../actions/Register';
 
 class Register extends Component {
 
@@ -76,29 +76,40 @@ class Register extends Component {
     };
 */
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.errors && nextProps.errors !== this.props.errors) {
+            this.props.alertWithType('error','Error',nextProps.errors);
+        }
+    }
     
     handleFirstNameChange = (text) => {
+        this.props.dispatch(clearErrorLog())
         this.props.dispatch(changeRegisterFirstNameValue(text))
     };
 
     handleLastNameChange = (text) => {
+        this.props.dispatch(clearErrorLog())
         this.props.dispatch(changeRegisterLastNameValue(text))
     };
 
     handleEmailChange = (text) => {
+        this.props.dispatch(clearErrorLog())
         this.props.dispatch(changeRegisterEmailValue(text))
     };
 
     handlePassChange = (text) => {
+        this.props.dispatch(clearErrorLog())
         this.props.dispatch(changeRegisterPasswordValue(text))
     };
 
     handlePassConfChange = (text) => {
+        this.props.dispatch(clearErrorLog())
         this.props.dispatch(changeRegisterPasswordConfirmationValue(text))
     };
 
     handleSubmitPress = () => {
         this.props.dispatch(pressRegisterSubmit(this.props.user))
+        this.props.dispatch(clearErrorLog())
     };
 
     render() {
@@ -208,4 +219,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(Register);
+export default connect(mapStateToProps)(connectAlert(Register));

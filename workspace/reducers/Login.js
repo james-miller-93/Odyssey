@@ -1,8 +1,12 @@
-import { LOGIN_EMAIL, LOGIN_PASSWORD } from '../actions/Login';
+import { LOGIN_EMAIL, LOGIN_PASSWORD,
+    INITIAL_LOGIN_CHECK, LOGIN_SUBMIT,
+    LOGIN_ERROR, LOGIN_RESULT,
+    LOGIN_ERROR_CLEAN } from '../actions/Login';
 
 const initialState = {
    email: '',
-   password: ''
+   password: '',
+   errors: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,6 +21,28 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 password: action.value || '',
             };
+        case LOGIN_SUBMIT:
+            return {
+                ...state,
+            };
+        case INITIAL_LOGIN_CHECK:
+            return {
+                ...state,
+            };
+        case LOGIN_RESULT:
+            return {
+                ...state,
+            }
+        case LOGIN_ERROR:
+            return {
+                ...state,
+                errors: action.errors,
+            }
+        case LOGIN_ERROR_CLEAN:
+            return {
+                ...state,
+                errors: '',
+            }
        default:
            return state;
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, KeyboardAvoidingView, ImageBackground } from 'react-native';
+import { connect } from 'react-redux';
 
 import { Container } from '../components/Container';
 import { GeneralTextInput } from '../components/TextInput';
@@ -8,8 +9,14 @@ import { Errors } from '../components/Errors';
 import styles from '../screens/styles';
 import { SignInContainer} from '../components/Container';
 //import { userRole} from '../components/Container';
+import { connectAlert } from '../components/Alert';
 
-export default class SignIn extends Component {
+import { changeLoginEmailValue, changeLoginPasswordValue,
+        pressLoginSubmit, checkInitialLogin,
+         cleanLoginErrorLog } from '../actions/Login';
+
+
+class SignIn extends Component {
 
     constructor(props) {
         super(props);
@@ -22,8 +29,26 @@ export default class SignIn extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.errors && nextProps.errors !== this.props.errors) {
+            this.props.alertWithType('error','Error',nextProps.errors);
+        }
+    }
+
+    handleEmailChange = (text) => {
+        this.props.dispatch(cleanLoginErrorLog())
+        this.props.dispatch(changeLoginEmailValue(text))
+    };
+
+    handlePassChange = (text) => {
+        this.props.dispatch(cleanLoginErrorLog())
+        this.props.dispatch(changeLoginPasswordValue(text))
+    };
+
     handleTransitionPress = () => {
-    this.props.navigation.navigate('userRole');
+        this.props.dispatch(pressLoginSubmit(this.props.user))
+        this.props.dispatch(cleanLoginErrorLog())
+        //this.props.navigation.navigate('userRole');
 
     };
 
@@ -39,7 +64,11 @@ export default class SignIn extends Component {
             style={styles.transparentCover}
             >
 
-            <SignInContainer role = {this.handleTransitionPress.bind(this)}/>
+            <SignInContainer 
+            email={this.props.handleEmailChange}
+            password={this.props.handlePassChange}
+            role = {this.handleTransitionPress.bind(this)}
+            />
 
         </View>
 
@@ -51,3 +80,19 @@ export default class SignIn extends Component {
         );
     };
 };
+
+const mapStateToProps = (state) => {
+    const user = {
+        email: state.Login.email,
+        password: state.Login.password
+    };
+
+    const errors = state.Login.errors;
+
+    return {
+        user,
+        errors
+    };
+};
+
+export default connect(mapStateToProps)(connectAlert(SignIn));

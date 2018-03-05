@@ -35,13 +35,13 @@ export default class SignUpContainer extends Component {
                     handleTextChange={this.props.password}
                     displayText={'Password'}
                     //handleTextChange={(val) => this.setState({password: val})}
-                    //secure={true}
+                    secure={true}
                 />
                 <GeneralTextInput
                     handleTextChange={this.props.passwordConfirm}
                     displayText={'Confirm Password'}
                     //handleTextChange={(val) => this.setState({password: val})}
-                    //secure={true}
+                    secure={true}
                 />
         
             <ButtonText

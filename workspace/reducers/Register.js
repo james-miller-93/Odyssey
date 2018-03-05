@@ -1,5 +1,8 @@
-import { REGISTER_FIRST_NAME, REGISTER_LAST_NAME, REGISTER_EMAIL, REGISTER_PASS,
-      REGISTER_PASS_CONF, REGISTER_SUBMIT } from '../actions/Register';
+import { REGISTER_FIRST_NAME, REGISTER_LAST_NAME,
+    REGISTER_EMAIL, REGISTER_PASS,
+      REGISTER_PASS_CONF, REGISTER_SUBMIT,
+      REGISTER_RESULT, REGISTER_ERROR,
+        REGISTER_ERROR_CLEAN } from '../actions/Register';
 
 const initialState = {
     firstname: '',
@@ -7,7 +10,7 @@ const initialState = {
     email: '',
     password: '',
     passwordConfirmation: '',
-    errors: [],
+    errors: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -41,6 +44,21 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
             };
+        case REGISTER_RESULT:
+            return {
+                ...state,
+
+            };
+        case REGISTER_ERROR:
+            return {
+                ...state,
+                errors: action.errors,
+            };
+        case REGISTER_ERROR_CLEAN:
+            return {
+                ...state,
+                errors: '',
+            }
         default:
             return state;
 

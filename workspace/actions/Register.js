@@ -5,6 +5,11 @@ export const REGISTER_PASS = 'REGISTER_PASSWORD';
 export const REGISTER_PASS_CONF = 'REGISTER_PASSWORD_CONFIRMATION';
 export const REGISTER_SUBMIT = 'REGISTER_SUBMIT';
 
+export const REGISTER_RESULT = 'REGISTER_RESULT';
+export const REGISTER_ERROR = 'REGISTER_ERROR';
+export const REGISTER_ERROR_CLEAN = 'REGISTER_ERROR_CLEAN';
+
+
 export const changeRegisterFirstNameValue = value => ({
     type: REGISTER_FIRST_NAME,
     value,
@@ -33,4 +38,8 @@ export const changeRegisterPasswordConfirmationValue = value => ({
 export const pressRegisterSubmit = (user) => ({
     type: REGISTER_SUBMIT,
     user
+});
+
+export const clearErrorLog = () => ({
+    type: REGISTER_ERROR_CLEAN
 });
