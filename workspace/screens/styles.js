@@ -22,6 +22,33 @@ export default EStyleSheet.create({
     loginTextPadding: {
         height: '4%',
         width: '100%',
+    },
+
+    transparentCover: {
+        height: '100%',
+        width: '100%',
+        backgroundColor: '#A9A9A980',
+        alignItems: 'center',
+    },
+        bttnText: {
+        //height: '100%',
+        //width: '100%',
+        textAlign: 'center',
+        margin: 10,
+        color: '$white',
+        fontSize: 16,
+        fontWeight: 'bold',
+        
+    },
+  
+    odyssey: {
+        textAlign: 'center',
+        margin: 20,
+        top: 100,
+        color: '$white',
+        fontSize: 52,
+        fontWeight: 'bold',
+        //fontFamily: 'Peaches-and-Cream-Regular.otf',
     }
     
 });

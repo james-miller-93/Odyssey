@@ -4,5 +4,7 @@ import styles from './styles';
 import Bar from './Bar';
 import Top from './Top';
 import TransparentBar from './TransparentBar';
+import SignUpContainer from './SignUpContainer'
+import SignInContainer from './SignInContainer'
 
-export { Container, ContainerLogo, styles, Bar, Top, TransparentBar};
+export { Container, ContainerLogo, styles, Bar, Top, TransparentBar, SignUpContainer, SignInContainer};

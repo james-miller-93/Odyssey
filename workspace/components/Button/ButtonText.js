@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity} from 'react-native';
-import EStyleSheet from 'react-native-extended-stylesheet';
+import { View, Text, TouchableOpacity, Button} from 'react-native';
 
 import styles from './styles';
+import EStylesheet from 'react-native-extended-stylesheet'
 
 export default class ButtonText extends Component {
+    
 
     render() {
+     
+
+
         return (
-            <View style={EStyleSheet.flatten([styles.generalContainer,this.props.buttonColor])}>
-            <TouchableOpacity
-            style={styles.generalButton}
-            onPress={this.props.handlePress}
-            >
-            <Text
-            style={styles.buttonText}
-            >
-                {this.props.displayText}
-                </Text>
-            </TouchableOpacity>
+            <View style= {([styles.button,  this.props.bgColor ])}>
+               
+                <TouchableOpacity
+                style={styles.generalButton}
+                onPress={this.props.handlePress}
+
+                >
+
+                <View >
+                    <Text style={styles.buttonText}> {this.props.displayText} </Text>
+                </View>
+                
+                </TouchableOpacity>
             </View>
         )
     }
 }
+
+
+
+
+
+
+

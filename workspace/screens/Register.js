@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, KeyboardAvoidingView } from 'react-native';
+import { View, Text, KeyboardAvoidingView, ImageBackground } from 'react-native';
 
 import { Container } from '../components/Container';
 import { GeneralTextInput } from '../components/TextInput';
 import { ButtonText } from '../components/Button';
 import { Errors } from '../components/Errors';
+import styles from '../screens/styles';
+import { SignUpContainer} from '../components/Container';
 
 export default class Register extends Component {
 
@@ -74,7 +76,40 @@ export default class Register extends Component {
 
     render() {
         return (
-            <Container>
+
+        <ImageBackground
+            style={styles.loginBackground}
+            source={require('../assets/images/LoginCover.jpg')}
+        >
+     
+        <View
+            style={styles.transparentCover}
+            >
+
+            <SignUpContainer/>
+
+        </View>
+
+        </ImageBackground>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       /*     <Container>
                 <KeyboardAvoidingView
                 behavior={'padding'}
                 style={{
@@ -115,7 +150,7 @@ export default class Register extends Component {
 
                 
 
-            </Container>
+            </Container>*/
         );
     };
 };
