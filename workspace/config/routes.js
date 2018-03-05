@@ -9,12 +9,7 @@ import Settings from '../screens/Settings';
 import TourGuide from '../screens/TourGuide';
 
 export default StackNavigator({
-    Profile: {
-        screen: Profile,
-        navigationOptions: {
-            header: () => null,
-        },
-    },
+    
     Login: {
         screen: Login,
         navigationOptions: {
@@ -30,7 +25,12 @@ export default StackNavigator({
             header: () => null,
         },
     },
-    
+    Profile: {
+        screen: Profile,
+        navigationOptions: {
+            header: () => null,
+        },
+    },
     
     Register: {
         screen: Register,

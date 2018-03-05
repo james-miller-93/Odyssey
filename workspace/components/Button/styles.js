@@ -5,7 +5,7 @@ export default EStyleSheet.create({
         width: '60%',
         height: '8%',
         alignItems: 'center',
-        backgroundColor: '$secondaryColor',
+        //backgroundColor: '$secondaryColor',
         borderRadius: 20,
         
     },

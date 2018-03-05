@@ -100,6 +100,9 @@ export default class Login extends Component {
         
         
         <ButtonText 
+            buttonColor={{
+                backgroundColor: '#ffffff'
+            }}
             displayText = {'Submit'}
             handlePress={this.handleSubmitPress.bind(this)}
         />

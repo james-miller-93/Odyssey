@@ -6,22 +6,26 @@ export default class CustomCallout extends Component {
 
     render() {
         return (
-            <MapView.Callout tooltip
+            /*<MapView.Callout tooltip
             style={{
                 backgroundColor: '#FFFFFF',
                 height: '100%',
                 width: '100%',
             }}
-            >
+            >*/
             <View
-            style={{
+            /*style={{
                 backgroundColor: '#FFFFFF',
                 height: '100%',
                 width: '100%',
-            }}
+            }}*/
             >
                 <View>
-                    <Text>
+                    <Text
+                    style={{
+                        fontSize: 20
+                    }}
+                    >
                         {this.props.marketTitle}
                     </Text>
                 </View>
@@ -42,7 +46,7 @@ export default class CustomCallout extends Component {
                 </Text>
                 </View>
             </View>
-            </MapView.Callout>
+            //</MapView.Callout>
         )
     }
 }

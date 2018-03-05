@@ -1,4 +1,5 @@
 import CustomCallout from './CustomCallout';
+import CalloutContent from './CalloutContent';
 import styles from './styles';
 
-export { CustomCallout, styles};
+export { CalloutContent, CustomCallout, styles};
