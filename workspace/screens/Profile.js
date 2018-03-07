@@ -23,12 +23,13 @@ class Profile extends Component {
 
             <ScrollView>
 
-                {TEMP_MARKER_DATA_ARRAY.MAP((data) => {
+                {this.props.tourArray.map((data) => {
                     return (
                         <ProfileView
+                        key={data.id}
                         handlePress={this.handleProfilePress}
-                        profileName={data.name}
-                        profileImage={data.image}
+                        profileName={data.title}
+                        //profileImage={data.image}
                         displayText={"View Profile"}
                         />
                     )
@@ -83,10 +84,10 @@ class Profile extends Component {
 };
 
 const mapStateToProps = (state) => {
-    const result = state.TourList.result;
+    const tourArray = state.TourList.result.tours;
 
     return {
-        result
+        tourArray
     };
 };
 

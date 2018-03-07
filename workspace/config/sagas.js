@@ -4,6 +4,7 @@ import { REGISTER_SUBMIT, REGISTER_RESULT, REGISTER_ERROR } from '../actions/Reg
 import { LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_RESULT} from '../actions/Login';
 import { INITIAL_LOGIN_CHECK, INITIAL_LOGIN_ERROR, INITIAL_LOGIN_RESULT } from '../actions/InitialLogin';
 import { TOUR_LOCATION, TOUR_RESULT, TOUR_ERROR } from '../actions/TourList';
+import { LOGOUT_CHECK, LOGOUT_ERROR, LOGOUT_RESULT } from '../actions/LogOut';
 
 const postInitialLogin = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/sessions', {
     method: 'GET',
@@ -48,7 +49,18 @@ const getTourList = location => fetch('http://odyssey-api-demo.herokuapp.com/v1/
         'longitude': location.longitude,
     },
     body: ''
-})
+});
+
+const deleteLogOut = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/sessions', {
+    method: 'DELETE',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Traveler-Token': action.authentication_token,
+        'X-Traveler-Email': action.email,
+    },
+    body: ''
+});
 
 function* tryInitialLogin(action) {
 
@@ -63,15 +75,15 @@ function* tryInitialLogin(action) {
         //console.log("--------------")
 
         const response = yield call(postInitialLogin, action);
-        console.log(response)
+        
         const result = yield response.json();
         //yield put({ type: LOGIN_RESULT, response})
 
         if (result.error) {
-            console.log('this was an error!!!!')
+            
             yield put({ type: INITIAL_LOGIN_ERROR, initialErrors: result.error});
         } else {
-            console.log('no error!!!')
+            
             yield put({ type: INITIAL_LOGIN_RESULT, result: result});
         }
     } catch(e) {
@@ -124,7 +136,7 @@ function* tryLoginUser(action) {
             yield put({ type: LOGIN_ERROR, errors: result.error });
         } else {
             //console.log(result.authentication_token)
-            yield put({ type: LOGIN_RESULT, authentication_token: result.authentication_token})
+            yield put({ type: LOGIN_RESULT, result: result, authentication_token: result.authentication_token})
         }
     } catch (e) {
         console.log(e.message)
@@ -161,9 +173,40 @@ function* tryTourList(action) {
     }
 }
 
+function* tryLogOutUser(action) {
+
+    try {
+        //let authentication_token = action.authentication_token;
+        
+        //let email = action.email;
+
+        //console.log("-----------")
+        //console.log(authentication_token)
+        //console.log(email)
+        //console.log("--------------")
+
+        const response = yield call(deleteLogOut, action);
+        
+        const result = yield response.json();
+        //yield put({ type: LOGIN_RESULT, response})
+
+        if (result.error) {
+            
+            yield put({ type: LOGOUT_ERROR, errors: result.error});
+        } else {
+            
+            yield put({ type: LOGOUT_RESULT, result: result});
+        }
+    } catch(e) {
+            yield put({ type: LOGOUT_ERROR, errors: e.message});
+    }
+}
+
+
 export default function* rootSaga() {
     yield takeEvery(INITIAL_LOGIN_CHECK, tryInitialLogin)
     yield takeEvery(REGISTER_SUBMIT, tryRegisterUser)
     yield takeEvery(LOGIN_SUBMIT, tryLoginUser)
     yield takeEvery(TOUR_LOCATION, tryTourList)
+    yield takeEvery(LOGOUT_CHECK, tryLogOutUser)
 }

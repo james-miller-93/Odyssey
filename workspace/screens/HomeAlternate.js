@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import MapView, { Marker, Callout} from 'react-native-maps';
 import { connect } from 'react-redux';
 
@@ -75,6 +75,14 @@ class HomeAlternate extends Component {
         console.log(this.props.tourArray)
         this.props.dispatch(changeTourLocationValue(location))
     };
+
+    handleListPress = () => {
+        this.props.navigation.navigate('Profile');
+    }
+
+    handleSettingsPress = () => {
+        this.props.navigation.navigate('Settings');
+    }
     
     handleMarkerPress1 = () => {
         this.props.navigation.navigate('TourGuide');
@@ -86,8 +94,9 @@ class HomeAlternate extends Component {
 
     render() {
         return (
+            <View>
             <View style={styles.container}>
-            
+                
                 <MapView
                 style={styles.map}
                 initialRegion={TEMP_INITIAL_REGION}
@@ -119,6 +128,77 @@ class HomeAlternate extends Component {
                     )
                     })}
                 </MapView>
+                
+            </View>
+
+                <View style={{
+                    width: '100%',
+                    height: '8%',
+                    flexDirection: "row",
+                    
+                }}
+                >
+                <View 
+                style={{
+                    height: '100%',
+                    width: '33%',
+                    backgroundColor: '#000000'
+                }}
+                >
+                <TouchableOpacity
+                style={{
+                    height: '100%',
+                    width: '100%',
+                    backgroundColor: '#000000',
+                }}
+                onPress={this.handleListPress}
+                >
+                    <Text style={{ color: '#ffffff', fontSize: 16 }}>
+                        List View
+                    </Text>
+                </TouchableOpacity>
+                </View>
+                <View 
+                style={{
+                    height: '100%',
+                    width: '34%',
+                    backgroundColor: '#000000'
+                }}
+                >
+                <TouchableOpacity
+                style={{
+                    height: '100%',
+                    width: '100%',
+                    backgroundColor: '#000000',
+                }}
+                onPress={this.handleSettingsPress}
+                >
+                    <Text style={{ color: '#ffffff', fontSize: 16 }}>
+                        Settings
+                    </Text>
+                </TouchableOpacity>
+                </View>
+                <View 
+                style={{
+                    height: '100%',
+                    width: '33%',
+                    backgroundColor: '#000000'
+                }}
+                >
+                <TouchableOpacity
+                style={{
+                    height: '100%',
+                    width: '100%',
+                    backgroundColor: '#000000',
+                }}                
+                >
+                    <Text style={{ color: '#ffffff', fontSize: 16 }}>
+                        Menu View
+                    </Text>
+                </TouchableOpacity>
+                </View>
+                </View>
+
             </View>
             
         );
