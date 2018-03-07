@@ -79,7 +79,7 @@ class Register extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors && nextProps.errors !== this.props.errors) {
             this.props.alertWithType('error','Error',nextProps.errors);
-        }
+        } 
     }
     
     handleFirstNameChange = (text) => {

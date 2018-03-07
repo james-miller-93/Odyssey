@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { connect } from 'react-redux';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { ProfileView } from '../components/ProfileListView';
+import { connectAlert } from '../components/Alert';
 
-export default class Profile extends Component {
+
+import TEMP_MARKER_DATA_ARRAY from '../screens/HomeAlternate';
+
+
+
+class Profile extends Component {
 
     handleProfilePress = () => {
         this.props.navigation.navigate('TourGuide');
@@ -15,6 +22,18 @@ export default class Profile extends Component {
         return (
 
             <ScrollView>
+
+                {TEMP_MARKER_DATA_ARRAY.MAP((data) => {
+                    return (
+                        <ProfileView
+                        handlePress={this.handleProfilePress}
+                        profileName={data.name}
+                        profileImage={data.image}
+                        displayText={"View Profile"}
+                        />
+                    )
+                })}
+
 
                 <ProfileView
                 handlePress={this.handleProfilePress}
@@ -62,3 +81,13 @@ export default class Profile extends Component {
         );
     };
 };
+
+const mapStateToProps = (state) => {
+    const result = state.TourList.result;
+
+    return {
+        result
+    };
+};
+
+export default connect(mapStateToProps)(Profile);

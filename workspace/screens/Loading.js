@@ -78,7 +78,7 @@ const mapStateToProps = (state) => {
         const result = '';
     }*/
     const errors = state.InitialLogin.initialErrors;
-    const result = state.InitialLogin.initialResult;
+    const result = state.InitialLogin.result;
 
     return {
         errors,

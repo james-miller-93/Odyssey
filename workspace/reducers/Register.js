@@ -11,6 +11,7 @@ const initialState = {
     password: '',
     passwordConfirmation: '',
     errors: '',
+    result: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -47,7 +48,7 @@ const reducer = (state = initialState, action) => {
         case REGISTER_RESULT:
             return {
                 ...state,
-
+                result: action.value || ''
             };
         case REGISTER_ERROR:
             return {

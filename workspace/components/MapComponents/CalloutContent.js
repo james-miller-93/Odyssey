@@ -11,8 +11,9 @@ export default class CalloutContent extends Component {
                     {this.props.markerTitle}
                 </Text>
                 <Text>
-                    THIS IS A CALLOUT
+                    {this.props.markerDescription}
                 </Text>
+                
             </View>
         )
     }

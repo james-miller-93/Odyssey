@@ -4,7 +4,7 @@ import { INITIAL_LOGIN_CHECK, INITIAL_LOGIN_ERROR,
 const initialState = {
     email: '',
     authentication_token: '',
-    initialResult: '',
+    result: '',
     initialErrors: ''
 };
 
@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
         case INITIAL_LOGIN_RESULT:
             return {
                 ...state,
-                initialResult: action.intialResult
+                result: action.result
             }
         default:
             return state;

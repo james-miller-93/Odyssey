@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
 import MapView, { Marker, Callout} from 'react-native-maps';
+import { connect } from 'react-redux';
 
 import { ButtonText } from '../components/Button';
 import { Top } from '../components/Container';
 import { CalloutContent } from '../components/MapComponents/';
+import { connectAlert } from '../components/Alert';
+
+import { changeTourLocationValue } from '../actions/TourList';
 
 import styles from '../components/Map/styles'
 
@@ -64,8 +68,14 @@ const TEMP_MARKER_DATA3 = {
 const TEMP_MARKER_DATA_ARRAY = [TEMP_MARKER_DATA1,TEMP_MARKER_DATA2,TEMP_MARKER_DATA3];
 
 
-export default class HomeAlternate extends Component {
+class HomeAlternate extends Component {
 
+    handleRegionChange = (location) => {
+        console.log("---------tour array--------")
+        console.log(this.props.tourArray)
+        this.props.dispatch(changeTourLocationValue(location))
+    };
+    
     handleMarkerPress1 = () => {
         this.props.navigation.navigate('TourGuide');
     };
@@ -81,18 +91,28 @@ export default class HomeAlternate extends Component {
                 <MapView
                 style={styles.map}
                 initialRegion={TEMP_INITIAL_REGION}
+                onRegionChange={this.handleRegionChange}
                 >
-                    {TEMP_MARKER_DATA_ARRAY.map((data) => {
+                
+                    {this.props.tourArray.map((data) => {
                     return (
                         <MapView.Marker
-                        key={data.ID}
-                        coordinate={data.location}
+                        key={data.id}
+                        coordinate={{
+                            latitude: data.latitude,
+                            longitude: data.longitude,
+                            latitudeDelta: 0.00922,
+                            longitudeDelta: 0.00421
+                        }}
                         onCalloutPress={this.handleMarkerPress1}
-                        image={data.image}
+                        description={data.title}
+                        //image={data.image}
+                        //description = title
                         >
                         <MapView.Callout>
                             <CalloutContent
-                            markerTitle={data.name}
+                            markerTitle={data.traveler_id}
+                            markerDescription={data.title}
                             />
                         </MapView.Callout>
                         </MapView.Marker>
@@ -104,5 +124,18 @@ export default class HomeAlternate extends Component {
         );
     };
 };
+
+const mapStateToProps = (state) => {
+    const mapLocation = state.TourList.location;
+    const tourArray = state.TourList.result.tours;
+    
+
+    return {
+        mapLocation,
+        tourArray
+    };
+};
+
+export default connect(mapStateToProps)(HomeAlternate);
 
         
