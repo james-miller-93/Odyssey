@@ -1,6 +1,5 @@
 export const LOGIN_EMAIL = 'LOGIN_EMAIL';
 export const LOGIN_PASSWORD = 'LOGIN_PASSWORD';
-export const INITIAL_LOGIN_CHECK = 'INITIAL_LOGIN_CHECK';
 export const LOGIN_SUBMIT = 'LOGIN_SUBMIT';
 
 export const LOGIN_RESULT = 'LOGIN_RESULT';
@@ -17,14 +16,13 @@ export const changeLoginPasswordValue = value => ({
     value,
 });
 
-export const pressLoginSubmit = () => ({
+export const pressLoginSubmit = (user) => ({
     type: LOGIN_SUBMIT,
-});
-
-export const checkInitialLogin = () => ({
-    type: INITIAL_LOGIN_CHECK,
+    user
 });
 
 export const cleanLoginErrorLog = () => ({
     type: LOGIN_ERROR_CLEAN
-})
+});
+
+

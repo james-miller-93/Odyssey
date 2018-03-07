@@ -1,12 +1,13 @@
-import { LOGIN_EMAIL, LOGIN_PASSWORD,
-    INITIAL_LOGIN_CHECK, LOGIN_SUBMIT,
+import { LOGIN_EMAIL, LOGIN_PASSWORD, LOGIN_SUBMIT,
     LOGIN_ERROR, LOGIN_RESULT,
     LOGIN_ERROR_CLEAN } from '../actions/Login';
 
 const initialState = {
    email: '',
    password: '',
-   errors: [],
+   errors: '',
+   authentication_token: '',
+   result: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -25,13 +26,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
             };
-        case INITIAL_LOGIN_CHECK:
-            return {
-                ...state,
-            };
         case LOGIN_RESULT:
             return {
                 ...state,
+                result: action.result,
+                authentication_token: action.authentication_token || '',
             }
         case LOGIN_ERROR:
             return {
@@ -48,5 +47,6 @@ const reducer = (state = initialState, action) => {
 
    }
 };
+
 
 export default reducer;

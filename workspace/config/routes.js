@@ -9,8 +9,16 @@ import Settings from '../screens/Settings';
 import TourGuide from '../screens/TourGuide';
 import SignIn from '../screens/SignIn';
 import userRole from '../screens/userRole';
+import Loading from '../screens/Loading';
+import HomeAlternate from '../screens/HomeAlternate';
 
 export default StackNavigator({
+    Loading: {
+        screen: Loading,
+        navigationOptions: {
+            header: () => null,
+        }
+    },
     Login: {
         screen: Login,
         navigationOptions: {
@@ -24,7 +32,8 @@ export default StackNavigator({
         },
     },
     SignIn: {
-        screen: SignIn
+        screen: SignIn,
+        
     },
     userRole: {
         screen: userRole
@@ -38,6 +47,12 @@ export default StackNavigator({
         navigationOptions: {
             header: () => null,
         },
+    },
+    HomeAlternate: {
+        screen: HomeAlternate,
+        navigationOptions: {
+            header: () => null
+        }
     },
     Profile: {
         screen: Profile,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, KeyboardAvoidingView, ImageBackground } from 'react-native';
+import { View, Text, KeyboardAvoidingView, ImageBackground, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Container } from '../components/Container';
@@ -29,18 +29,40 @@ class SignIn extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    async componentWillReceiveProps(nextProps) {
         if (nextProps.errors && nextProps.errors !== this.props.errors) {
             this.props.alertWithType('error','Error',nextProps.errors);
+            //this.forceUpdate();
+        } else if (nextProps.token && nextProps.token !== this.props.token) {
+            try {
+                AsyncStorage.setItem('authentication_token', nextProps.token);
+                AsyncStorage.setItem('email',nextProps.email)
+
+                /*let tokenTest = await AsyncStorage.getItem('authentication_token', (err,result) => {return result})
+                let emailTest = await AsyncStorage.getItem('email')
+                .then( (response) => { return JSON.parse(response) })
+                .then( (parsedResponse) => { this.setState({ email: parsedResponse}) });
+                */
+                let tokenTest = await AsyncStorage.getItem('authentication_token')
+                let emailTest = await AsyncStorage.getItem('email')
+                console.log("-----token and email storage-----")
+                console.log(tokenTest)
+                console.log(emailTest)
+                this.props.navigation.navigate('HomeAlternate');
+            } catch(e) {
+                console.log(e)
+            }
         }
     }
 
     handleEmailChange = (text) => {
+        //console.log('email changed')
         this.props.dispatch(cleanLoginErrorLog())
         this.props.dispatch(changeLoginEmailValue(text))
     };
 
     handlePassChange = (text) => {
+        //console.log('pass changed')
         this.props.dispatch(cleanLoginErrorLog())
         this.props.dispatch(changeLoginPasswordValue(text))
     };
@@ -65,8 +87,8 @@ class SignIn extends Component {
             >
 
             <SignInContainer 
-            email={this.props.handleEmailChange}
-            password={this.props.handlePassChange}
+            emailChange={this.handleEmailChange}
+            passwordChange={this.handlePassChange}
             role = {this.handleTransitionPress.bind(this)}
             />
 
@@ -88,10 +110,14 @@ const mapStateToProps = (state) => {
     };
 
     const errors = state.Login.errors;
+    const token = state.Login.authentication_token;
+    const email = state.Login.email
 
     return {
         user,
-        errors
+        errors,
+        token,
+        email
     };
 };
 
