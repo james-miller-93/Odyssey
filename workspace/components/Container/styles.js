@@ -1,4 +1,5 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { View, Text, TouchableOpacity, Button, ScrollView, KeyboardAvoidingView, Dimensions} from 'react-native';
 
 export default EStyleSheet.create({
     container: {
@@ -50,6 +51,22 @@ export default EStyleSheet.create({
         margin: 10,
         top: '15%',
         color: '$white',
-    }
-
+    },
+        userImage: {
+        width: 50,
+        height: 50,
+        marginHorizontal: 15
+    },
+        foregroundContainer: {
+        width: Dimensions.get('window').width,
+        height: 140,
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+        logoutButton: {
+        position: 'absolute',
+        top: 60,
+        right: 15
+    },
 });

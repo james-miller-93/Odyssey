@@ -7,5 +7,6 @@ import TransparentBar from './TransparentBar';
 import SignUpContainer from './SignUpContainer'
 import SignInContainer from './SignInContainer'
 import UserRoleContainer from './userRoleContainer'
+import UserProfileContainer from './UserProfileContainer'
 
-export { Container, ContainerLogo, styles, Bar, Top, TransparentBar, SignUpContainer, SignInContainer, UserRoleContainer};
+export { Container, ContainerLogo, styles, Bar, Top, TransparentBar, SignUpContainer, SignInContainer, UserRoleContainer, UserProfileContainer};

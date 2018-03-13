@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import { checkInitialLogin } from '../actions/InitialLogin';
 
@@ -11,18 +12,22 @@ class Loading extends Component {
         this.state = {
             authentication_token: '',
             email: '',
+            visible: false,
+
         }
     }
 
     async componentDidMount() {
         console.log('Loading!')
+
         //AsyncStorage.setItem('authentication_token','')
         //AsyncStorage.setItem('email','')
         let storedToken = await AsyncStorage.getItem('authentication_token')
         let storedEmail = await AsyncStorage.getItem('email')
         this.setState( {
             authentication_token: storedToken,
-            email: storedEmail
+            email: storedEmail,
+            visible: !this.state.visible
         })
         //console.log('this is the token and email ------------')
         //console.log(this.state.authentication_token)
@@ -33,34 +38,26 @@ class Loading extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors && nextProps.errors !== this.props.errors) {
             this.props.navigation.navigate('Login');
+            this.state.visible= false;
         } else if(nextProps.result && nextProps.result !== this.props.result) {
             this.props.navigation.navigate('HomeAlternate');
+            this.state.visible= false;
         }
     }
     
 
     render() {
         return (
+            //if(this.state.visible)
             <View
             style={{
                 width: '100%',
-                height: '100%'
+                height: '100%',
+                flex: 1,
+
             }}
             >
-            <Text
-            style={{
-                fontSize:28
-            }}
-            >
-                    THIS IS A LOADING PAGE.
-            </Text>
-            <Text
-            style={{
-                fontSize:28
-            }}
-            >
-                THE APP IS LOADING.
-            </Text>
+            <Spinner visible={this.state.visible}/>
             </View>
         );
     };

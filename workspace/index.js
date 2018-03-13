@@ -1,6 +1,8 @@
 import React from 'react';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { Provider } from 'react-redux';
+//import ImageHeader from 'react-native-image-header';
+import { StackNavigator } from 'react-navigation';
 
 import Navigator from './config/routes';
 import { AlertProvider } from './components/Alert';

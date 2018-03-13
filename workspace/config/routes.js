@@ -11,14 +11,23 @@ import SignIn from '../screens/SignIn';
 import userRole from '../screens/userRole';
 import Loading from '../screens/Loading';
 import HomeAlternate from '../screens/HomeAlternate';
+import UserProfile from '../screens/UserProfile';
 
 export default StackNavigator({
+
     Loading: {
         screen: Loading,
         navigationOptions: {
             header: () => null,
         }
     },
+      UserProfile: {
+        screen: UserProfile,
+        navigationOptions: {
+            header: () => null,
+        }
+    },
+   
     Login: {
         screen: Login,
         navigationOptions: {
@@ -29,7 +38,7 @@ export default StackNavigator({
         screen: Profile,
         navigationOptions: {
             header: () => null,
-        },
+        }
     },
     SignIn: {
         screen: SignIn,
