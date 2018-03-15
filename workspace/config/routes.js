@@ -15,18 +15,27 @@ import UserProfile from '../screens/UserProfile';
 
 export default StackNavigator({
 
+    HomeAlternate: {
+        screen: HomeAlternate,
+        navigationOptions: {
+            header: () => null
+        }
+    },
+
+    UserProfile: {
+        screen: UserProfile,
+        navigationOptions: {
+            header: () => null,
+        }
+    },
+
     Loading: {
         screen: Loading,
         navigationOptions: {
             header: () => null,
         }
     },
-      UserProfile: {
-        screen: UserProfile,
-        navigationOptions: {
-            header: () => null,
-        }
-    },
+   
    
     Login: {
         screen: Login,
@@ -57,12 +66,7 @@ export default StackNavigator({
             header: () => null,
         },
     },
-    HomeAlternate: {
-        screen: HomeAlternate,
-        navigationOptions: {
-            header: () => null
-        }
-    },
+    
     Profile: {
         screen: Profile,
         navigationOptions: {

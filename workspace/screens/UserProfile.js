@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Platform, ListView, Linking, Image, Text, KeyboardAvoidingView, ImageBackground, AsyncStorage } from 'react-native';
+import { TouchableOpacity, TouchableWithoutFeedback, Button, View, ScrollView, Platform, ListView, Linking, Image, Text, KeyboardAvoidingView, ImageBackground, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, Icon } from 'react-native-elements'
+import { Card, Icon as Icon1} from 'react-native-elements'
 import { Container } from '../components/Container';
 import { GeneralTextInput } from '../components/TextInput';
 import { ButtonText } from '../components/Button';
@@ -9,6 +9,9 @@ import { Errors } from '../components/Errors';
 import styles from '../screens/styles';
 import { UserProfileContainer } from '../components/Container';
 import { connectAlert } from '../components/Alert';
+import Icon from 'react-native-vector-icons/Ionicons';
+//import {Icon as TouchableIcon} from 'react-native-icons'; 
+import Modal from "react-native-modal";
 
 import { changeLoginEmailValue, changeLoginPasswordValue,
         pressLoginSubmit, checkInitialLogin,
@@ -18,21 +21,47 @@ const headerImage = require('../assets/images/LoginCover.jpg');
 const profilePic = require('../components/Container/profilePic.png');
 const tour1 = require('../assets/images/tour1.jpeg');
 const tour2 = require('../assets/images/tour2.jpeg');
+  
 
 class UserProfile extends Component {
 //export default class UserProfile extends Component {
+    state = {
+    isModalVisible: false
+    };
+ 
+    _toggleModal = () =>
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+
+    _hideModal = () => { this.setState({ isModalVisible: false }) };
+
+    handleSignUpPress = () => {
+        this.props.navigation.navigate('Register');
+    };
+
+    profileButton(){
+    const { navigate } = this.props.navigation;
+    return (
+    <TouchableOpacity
+    underlayColor="#FFF"
+    onPress={()=> {this.setState({ isModalVisible: false }); navigate('SignIn')}} >
+    <Text style={styles.settingText}>My Profile</Text> 
+    </TouchableOpacity>
+)
+}
 
     renderHeader = () => {
+
    /* const {
       avatar,
       avatarBackground,
       name,
       address: { city, country },
     } = this.props*/
-
+ 
     return (
 
-      <View style={styles.headerContainer}>
+      <View >
+
         <ImageBackground
           style={[ 
             {
@@ -43,7 +72,36 @@ class UserProfile extends Component {
           blurRadius={10}
           source={headerImage}
         >
+
+
+      
+         
+        <View style={styles.settingsBox}>
+        
+        <TouchableOpacity onPress={this._toggleModal} underlayColor="#FFF">
+            <Icon name="ios-menu" style={styles.settingsIcon} size={45} />
+         </TouchableOpacity>
+        </View>
+
+        <Modal isVisible={this.state.isModalVisible}
+        backdropOpacity={0.4}
+        onBackdropPress={() => this.setState({ isModalVisible: false }) }
+        supportedOrientations={['portrait', 'landscape']}
+        >
+          <View style={styles.settingWindow}>
+                    
+            {this.profileButton()}
+            <View style={styles.border}></View>
+            <Text style={styles.settingText}>Settings</Text> 
+            <View style={styles.border}></View>
+            <Text style={styles.settingText}>Logout</Text> 
+
+        </View>
+        </Modal>
+
+
           <View style={styles.headerColumn}>
+          
             <Image
               style={styles.userImage}
               source={profilePic}
@@ -51,7 +109,7 @@ class UserProfile extends Component {
             <Text style={styles.userNameText}>Roula Sharqawe</Text>
             <View style={styles.userAddressRow}>
               <View>
-                <Icon
+                <Icon1
                   name="place"
                   underlayColor="transparent"
                   iconStyle={styles.placeIcon}
@@ -76,7 +134,7 @@ class UserProfile extends Component {
             <View style={styles.innerTelContainer}>
             <View style={styles.iconRow}>
       
-            <Icon
+            <Icon1
               name="call"
               underlayColor="transparent"
               iconStyle={styles.telIcon}
@@ -107,12 +165,16 @@ class UserProfile extends Component {
     />
   )*/
 
+
+
+
+
   renderEmail = () => (
 
       <View style={styles.innerEmailContainer}>
       <View style={styles.iconRow2}>
         
-          <Icon
+          <Icon1
             name="email"
             underlayColor="transparent"
             iconStyle={styles.emailIcon}
@@ -126,7 +188,6 @@ class UserProfile extends Component {
         </View>
         </View>
         </View>
-  
   )
 
 renderSeparator = () => (

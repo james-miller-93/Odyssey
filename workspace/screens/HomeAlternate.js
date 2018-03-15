@@ -7,6 +7,9 @@ import { ButtonText } from '../components/Button';
 import { Top } from '../components/Container';
 import { CalloutContent } from '../components/MapComponents/';
 import { connectAlert } from '../components/Alert';
+import Icon from 'react-native-vector-icons/Ionicons';
+//import {Icon as TouchableIcon} from 'react-native-icons'; 
+import Modal from "react-native-modal";
 
 import { changeTourLocationValue } from '../actions/TourList';
 
@@ -92,16 +95,21 @@ class HomeAlternate extends Component {
         this.props.navigation.navigate('TourGuide');
     };
 
+
+
+
     render() {
         return (
             <View>
             <View style={styles.container}>
+
                 
                 <MapView
                 style={styles.map}
                 initialRegion={TEMP_INITIAL_REGION}
                 onRegionChange={this.handleRegionChange}
                 >
+
                 
                     {this.props.tourArray.map((data) => {
                     return (

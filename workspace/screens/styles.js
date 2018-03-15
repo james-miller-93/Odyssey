@@ -294,6 +294,76 @@ export default EStyleSheet.create({
     fontWeight: '500',
     lineHeight: 22,
   },
+  settingsIcon: {
+    marginLeft: 5,
+    color: 'black',
+    left: 0,
+    top: 15,
+    //position: 'absolute',
+
+  },
+  settingWindow: {
+    backgroundColor: '#FFF',
+    left: 0,
+    position: 'absolute',
+    alignItems: 'center',
+    flexDirection: 'column',
+    top: 20,
+    borderWidth: 0.5,
+    height: 150,
+    width: 100,
+    //flex: 1,
+    justifyContent: 'center',
+  },
+  settingText: {
+    //borderWidth: 2,
+    justifyContent: 'center',
+    marginBottom: 15,
+    //marginLeft: 12,
+    //marginRight: 12,
+    marginTop: 15,
+    fontSize: 15,
+    fontWeight: '500',
+    //lineHeight: 22,
+    color: '#000',
+  },
+  border: {
+    borderColor: '#EDEDED',
+    borderWidth: 0.8,
+    width: 100,
+  },
+  settingsBox: {
+    backgroundColor: 'transparent',
+    top: 20,
+    position: 'absolute',
+    alignItems: 'center',
+    height: 60,
+    width: 70,
+    flexDirection: 'row',
+  },
+
+  //BUTTON 
+  generalButton: {
+        height: '100%',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        //color: '#FFF',
+        backgroundColor: '#FFF',
+
+    },
+    buttonText: {
+        //height: '100%',
+        //width: '100%',
+        textAlign: 'center',
+        margin: 10,
+        color: '#000',
+        fontSize: 16,
+        fontWeight: 'bold',
+        
+    },
 
 });
+
+
     

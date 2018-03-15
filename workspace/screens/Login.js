@@ -7,6 +7,7 @@ import { BigLogo } from '../components/Logo';
 import { ButtonText, ButtonContainer} from '../components/Button';
 import styles from '../screens/styles';
 import { Font, AppLoading } from 'expo';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 export default class Login extends Component {
@@ -114,6 +115,7 @@ export default class Login extends Component {
             >
         
             <View ><Text style= {styles.odyssey}>Odyssey</Text>
+            
             </View> 
             <ButtonContainer 
             signUp = {this.handleSignUpPress.bind(this)} 
