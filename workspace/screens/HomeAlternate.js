@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, AsyncStorage, TextInput } from 'react-native';
 import MapView, { Marker, Callout} from 'react-native-maps';
 import { connect } from 'react-redux';
-
+import Modal from "react-native-modal";
 import { ButtonText } from '../components/Button';
 import { Top } from '../components/Container';
 import { CalloutContent } from '../components/MapComponents/';
 import { connectAlert } from '../components/Alert';
 import Icon from 'react-native-vector-icons/Ionicons';
-//import {Icon as TouchableIcon} from 'react-native-icons'; 
-import Modal from "react-native-modal";
+
 
 import { changeTourLocationValue } from '../actions/TourList';
 import { pressProfileView } from '../actions/ViewProfile';
 
 import styles from '../components/Map/styles'
+import screenStyles from '../screens/styles';
 
 //TEMP DATA
 const TEMP_INITIAL_REGION = {
@@ -131,12 +131,27 @@ class HomeAlternate extends Component {
         //this.props.navigation.navigate('TourGuide');
     };
 
+    state = {
+    isModalVisible: false
+    };
+ 
+    _toggleModal = () =>
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+
+    profileButton(){
+    const { navigate } = this.props.navigation;
+    return (
+        <TouchableOpacity
+        underlayColor="#FFF"
+        onPress={()=> {this.setState({ isModalVisible: false }); navigate('UserProfile')}} >
+        <Text style={screenStyles.settingText}>My Profile</Text> 
+        </TouchableOpacity>
+        )
+    }
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> a00e5bd48f44264f31c279046cce2542ea3c6b9d
+
     render() {
         return (
             <View>
@@ -149,6 +164,7 @@ class HomeAlternate extends Component {
                 onRegionChangeComplete={this.handleRegionChange}
                 >
 
+                
                 
                     {this.props.tourArray.map((data) => {
                     return (
@@ -189,29 +205,35 @@ class HomeAlternate extends Component {
                     })}
                 </MapView>
 
-                <View
-                style={{
-                    height: '8%',
-                    width: '80%',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start',
-                    top: '10%'
-                }}
-                >
-                    <TextInput
-                    placeholder={'Search'}
-                    style={{
-                        backgroundColor: '#ffffff',
-                        height: '100%',
-                        width: '95%',
-                        fontSize: 18
-                    }}
-                    />
-                </View>
+             
                 
             
                 
             </View>
+
+            <View style={screenStyles.settingsBox}>
+        
+                <TouchableOpacity onPress={this._toggleModal} underlayColor="#FFF">
+                        <Icon name="ios-menu" style={screenStyles.settingsIcon} size={45} />
+                </TouchableOpacity>
+            </View>
+
+            <Modal isVisible={this.state.isModalVisible}
+            backdropOpacity={0.4}
+            onBackdropPress={() => this.setState({ isModalVisible: false }) }
+            supportedOrientations={['portrait', 'landscape']}
+            >
+                <View style={screenStyles.settingWindow}>
+                                
+                    {this.profileButton()}
+                    <View style={screenStyles.border}></View>
+                    <Text style={screenStyles.settingText}>Settings</Text> 
+                    <View style={screenStyles.border}></View>
+                    <Text style={screenStyles.settingText}>Logout</Text> 
+
+                </View>
+
+            </Modal>
 
                 <View style={{
                     width: '100%',

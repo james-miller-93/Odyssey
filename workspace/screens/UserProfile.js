@@ -9,12 +9,12 @@ import { Errors } from '../components/Errors';
 import styles from '../screens/styles';
 import { UserProfileContainer } from '../components/Container';
 import { connectAlert } from '../components/Alert';
-
 import HideableView from 'react-native-hideable-view';
 import { Calendar } from 'react-native-calendars';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-
+import Modal from "react-native-modal";
 import { changeLoginEmailValue, changeLoginPasswordValue,
         pressLoginSubmit, checkInitialLogin,
          cleanLoginErrorLog } from '../actions/Login';
@@ -43,13 +43,13 @@ class UserProfile extends Component {
     profileButton(){
     const { navigate } = this.props.navigation;
     return (
-    <TouchableOpacity
-    underlayColor="#FFF"
-    onPress={()=> {this.setState({ isModalVisible: false }); navigate('SignIn')}} >
-    <Text style={styles.settingText}>My Profile</Text> 
-    </TouchableOpacity>
-)
-}
+        <TouchableOpacity
+        underlayColor="#FFF"
+        onPress={()=> {this.setState({ isModalVisible: false }); navigate('UserProfile')}} >
+            <Text style={styles.settingText}>My Profile</Text> 
+        </TouchableOpacity>
+        )
+    }
 
 
 constructor(props) {
@@ -169,21 +169,6 @@ handleRequestPress = () => {
         </View>
         )
     }
-
-  /*  <ListView
-      contentContainerStyle={styles.telContainer}
-      
-      dataSource={this.state}
-      renderRow = {() => {
-        return (
-        <Text> (203) 3580-384 </Text>
-       
-        )
-      }}
-    />
-  )*/
-
-
 
 
 
