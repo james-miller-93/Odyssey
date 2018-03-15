@@ -12,8 +12,15 @@ import userRole from '../screens/userRole';
 import Loading from '../screens/Loading';
 import HomeAlternate from '../screens/HomeAlternate';
 import UserProfile from '../screens/UserProfile';
+import Test from '../screens/Test';
 
 export default StackNavigator({
+    /*Test: {
+        screen: Test,
+        navigationOptions: {
+            header: () => null,
+        }
+    },*/
 
     Loading: {
         screen: Loading,

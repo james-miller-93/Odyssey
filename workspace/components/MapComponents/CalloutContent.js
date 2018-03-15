@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 
 export default class CalloutContent extends Component {
@@ -13,7 +13,6 @@ export default class CalloutContent extends Component {
                 <Text>
                     {this.props.markerDescription}
                 </Text>
-                
             </View>
         )
     }

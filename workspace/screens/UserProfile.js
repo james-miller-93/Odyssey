@@ -9,6 +9,9 @@ import { Errors } from '../components/Errors';
 import styles from '../screens/styles';
 import { UserProfileContainer } from '../components/Container';
 import { connectAlert } from '../components/Alert';
+import HideableView from 'react-native-hideable-view';
+import { Calendar } from 'react-native-calendars';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 
 import { changeLoginEmailValue, changeLoginPasswordValue,
         pressLoginSubmit, checkInitialLogin,
@@ -21,6 +24,22 @@ const tour2 = require('../assets/images/tour2.jpeg');
 
 class UserProfile extends Component {
 //export default class UserProfile extends Component {
+
+
+constructor(props) {
+  super(props)
+  this.state = {
+      requestVisible: false,
+      dateVisible: false,
+      timeVisible: false,
+  };
+};
+  
+handleRequestPress = () => {
+  this.setState({
+    requestVisible: !this.state.requestVisible
+  });
+};
 
     renderHeader = () => {
    /* const {
@@ -48,7 +67,7 @@ class UserProfile extends Component {
               style={styles.userImage}
               source={profilePic}
             />
-            <Text style={styles.userNameText}>Roula Sharqawe</Text>
+            <Text style={styles.userNameText}> {this.props.traveler.firstname} {this.props.traveler.lastname}</Text>
             <View style={styles.userAddressRow}>
               <View>
                 <Icon
@@ -60,7 +79,7 @@ class UserProfile extends Component {
               </View>
               <View style={styles.userCityRow}>
                 <Text style={styles.userCityText}>
-                  Seattle, Washington
+                  {this.props.tourInfo.city}
                 </Text>
               </View>
             </View>
@@ -86,7 +105,7 @@ class UserProfile extends Component {
         </View>
         <View style={styles.telRow}>
           <View style={styles.telNumberColumn}>
-            <Text style={styles.telNumberText}> (203) 3580-384 </Text>
+            <Text style={styles.telNumberText}> {this.props.traveler.phone_number} </Text>
         </View>
         </View>
 
@@ -122,7 +141,7 @@ class UserProfile extends Component {
       </View>
       <View style={styles.emailRow}>
         <View style={styles.emailColumn}>
-          <Text style={styles.emailText}>roula.sharqawe@yahoo.com</Text>
+          <Text style={styles.emailText}>{this.props.traveler.email}</Text>
         </View>
         </View>
         </View>
@@ -141,18 +160,43 @@ renderTours = () => (
     <View style={styles.sceneContainer}>
     
         <View style={styles.eachTourContainer}>
+          <View style = {styles.tourTextButton}>
             <View style={styles.tourList}>
                 <View style={styles.postRow}>
-                    <Text>TOUR NAME</Text>
-                    <Text style={styles.date}>1 week</Text>
+                    <Text>{this.props.tourInfo.name}</Text>
+                    <Text style={styles.date}>{this.props.tourInfo.duration} hours</Text>
                 </View>
                 <View style={styles.wordRow}>
-                    <Text style={styles.wordText}>Tour Description</Text>
+                    <Text style={styles.wordText}>{this.props.tourInfo.description}</Text>
                 </View>
                 
             </View>
-
+            
+          </View>
         </View>
+        <View
+        style={{
+          backgroundColor: '#F9A602',
+          width: '100%'
+        }}
+        >
+              <ButtonText
+              displayText = {"Request Tour"}
+              bgColor = {{ backgroundColor: '#F9A602'}}
+              handlePress={this.handleRequestPress}
+              />
+        </View>
+        <HideableView
+        visible = {this.state.requestVisible}
+        removeWhenHidden={true}
+        style={{
+          height: 350,
+          width: '100%',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+        >
+        </HideableView>
         <View style={styles.toursContainer}>
             <Image style={styles.postImage} source={tour1} />
         </View>
@@ -174,7 +218,7 @@ renderTours = () => (
             {this.renderEmail()}
             {this.renderSeparator()}
             {this.renderTours()}
-            {this.renderTours()}
+            
           </Card>
         </View>
       </ScrollView>
@@ -185,23 +229,18 @@ renderTours = () => (
 
 
 
-/*const mapStateToProps = (state) => {
-    const user = {
-        email: state.Login.email,
-        password: state.Login.password
-    };
-
-    const errors = state.Login.errors;
-    const token = state.Login.authentication_token;
-    const email = state.Login.email
+const mapStateToProps = (state) => {
+    
+    const traveler = state.ViewProfile.result.traveler;
+    const tourInfo = state.ViewProfile.tourInfo;
 
     return {
-        user,
-        errors,
-        token,
-        email
+        traveler,
+        tourInfo
     };
-};*/
-export default UserProfile;
+};
+
+
+export default connect(mapStateToProps)(UserProfile);
 
 //export default connect(mapStateToProps)(connectAlert(SignIn));

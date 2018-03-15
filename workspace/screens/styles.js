@@ -256,7 +256,10 @@ export default EStyleSheet.create({
     padding: 0,
     borderWidth: 0,
   },
-    tourList: {
+  tourTextButton: {
+    flexDirection: 'row'
+  },
+  tourList: {
     borderWidth: 0,
     justifyContent: 'space-between',
     marginBottom: 5,

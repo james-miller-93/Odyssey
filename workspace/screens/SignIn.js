@@ -43,11 +43,11 @@ class SignIn extends Component {
                 .then( (response) => { return JSON.parse(response) })
                 .then( (parsedResponse) => { this.setState({ email: parsedResponse}) });
                 */
-                let tokenTest = await AsyncStorage.getItem('authentication_token')
+                /*let tokenTest = await AsyncStorage.getItem('authentication_token')
                 let emailTest = await AsyncStorage.getItem('email')
                 console.log("-----token and email storage-----")
                 console.log(tokenTest)
-                console.log(emailTest)
+                console.log(emailTest)*/
                 this.props.navigation.navigate('HomeAlternate');
             } catch(e) {
                 console.log(e)
