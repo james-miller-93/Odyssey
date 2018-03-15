@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, AsyncStorage, TextInput } from 'react-native';
 import MapView, { Marker, Callout} from 'react-native-maps';
 import { connect } from 'react-redux';
 
@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Modal from "react-native-modal";
 
 import { changeTourLocationValue } from '../actions/TourList';
+import { pressProfileView } from '../actions/ViewProfile';
 
 import styles from '../components/Map/styles'
 
@@ -73,9 +74,46 @@ const TEMP_MARKER_DATA_ARRAY = [TEMP_MARKER_DATA1,TEMP_MARKER_DATA2,TEMP_MARKER_
 
 class HomeAlternate extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            authentication_token: '',
+            email: '',
+            pressable: false,
+            ID: '',
+            tourInfo: {
+                city: '',
+                name: '',
+                duration: '',
+                description: ''
+            }
+        };
+        this.handleMarkerPress = this.handleMarkerPress.bind(this);
+    };
+
+    async componentDidMount() {
+        let storedToken = await AsyncStorage.getItem('authentication_token')
+        let storedEmail = await AsyncStorage.getItem('email')
+        this.setState( {
+            authentication_token: storedToken,
+            email: storedEmail
+        })
+    };
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.profileError && nextProps.profileError !== this.props.profileError) {
+            this.props.alertWithType('error','Error',nextProps.profileError);
+        } else if(nextProps.profileResult && nextProps.profileResult !== this.props.profileResult) {
+            this.props.navigation.navigate('UserProfile');
+            //this.props.navigation.pop('HomeAlternate');
+        }
+    }
+
+    
+
     handleRegionChange = (location) => {
-        console.log("---------tour array--------")
-        console.log(this.props.tourArray)
+        //console.log("---------tour array--------")
+        //console.log(this.props.tourArray)
         this.props.dispatch(changeTourLocationValue(location))
     };
 
@@ -87,17 +125,18 @@ class HomeAlternate extends Component {
         this.props.navigation.navigate('Settings');
     }
     
-    handleMarkerPress1 = () => {
-        this.props.navigation.navigate('TourGuide');
+    handleMarkerPress = () => {
+        this.props.dispatch(pressProfileView(this.state.ID,this.state.authentication_token,this.state.email,this.state.tourInfo));
+
+        //this.props.navigation.navigate('TourGuide');
     };
 
-    handleMarkerPress2 = () => {
-        this.props.navigation.navigate('TourGuide');
-    };
 
 
+<<<<<<< HEAD
 
-
+=======
+>>>>>>> a00e5bd48f44264f31c279046cce2542ea3c6b9d
     render() {
         return (
             <View>
@@ -107,7 +146,7 @@ class HomeAlternate extends Component {
                 <MapView
                 style={styles.map}
                 initialRegion={TEMP_INITIAL_REGION}
-                onRegionChange={this.handleRegionChange}
+                onRegionChangeComplete={this.handleRegionChange}
                 >
 
                 
@@ -121,21 +160,56 @@ class HomeAlternate extends Component {
                             latitudeDelta: 0.00922,
                             longitudeDelta: 0.00421
                         }}
-                        onCalloutPress={this.handleMarkerPress1}
+                        //onCalloutPress={this.state.pressable ? this.handleMarkerPress(data.traveler_id): null}
                         description={data.title}
                         //image={data.image}
                         //description = title
+                        onPress={() => {this.setState({ 
+                            ID: data.traveler_id,
+                            tourInfo: {
+                                city: data.city,
+                                name: data.title,
+                                duration: data.duration,
+                                description: data.description
+                            }
+                         })}}
                         >
-                        <MapView.Callout>
+                        
+                        <MapView.Callout
+                        onPress={this.handleMarkerPress}
+                        >
                             <CalloutContent
                             markerTitle={data.traveler_id}
                             markerDescription={data.title}
+                            
                             />
                         </MapView.Callout>
                         </MapView.Marker>
                     )
                     })}
                 </MapView>
+
+                <View
+                style={{
+                    height: '8%',
+                    width: '80%',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    top: '10%'
+                }}
+                >
+                    <TextInput
+                    placeholder={'Search'}
+                    style={{
+                        backgroundColor: '#ffffff',
+                        height: '100%',
+                        width: '95%',
+                        fontSize: 18
+                    }}
+                    />
+                </View>
+                
+            
                 
             </View>
 
@@ -179,7 +253,8 @@ class HomeAlternate extends Component {
                     width: '100%',
                     backgroundColor: '#000000',
                 }}
-                onPress={this.handleSettingsPress}
+                onPress={this.handleMarkerPress}
+                //onPress={this.handleSettingsPress}
                 >
                     <Text style={{ color: '#ffffff', fontSize: 16 }}>
                         Settings
@@ -216,14 +291,19 @@ class HomeAlternate extends Component {
 const mapStateToProps = (state) => {
     const mapLocation = state.TourList.location;
     const tourArray = state.TourList.result.tours;
+
+    const profileError = state.ViewProfile.errors;
+    const profileResult = state.ViewProfile.result;
     
 
     return {
         mapLocation,
-        tourArray
+        tourArray,
+        profileError,
+        profileResult
     };
 };
 
-export default connect(mapStateToProps)(HomeAlternate);
+export default connect(mapStateToProps)(connectAlert(HomeAlternate));
 
         

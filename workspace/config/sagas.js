@@ -1,10 +1,11 @@
-import { takeEvery, select, call, put } from 'redux-saga/effects';
+import { throttle, take, takeEvery, takeLatest, select, call, put } from 'redux-saga/effects';
 
 import { REGISTER_SUBMIT, REGISTER_RESULT, REGISTER_ERROR } from '../actions/Register';
 import { LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_RESULT} from '../actions/Login';
 import { INITIAL_LOGIN_CHECK, INITIAL_LOGIN_ERROR, INITIAL_LOGIN_RESULT } from '../actions/InitialLogin';
 import { TOUR_LOCATION, TOUR_RESULT, TOUR_ERROR } from '../actions/TourList';
 import { LOGOUT_CHECK, LOGOUT_ERROR, LOGOUT_RESULT } from '../actions/LogOut';
+import { VIEW_PROFILE_CHECK, VIEW_PROFILE_ERROR, VIEW_PROFILE_RESULT } from '../actions/ViewProfile';
 
 const postInitialLogin = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/sessions', {
     method: 'GET',
@@ -53,6 +54,17 @@ const getTourList = location => fetch('http://odyssey-api-demo.herokuapp.com/v1/
 
 const deleteLogOut = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/sessions', {
     method: 'DELETE',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Traveler-Token': action.authentication_token,
+        'X-Traveler-Email': action.email,
+    },
+    body: ''
+});
+
+const getProfile = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/travelers/'+action.profileID, {
+    method: 'GET',
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -129,8 +141,16 @@ function* tryLoginUser(action) {
         let password = traveler.password;
         //console.log(password)
         
+        
+
         const response = yield call(postLogin, traveler);
         const result = yield response.json();
+
+        console.log("------response------")
+        console.log(response)
+
+        console.log("-----result----")
+        console.log(result)
 
         if (result.error) {
             yield put({ type: LOGIN_ERROR, errors: result.error });
@@ -202,6 +222,37 @@ function* tryLogOutUser(action) {
     }
 }
 
+function* tryViewProfile(action) {
+
+
+    try {
+        //let authentication_token = action.authentication_token;
+        
+        //let email = action.email;
+
+        //console.log("-----------")
+        //console.log(authentication_token)
+        //console.log(email)
+        //console.log("--------------")
+
+        const response = yield call(getProfile, action);
+        console.log('-----------response profile-----');
+        console.log('------------------------');
+        console.log(response);
+        const result = yield response.json();
+        //yield put({ type: LOGIN_RESULT, response})
+
+        if (result.error) {
+            
+            yield put({ type: VIEW_PROFILE_ERROR, errors: result.error});
+        } else {
+            
+            yield put({ type: VIEW_PROFILE_RESULT, result: result});
+        }
+    } catch(e) {
+            yield put({ type: VIEW_PROFILE_ERROR, errors: e.message});
+    }
+}
 
 export default function* rootSaga() {
     yield takeEvery(INITIAL_LOGIN_CHECK, tryInitialLogin)
@@ -209,4 +260,5 @@ export default function* rootSaga() {
     yield takeEvery(LOGIN_SUBMIT, tryLoginUser)
     yield takeEvery(TOUR_LOCATION, tryTourList)
     yield takeEvery(LOGOUT_CHECK, tryLogOutUser)
+    yield throttle(1, VIEW_PROFILE_CHECK, tryViewProfile)
 }
