@@ -95,6 +95,10 @@ handleRequestPress = () => {
   });
 };
 
+handleNotifications = () => {
+  this.props.navigation.navigate('Notifications')
+}
+
     renderHeader = () => {
 
    /* const {
@@ -255,6 +259,19 @@ renderTours = () => (
 
 )
 
+  renderNotificationsButton = () => (
+
+    <View>
+      <TouchableOpacity
+      onPress={this.handleNotifications}
+      >
+        <Text>
+          Notifications
+        </Text>
+      </TouchableOpacity>
+    </View>
+
+  )
 
 
 
