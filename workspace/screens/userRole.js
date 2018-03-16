@@ -53,7 +53,7 @@ class UserRole extends Component {
                 phone_number: res.traveler.phone_number
             }
             this.props.dispatch(setMyProfile(myProfileInfo))
-            this.props.dispatch(clearViewProfile())
+            //this.props.dispatch(clearViewProfile())
             if (this.state.mode === 'traveler') {
                 this.props.navigation.navigate('HomeAlternate');
             } else if (this.state.mode === 'local') {
@@ -64,11 +64,13 @@ class UserRole extends Component {
 
     onTravelerPress = () => {
         this.setState({ mode: 'traveler'})
+        this.props.dispatch(pressMyProfile(this.state.authentication_token,this.state.email))
         //this.props.navigation.navigate('HomeAlternate');
     }
 
     onLocalPress = () => {
         this.setState({ mode: 'local'})
+        this.props.dispatch(pressMyProfile(this.state.authentication_token,this.state.email))
         //this.props.navigation.navigate('MyGuideProfile');
     }
 

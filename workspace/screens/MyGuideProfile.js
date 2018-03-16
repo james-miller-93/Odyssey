@@ -38,8 +38,9 @@ class MyGuideProfile extends Component {
 
     };
  
-    _toggleModal = () =>
-    this.setState({ isModalVisible: !this.state.isModalVisible });
+    _toggleModal = () => {
+      this.setState({ isModalVisible: !this.state.isModalVisible });
+    };
 
     _hideModal = () => { this.setState({ isModalVisible: false }) };
 
@@ -151,7 +152,7 @@ handleRequestPress = () => {
               style={styles.userImage}
               source={profilePic}
             />
-            <Text style={styles.userNameText}> {this.props.traveler.firstname} {this.props.traveler.lastname}</Text>
+            <Text style={styles.userNameText}> {this.props.profileInfo.firstname} {this.props.profileInfo.lastname}</Text>
             <View style={styles.userAddressRow}>
               <View>
                 <Icon1
@@ -189,7 +190,7 @@ handleRequestPress = () => {
         </View>
         <View style={styles.telRow}>
           <View style={styles.telNumberColumn}>
-            <Text style={styles.telNumberText}> {this.props.traveler.phone_number} </Text>
+            <Text style={styles.telNumberText}> {this.props.profileInfo.phone_number} </Text>
         </View>
         </View>
 
@@ -214,7 +215,7 @@ handleRequestPress = () => {
       </View>
       <View style={styles.emailRow}>
         <View style={styles.emailColumn}>
-          <Text style={styles.emailText}>{this.props.traveler.email}</Text>
+          <Text style={styles.emailText}>{this.props.profileInfo.email}</Text>
         </View>
         </View>
         </View>
@@ -281,6 +282,8 @@ renderTours = () => (
 
 const mapStateToProps = (state) => {
     
+    const profileInfo = state.MyProfile.myProfile
+
     const traveler = '';
     const tourInfo = '';
 
@@ -288,6 +291,7 @@ const mapStateToProps = (state) => {
     const reservationError = '';
 
     return {
+        profileInfo,
         traveler,
         tourInfo,
         reservationResult,

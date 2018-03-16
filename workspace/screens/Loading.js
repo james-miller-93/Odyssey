@@ -40,8 +40,8 @@ class Loading extends Component {
             this.props.navigation.navigate('Login');
             this.state.visible= false;
         } else if(nextProps.result && nextProps.result !== this.props.result) {
-            this.props.navigation.navigate('HomeAlternate');
-            //this.props.navigation.navigate('UserRole');
+            //this.props.navigation.navigate('HomeAlternate');
+            this.props.navigation.navigate('UserRole');
             this.state.visible= false;
         }
     }

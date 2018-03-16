@@ -1,5 +1,5 @@
 import { VIEW_PROFILE_CHECK, VIEW_PROFILE_ERROR,
-    VIEW_PROFILE_RESULT } from '../actions/ViewProfile';
+    VIEW_PROFILE_RESULT, VIEW_PROFILE_CLEAR } from '../actions/ViewProfile';
 
 const initialState = {
 email: '',
@@ -38,7 +38,19 @@ switch(action.type) {
         }
     case VIEW_PROFILE_CLEAR:
         return {
-            initialState
+            ...state,
+            email: '',
+            authentication_token: '',
+            result: '',
+            errors: '',
+            profileID: '',
+            tourInfo: {
+                city: '',
+                name: '',
+                duration: '',
+                description: '',
+                tourID: ''
+            }
         }
     default:
         return state;
