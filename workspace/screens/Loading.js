@@ -18,7 +18,7 @@ class Loading extends Component {
     }
 
     async componentDidMount() {
-        console.log('Loading!')
+        //console.log('Loading!')
 
         //AsyncStorage.setItem('authentication_token','')
         //AsyncStorage.setItem('email','')
@@ -41,6 +41,7 @@ class Loading extends Component {
             this.state.visible= false;
         } else if(nextProps.result && nextProps.result !== this.props.result) {
             this.props.navigation.navigate('HomeAlternate');
+            //this.props.navigation.navigate('UserRole');
             this.state.visible= false;
         }
     }

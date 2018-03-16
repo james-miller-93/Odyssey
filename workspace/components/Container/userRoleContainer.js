@@ -16,9 +16,17 @@ export default class UserRoleContainer extends Component {
     	<View style={styles.SignUpContainer}>
         
            
-            <ButtonText displayText = {"Traveler"} bgColor = {{backgroundColor: '#80808050', margin: 15}} />
+            <ButtonText 
+            displayText = {"Traveler"} 
+            bgColor = {{backgroundColor: '#80808050', margin: 15}} 
+            handlePress = {this.props.handleTravelerPress}
+            />
 
-            <ButtonText displayText = {"Local"} bgColor = {{backgroundColor: '#80808050', margin: 15}} />
+            <ButtonText 
+            displayText = {"Local"} 
+            bgColor = {{backgroundColor: '#80808050', margin: 15}} 
+            handlePress = {this.props.handleLocalPress}
+            />
 
     	</View> 
         </ScrollView>

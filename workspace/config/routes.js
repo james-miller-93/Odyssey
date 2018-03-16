@@ -8,13 +8,14 @@ import Register from '../screens/Register';
 import Settings from '../screens/Settings';
 import TourGuide from '../screens/TourGuide';
 import SignIn from '../screens/SignIn';
-import userRole from '../screens/userRole';
+import UserRole from '../screens/UserRole';
 import Loading from '../screens/Loading';
 import HomeAlternate from '../screens/HomeAlternate';
 import UserProfile from '../screens/UserProfile';
 import Test from '../screens/Test';
 import Notifications from '../screens/Notifications';
-import Requests from '../screens/Requests'
+import Requests from '../screens/Requests';
+import MyGuideProfile from '../screens/MyGuideProfile';
 
 export default StackNavigator({
     /*Test: {
@@ -23,7 +24,7 @@ export default StackNavigator({
             header: () => null,
         }
     },*/
-
+/*
     Requests: {
         screen: Requests,
         navigationOptions: {
@@ -31,8 +32,17 @@ export default StackNavigator({
         }
 
     },
+
     Notifications: {
         screen: Notifications,
+        navigationOptions: {
+            header: () => null
+        }
+    },
+*/
+
+    Loading: {
+        screen: Loading,
         navigationOptions: {
             header: () => null
         }
@@ -52,7 +62,12 @@ export default StackNavigator({
         }
     },
 
-    
+    MyGuideProfile: {
+        screen: MyGuideProfile,
+        navigationOptions: {
+            header: () => null,
+        }
+    },
    
    
     Login: {
@@ -71,8 +86,11 @@ export default StackNavigator({
         screen: SignIn,
         
     },
-    userRole: {
-        screen: userRole
+    UserRole: {
+        screen: UserRole,
+        navigationOptions: {
+            header: () => null,
+        }
     },
     
     Filter: {

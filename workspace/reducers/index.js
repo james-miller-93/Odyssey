@@ -8,6 +8,7 @@ import LogOut from './LogOut';
 import ViewProfile from './ViewProfile';
 import Reservation from './Reservation';
 import ActiveReservation from './ActiveReservation';
+import MyProfile from './MyProfile';
 
 export default combineReducers({
     Register,
@@ -17,5 +18,6 @@ export default combineReducers({
     LogOut,
     ViewProfile,
     Reservation,
-    ActiveReservation
+    ActiveReservation,
+    MyProfile
 });

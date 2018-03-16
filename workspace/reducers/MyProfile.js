@@ -1,5 +1,6 @@
-import { VIEW_PROFILE_CHECK, VIEW_PROFILE_ERROR,
-    VIEW_PROFILE_RESULT } from '../actions/ViewProfile';
+import { MY_PROFILE_CHECK, MY_PROFILE_ERROR,
+    MY_PROFILE_RESULT, 
+    MY_PROFILE_SET} from '../actions/MyProfile';
 
 const initialState = {
 email: '',
@@ -7,38 +8,36 @@ authentication_token: '',
 result: '',
 errors: '',
 profileID: '',
-tourInfo: {
-    city: '',
-    name: '',
-    duration: '',
-    description: '',
-    tourID: ''
+myProfile: {
+    firstname: '',
+    lastname: '',
+    email: '',
+    phone_number: ''
 }
 };
 
 const reducer = (state = initialState, action) => {
 switch(action.type) {
-    case VIEW_PROFILE_CHECK:
+    case MY_PROFILE_CHECK:
         return {
             ...state,
             email: action.email,
-            authentication_token: action.authentication_token,
-            profileID: action.profileID,
-            tourInfo: action.tourInfo
+            authentication_token: action.authentication_token
         }
-    case VIEW_PROFILE_ERROR:
+    case MY_PROFILE_ERROR:
         return {
             ...state,
             errors: action.errors
         }
-    case VIEW_PROFILE_RESULT:
+    case MY_PROFILE_RESULT:
         return {
             ...state,
             result: action.result
         }
-    case VIEW_PROFILE_CLEAR:
+    case MY_PROFILE_SET:
         return {
-            initialState
+            ...state,
+            myProfile: action.myProfile
         }
     default:
         return state;

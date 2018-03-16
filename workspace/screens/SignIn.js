@@ -48,7 +48,8 @@ class SignIn extends Component {
                 console.log("-----token and email storage-----")
                 console.log(tokenTest)
                 console.log(emailTest)*/
-                this.props.navigation.navigate('HomeAlternate');
+                //this.props.navigation.navigate('HomeAlternate');
+                this.props.navigation.navigate('UserRole');
             } catch(e) {
                 console.log(e)
             }

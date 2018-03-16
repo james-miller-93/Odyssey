@@ -8,6 +8,7 @@ import { LOGOUT_CHECK, LOGOUT_ERROR, LOGOUT_RESULT } from '../actions/LogOut';
 import { VIEW_PROFILE_CHECK, VIEW_PROFILE_ERROR, VIEW_PROFILE_RESULT } from '../actions/ViewProfile';
 import { RESERVATION_CHECK, RESERVATION_ERROR, RESERVATION_RESULT } from '../actions/Reservation';
 import { ACTIVE_RESERVATION_CHECK, ACTIVE_RESERVATION_ERROR, ACTIVE_RESERVATION_RESULT } from '../actions/ActiveReservation';
+import { MY_PROFILE_CHECK, MY_PROFILE_ERROR, MY_PROFILE_RESULT } from '../actions/MyProfile';
 
 const postInitialLogin = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/sessions', {
     method: 'GET',
@@ -89,7 +90,7 @@ const postReservation = action => fetch('http://odyssey-api-demo.herokuapp.com/v
         'start_date': action.dateTime
     }),
 });
-
+/*
 const getReservationTourist = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/reservations/', {
     method: 'GET',
     headers: {
@@ -110,6 +111,17 @@ const getReservationTourGuide = action => fetch('http://odyssey-api-demo.herokua
         'X-Traveler-Token': action.authentication_token,
         'X-Traveler-Email': action.email,
         'guide_id': action.ID
+    },
+    body: ''
+});
+*/
+const getMyProfile = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/travelers/getid', {
+    method: 'GET',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Traveler-Token': action.authentication_token,
+        'X-Traveler-Email': action.email,
     },
     body: ''
 });
@@ -321,7 +333,7 @@ function* tryCreateReservation(action) {
             yield put({ type: REGISTER_ERROR, errors: e.message});
     }
 }
-
+/*
 function* tryActiveReservationTourist(action) {
     try {
         const response = yield call(getReservationTourist, action);
@@ -359,6 +371,26 @@ function* tryActiveReservationTourGuide(action) {
             yield put({ type: ACTIVE_REGISTER_ERROR, errors: e.message});
     }
 }
+*/
+function* tryMyProfile(action) {
+
+    try {
+        
+        const response = yield call(getMyProfile, action);
+        
+        const result = yield response.json();
+
+        if (result.error) {
+            
+            yield put({ type: MY_PROFILE_ERROR, errors: result.error});
+        } else {
+            
+            yield put({ type: MY_PROFILE_RESULT, result: result});
+        }
+    } catch(e) {
+            yield put({ type: My_PROFILE_ERROR, errors: e.message});
+    }
+}
 
 export default function* rootSaga() {
     yield takeEvery(INITIAL_LOGIN_CHECK, tryInitialLogin)
@@ -368,6 +400,7 @@ export default function* rootSaga() {
     yield takeEvery(LOGOUT_CHECK, tryLogOutUser)
     yield throttle(1, VIEW_PROFILE_CHECK, tryViewProfile)
     yield takeEvery(RESERVATION_CHECK, tryCreateReservation)
-    yield takeEvery(ACTIVE_RESERVATION_CHECK_TOURIST, tryActiveReservationTourist)
-    yield takeEvery(ACTIVE_RESERVATION_CHECK_TOUR_GUIDE, tryActiveReservationTourGuide)
+    //yield takeEvery(ACTIVE_RESERVATION_CHECK_TOURIST, tryActiveReservationTourist)
+    //yield takeEvery(ACTIVE_RESERVATION_CHECK_TOUR_GUIDE, tryActiveReservationTourGuide)
+    yield takeEvery(MY_PROFILE_CHECK, tryMyProfile)
 }
