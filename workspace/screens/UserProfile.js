@@ -9,15 +9,21 @@ import { Errors } from '../components/Errors';
 import styles from '../screens/styles';
 import { UserProfileContainer } from '../components/Container';
 import { connectAlert } from '../components/Alert';
+import { TimeDate, OneDateTime } from '../components/TimeDate';
+
+
 import HideableView from 'react-native-hideable-view';
 import { Calendar } from 'react-native-calendars';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Modal from "react-native-modal";
+
 import { changeLoginEmailValue, changeLoginPasswordValue,
         pressLoginSubmit, checkInitialLogin,
          cleanLoginErrorLog } from '../actions/Login';
+
+import { submitNewReservation } from '../actions/Reservation'
 
 const headerImage = require('../assets/images/LoginCover.jpg');
 const profilePic = require('../components/Container/profilePic.png');
@@ -29,6 +35,7 @@ class UserProfile extends Component {
 //export default class UserProfile extends Component {
     state = {
     isModalVisible: false
+
     };
  
     _toggleModal = () =>
@@ -56,10 +63,49 @@ constructor(props) {
   super(props)
   this.state = {
       requestVisible: false,
-      dateVisible: false,
-      timeVisible: false,
+      dateTimeSubmit: '',
+      authentication_token: '',
+      email: ''
+      //dateSubmit: '',
+      //timeSubmit: '',
   };
 };
+
+async componentDidMount() {
+  let storedToken = await AsyncStorage.getItem('authentication_token')
+  let storedEmail = await AsyncStorage.getItem('email')
+  this.setState( {
+      authentication_token: storedToken,
+      email: storedEmail
+  })
+};
+
+componentWillReceiveProps(nextProps) {
+  if (nextProps.reservationError && nextProps.reservationError !== this.props.reservationError) {
+      this.props.alertWithType('error','Error',nextProps.reservationError);
+  } else if(nextProps.reservationResult && nextProps.reservationResult !== this.props.reservationResult) {
+      console.log(nextProps.reservationResult);
+  }
+}
+
+/*timeSetter = (time) => {
+  this.setState({ timeSubmit: time })
+}
+
+dateSetter = (date) => {
+  this.setState({ dateSubmit: date })
+}*/
+
+dateTimeSetter = (dateTime) => {
+  this.setState({ dateTimeSubmit: dateTime })
+}
+
+sendTourRequest = () => {
+  this.props.dispatch(submitNewReservation(this.state.dateTimeSubmit,
+    this.props.tourInfo.tourID, this.state.authentication_token,this.state.email))
+  console.log('submitted the following date and time')
+  console.log(this.state.dateTimeSubmit)
+}
   
 handleRequestPress = () => {
   this.setState({
@@ -235,12 +281,16 @@ renderTours = () => (
         visible = {this.state.requestVisible}
         removeWhenHidden={true}
         style={{
-          height: 350,
+          height: 200,
           width: '100%',
           justifyContent: 'center',
           alignItems: 'center'
         }}
         >
+        <OneDateTime
+        handleConfirmDateTime={this.dateTimeSetter}
+        handleSubmitRequest={this.sendTourRequest}
+        />
         </HideableView>
         <View style={styles.toursContainer}>
             <Image style={styles.postImage} source={tour1} />
@@ -279,13 +329,18 @@ const mapStateToProps = (state) => {
     const traveler = state.ViewProfile.result.traveler;
     const tourInfo = state.ViewProfile.tourInfo;
 
+    const reservationResult = state.Reservation.result;
+    const reservationError = state.Reservation.errors
+
     return {
         traveler,
-        tourInfo
+        tourInfo,
+        reservationResult,
+        reservationError
     };
 };
 
 
-export default connect(mapStateToProps)(UserProfile);
+export default connect(mapStateToProps)(connectAlert(UserProfile));
 
 //export default connect(mapStateToProps)(connectAlert(SignIn));

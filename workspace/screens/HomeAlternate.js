@@ -85,7 +85,8 @@ class HomeAlternate extends Component {
                 city: '',
                 name: '',
                 duration: '',
-                description: ''
+                description: '',
+                tourID: '',
             }
         };
         this.handleMarkerPress = this.handleMarkerPress.bind(this);
@@ -186,7 +187,8 @@ class HomeAlternate extends Component {
                                 city: data.city,
                                 name: data.title,
                                 duration: data.duration,
-                                description: data.description
+                                description: data.description,
+                                tourID: data.id
                             }
                          })}}
                         >

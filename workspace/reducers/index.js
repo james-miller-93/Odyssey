@@ -6,6 +6,8 @@ import InitialLogin from './InitialLogin';
 import TourList  from './TourList';
 import LogOut from './LogOut';
 import ViewProfile from './ViewProfile';
+import Reservation from './Reservation';
+import ActiveReservation from './ActiveReservation';
 
 export default combineReducers({
     Register,
@@ -13,5 +15,7 @@ export default combineReducers({
     InitialLogin,
     TourList,
     LogOut,
-    ViewProfile
+    ViewProfile,
+    Reservation,
+    ActiveReservation
 });

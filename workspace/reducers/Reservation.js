@@ -1,37 +1,31 @@
-import { VIEW_PROFILE_CHECK, VIEW_PROFILE_ERROR,
-    VIEW_PROFILE_RESULT } from '../actions/ViewProfile';
+import { RESERVATION_CHECK, RESERVATION_ERROR,
+    RESERVATION_RESULT } from '../actions/Reservation';
 
 const initialState = {
 email: '',
 authentication_token: '',
 result: '',
 errors: '',
-profileID: '',
-tourInfo: {
-    city: '',
-    name: '',
-    duration: '',
-    description: '',
-    tourID: ''
-}
+tourID: '',
+dateTime: new Date()
 };
 
 const reducer = (state = initialState, action) => {
 switch(action.type) {
-    case VIEW_PROFILE_CHECK:
+    case RESERVATION_CHECK:
         return {
             ...state,
             email: action.email,
             authentication_token: action.authentication_token,
-            profileID: action.profileID,
-            tourInfo: action.tourInfo
+            tourID: action.tourID,
+            dateTime: action.dateTime
         }
-    case VIEW_PROFILE_ERROR:
+    case RESERVATION_ERROR:
         return {
             ...state,
             errors: action.errors
         }
-    case VIEW_PROFILE_RESULT:
+    case RESERVATION_RESULT:
         return {
             ...state,
             result: action.result

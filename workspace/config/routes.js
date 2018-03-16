@@ -22,6 +22,13 @@ export default StackNavigator({
         }
     },*/
 
+    Loading: {
+        screen: Loading,
+        navigationOptions: {
+            header: () => null,
+        }
+    },
+
     HomeAlternate: {
         screen: HomeAlternate,
         navigationOptions: {
@@ -36,12 +43,7 @@ export default StackNavigator({
         }
     },
 
-    Loading: {
-        screen: Loading,
-        navigationOptions: {
-            header: () => null,
-        }
-    },
+    
    
    
     Login: {
