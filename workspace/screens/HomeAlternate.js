@@ -224,12 +224,13 @@ class HomeAlternate extends Component {
             backdropOpacity={0.4}
             onBackdropPress={() => this.setState({ isModalVisible: false }) }
             supportedOrientations={['portrait', 'landscape']}
+            
             >
                 <View style={screenStyles.settingWindow}>
                                 
                     {this.profileButton()}
                     <View style={screenStyles.border}></View>
-                    <Text style={screenStyles.settingText}>Settings</Text> 
+                    <Text style={screenStyles.settingText}>Notifications</Text> 
                     <View style={screenStyles.border}></View>
                     <Text style={screenStyles.settingText}>Logout</Text> 
 

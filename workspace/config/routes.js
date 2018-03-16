@@ -13,6 +13,8 @@ import Loading from '../screens/Loading';
 import HomeAlternate from '../screens/HomeAlternate';
 import UserProfile from '../screens/UserProfile';
 import Test from '../screens/Test';
+import Notifications from '../screens/Notifications';
+import Requests from '../screens/Requests'
 
 export default StackNavigator({
     /*Test: {
@@ -22,10 +24,17 @@ export default StackNavigator({
         }
     },*/
 
-    Loading: {
-        screen: Loading,
+    Requests: {
+        screen: Requests,
         navigationOptions: {
-            header: () => null,
+            header: () => null
+        }
+
+    },
+    Notifications: {
+        screen: Notifications,
+        navigationOptions: {
+            header: () => null
         }
     },
 

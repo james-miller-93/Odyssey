@@ -140,19 +140,6 @@ class Register extends Component {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
        /*     <Container>
                 <KeyboardAvoidingView
                 behavior={'padding'}
