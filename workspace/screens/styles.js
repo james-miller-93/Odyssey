@@ -366,6 +366,26 @@ export default EStyleSheet.create({
         
     },
 
+  //TRAVELER NOTIFICATION
+
+  notification: {
+    width: '100%',
+        height: '100%',
+        //marginTop: 20,
+        //borderWidth: 2,
+
+        //alignItems: 'center',
+        //backgroundColor: '$secondaryColor',
+        //borderRadius: 20,
+        flexDirection: 'row',
+        //flex: 1,
+        //position: 'absolute',
+
+
+        //bottom: 30
+        
+  }
+
 });
 
 

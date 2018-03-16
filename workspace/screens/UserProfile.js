@@ -110,7 +110,7 @@ handleRequestPress = () => {
                     
             {this.profileButton()}
             <View style={styles.border}></View>
-            <Text style={styles.settingText}>Settings</Text> 
+            <Text style={styles.settingText}>Notifications</Text> 
             <View style={styles.border}></View>
             <Text style={styles.settingText}>Logout</Text> 
 

@@ -50,59 +50,6 @@ export default class Login extends Component {
 
 
 
-
-   // handleSignUpPress = () => {
-    //    this.props.navigation.navigate('Home');
-    //};
-
-  //  handleLoginPress = () => {
-   //     this.props.navigation.navigate('Register');
-   // };
-
-    /*
-    async handleButtonPress() {
-        try {
-            let response = await fetch('', {
-                method: '',
-                headers: {
-                        '': '',
-                        '': '',
-                },
-                body: JSON.stringify({
-                    user: {
-                        username: this.state.username,
-                        password: this.state.password,
-                    }
-                })
-            });
-
-            let res = await response.text();
-
-            if (response.status >= 200 && response.status < 300) {
-                //sucess
-            } else {
-                //error
-                let errors = res;
-                throw errors;
-            }
-        } catch(errors) {
-            let formErrors = JSON.parse(erros);
-            let errorsArray = [];
-            for (let key in formErrors) {
-                if (formErrors[key].length > 1) {
-                    formErrors[key].map(error => errorsArray.push('${key} ${error}'))
-                } else {
-                    errorsArray.push('${key} ${formErrors[key]}')
-                }
-            }
-            this.setState({errors: errorsArray})
-        }
-    }
-    */
- 
-
-
-
         return (
     
         <ImageBackground
