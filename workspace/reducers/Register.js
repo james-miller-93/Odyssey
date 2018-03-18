@@ -48,7 +48,7 @@ const reducer = (state = initialState, action) => {
         case REGISTER_RESULT:
             return {
                 ...state,
-                result: action.value || ''
+                result: action.result || ''
             };
         case REGISTER_ERROR:
             return {

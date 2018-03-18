@@ -23,7 +23,7 @@ export default class Notifications extends Component {
     return (
         <TouchableOpacity
         underlayColor="#FFF"
-        onPress={()=> {this.setState({ isModalVisible: false }); navigate('UserProfile')}} >
+        onPress={()=> {this.setState({ isModalVisible: false }); navigate('MyTouristProfile')}} >
         <Text style={styles.settingText}>My Profile</Text> 
         </TouchableOpacity>
         )

@@ -16,6 +16,7 @@ import Test from '../screens/Test';
 import Notifications from '../screens/Notifications';
 import Requests from '../screens/Requests';
 import MyGuideProfile from '../screens/MyGuideProfile';
+import MyTouristProfile from '../screens/MyTouristProfile';
 
 export default StackNavigator({
     /*Test: {
@@ -24,7 +25,14 @@ export default StackNavigator({
             header: () => null,
         }
     },*/
-/*
+
+    Loading: {
+        screen: Loading,
+        navigationOptions: {
+            header: () => null
+        }
+    },
+
     Requests: {
         screen: Requests,
         navigationOptions: {
@@ -39,14 +47,7 @@ export default StackNavigator({
             header: () => null
         }
     },
-*/
 
-    Loading: {
-        screen: Loading,
-        navigationOptions: {
-            header: () => null
-        }
-    },
 
     HomeAlternate: {
         screen: HomeAlternate,
@@ -64,6 +65,13 @@ export default StackNavigator({
 
     MyGuideProfile: {
         screen: MyGuideProfile,
+        navigationOptions: {
+            header: () => null,
+        }
+    },
+
+    MyTouristProfile: {
+        screen: MyTouristProfile,
         navigationOptions: {
             header: () => null,
         }

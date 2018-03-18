@@ -6,10 +6,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { RequestsContainer } from '../components/Requests';
 import Modal from "react-native-modal";
 import { Card } from 'react-native-elements'
+import { connect } from 'react-redux';
+import { connectAlert } from '../components/Alert';
 
 
 
-export default class Requests extends Component {
+class Requests extends Component {
 
 	state = {
     isModalVisible: false
@@ -23,12 +25,19 @@ export default class Requests extends Component {
     return (
         <TouchableOpacity
         underlayColor="#FFF"
-        onPress={()=> {this.setState({ isModalVisible: false }); navigate('UserProfile')}} >
+        onPress={()=> {this.setState({ isModalVisible: false }); navigate('MyGuideProfile')}} >
         <Text style={styles.settingText}>My Profile</Text> 
         </TouchableOpacity>
         )
     }
 
+    acceptReservation = () => {
+
+    }
+
+    declineReservation = () => {
+
+    }
 
    render() {
 
@@ -62,6 +71,16 @@ export default class Requests extends Component {
             </Modal>
         
           	<View style={{top: 120}}> 
+
+            {this.props.reservations.map((reserv) => {
+                return (
+                    <RequestsContainer
+                    handleAcceptPress={this.acceptReservation}
+                    handleDeclinePress={this.declineReservation}
+                    />
+                )
+            })}
+
             <RequestsContainer navigation = {this.props.navigation} travelerName = {"TRAVELER NAME"} />
             <RequestsContainer navigation = {this.props.navigation} travelerName = {"TRAVELER NAME"} 
            /> 
@@ -76,3 +95,13 @@ export default class Requests extends Component {
     };
 
 };
+
+const mapStateToProps = (state) => {
+    const reservations = [];
+
+    return {
+        reservations
+    }
+}
+
+export default connect(mapStateToProps)(connectAlert(Requests));

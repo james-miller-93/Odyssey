@@ -168,7 +168,8 @@ handleRequestPress = () => {
           
             <Image
               style={styles.userImage}
-              source={profilePic}
+              //source={profilePic}
+              source={{ uri: this.props.traveler.image}}
             />
             <Text style={styles.userNameText}> {this.props.traveler.firstname} {this.props.traveler.lastname}</Text>
             <View style={styles.userAddressRow}>

@@ -25,7 +25,6 @@ import { changeLoginEmailValue, changeLoginPasswordValue,
 
 import { submitNewReservation } from '../actions/Reservation';
 import { checkActiveReservationTourGuide } from '../actions/ActiveReservation';
-import { sendLogOutRequest } from '../actions/LogOut';
 
 const headerImage = require('../assets/images/LoginCover.jpg');
 const profilePic = require('../components/Container/profilePic.png');
@@ -33,7 +32,7 @@ const tour1 = require('../assets/images/tour1.jpeg');
 const tour2 = require('../assets/images/tour2.jpeg');
   
 
-class MyGuideProfile extends Component {
+class MyTouristProfile extends Component {
 //export default class UserProfile extends Component {
      
     _toggleModal = () => {
@@ -57,7 +56,7 @@ class MyGuideProfile extends Component {
         )
     }
 
-    notificationsButton() {
+    notificationsButton(){
       const { navigate } = this.props.navigation;
       return (
           <TouchableOpacity
@@ -66,20 +65,7 @@ class MyGuideProfile extends Component {
               <Text style={styles.settingText}>Notifications</Text> 
           </TouchableOpacity>
           )
-    }
-
-    logoutButton() {
-      const { navigate } = this.props.navigation;
-      return (
-          <TouchableOpacity
-          underlayColor="#FFF"
-          onPress={this.handleLogout} >
-              <Text style={styles.settingText}>Logout</Text> 
-          </TouchableOpacity>
-          )
-    }
-
-
+      }
 
 
 constructor(props) {
@@ -110,11 +96,6 @@ componentWillReceiveProps(nextProps) {
   } else if(nextProps.reservationResult && nextProps.reservationResult !== this.props.reservationResult) {
       console.log(nextProps.reservationResult);
       this.props.navigation.navigate('Requests')
-  } else if (nextProps.logoutError && nextProps.logoutError !== this.props.logoutError) {
-    this.props.alertWithType('error','Error',nextProps.logoutError);
-  } else if(nextProps.logoutResult && nextProps.logoutResult !== this.props.logoutResult) {
-    console.log(nextProps.logoutResult);
-    this.props.navigation.navigate('Login')
   }
 }
   
@@ -127,12 +108,7 @@ handleRequestPress = () => {
 handleNotifications = () => {
   this.props.dispatch(checkActiveReservationTourGuide(this.props.profileID,
     this.state.authentication_token,this.state.email))
-  this.props.navigation.navigate('Requests')
-}
-
-handleLogout = () => {
-  this.props.dispatch( sendLogOutRequest(this.state.authentication_token,this.state.email) )
-  //this.props.navigation.navigate('Requests')
+  this.props.navigation.navigate('Notifications')
 }
 
     renderHeader = () => {
@@ -181,7 +157,7 @@ handleLogout = () => {
             <View style={styles.border}></View>
             {this.notificationsButton()}
             <View style={styles.border}></View>
-            {this.logoutButton()}
+            <Text style={styles.settingText}>Logout</Text> 
 
         </View>
         </Modal>
@@ -306,7 +282,7 @@ renderTours = () => (
             {this.renderSeparator()}
             {this.renderEmail()}
             {this.renderSeparator()}
-            {this.renderTours()}
+            
           </Card>
         </View>
       </ScrollView>
@@ -328,22 +304,17 @@ const mapStateToProps = (state) => {
     const reservationResult = state.ActiveReservation.result;
     const reservationError = state.ActiveReservation.errors;
 
-    const logoutResult = state.LogOut.result;
-    const logoutError = state.LogOut.errors;
-
     return {
         profileInfo,
         profileID,
         traveler,
         tourInfo,
         reservationResult,
-        reservationError,
-        logoutResult,
-        logoutError
+        reservationError
     };
 };
 
 
-export default connect(mapStateToProps)(connectAlert(MyGuideProfile));
+export default connect(mapStateToProps)(connectAlert(MyTouristProfile));
 
 //export default connect(mapStateToProps)(connectAlert(SignIn));

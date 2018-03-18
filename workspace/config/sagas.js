@@ -7,7 +7,8 @@ import { TOUR_LOCATION, TOUR_RESULT, TOUR_ERROR } from '../actions/TourList';
 import { LOGOUT_CHECK, LOGOUT_ERROR, LOGOUT_RESULT } from '../actions/LogOut';
 import { VIEW_PROFILE_CHECK, VIEW_PROFILE_ERROR, VIEW_PROFILE_RESULT } from '../actions/ViewProfile';
 import { RESERVATION_CHECK, RESERVATION_ERROR, RESERVATION_RESULT } from '../actions/Reservation';
-import { ACTIVE_RESERVATION_CHECK, ACTIVE_RESERVATION_ERROR, ACTIVE_RESERVATION_RESULT } from '../actions/ActiveReservation';
+import { ACTIVE_RESERVATION_CHECK_TOUR_GUIDE, ACTIVE_RESERVATION_CHECK_TOURIST,
+     ACTIVE_RESERVATION_ERROR, ACTIVE_RESERVATION_RESULT } from '../actions/ActiveReservation';
 import { MY_PROFILE_CHECK, MY_PROFILE_ERROR, MY_PROFILE_RESULT } from '../actions/MyProfile';
 
 const postInitialLogin = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/sessions', {
@@ -65,8 +66,8 @@ const deleteLogOut = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/s
     },
     body: ''
 });
-
-const getProfile = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/travelers/'+action.profileID, {
+//+action.profileID
+const getProfile = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/travelers/14', {
     method: 'GET',
     headers: {
         Accept: 'application/json',
@@ -90,8 +91,8 @@ const postReservation = action => fetch('http://odyssey-api-demo.herokuapp.com/v
         'start_date': action.dateTime
     }),
 });
-/*
-const getReservationTourist = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/reservations/', {
+
+const getReservationTourist = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/reservations', {
     method: 'GET',
     headers: {
         Accept: 'application/json',
@@ -103,7 +104,7 @@ const getReservationTourist = action => fetch('http://odyssey-api-demo.herokuapp
     body: ''
 });
 
-const getReservationTourGuide = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/reservations/', {
+const getReservationTourGuide = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/reservations', {
     method: 'GET',
     headers: {
         Accept: 'application/json',
@@ -114,7 +115,7 @@ const getReservationTourGuide = action => fetch('http://odyssey-api-demo.herokua
     },
     body: ''
 });
-*/
+
 const getMyProfile = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/travelers/getid', {
     method: 'GET',
     headers: {
@@ -333,7 +334,7 @@ function* tryCreateReservation(action) {
             yield put({ type: REGISTER_ERROR, errors: e.message});
     }
 }
-/*
+
 function* tryActiveReservationTourist(action) {
     try {
         const response = yield call(getReservationTourist, action);
@@ -371,7 +372,7 @@ function* tryActiveReservationTourGuide(action) {
             yield put({ type: ACTIVE_REGISTER_ERROR, errors: e.message});
     }
 }
-*/
+
 function* tryMyProfile(action) {
 
     try {
@@ -400,7 +401,7 @@ export default function* rootSaga() {
     yield takeEvery(LOGOUT_CHECK, tryLogOutUser)
     yield throttle(1, VIEW_PROFILE_CHECK, tryViewProfile)
     yield takeEvery(RESERVATION_CHECK, tryCreateReservation)
-    //yield takeEvery(ACTIVE_RESERVATION_CHECK_TOURIST, tryActiveReservationTourist)
-    //yield takeEvery(ACTIVE_RESERVATION_CHECK_TOUR_GUIDE, tryActiveReservationTourGuide)
+    yield takeEvery(ACTIVE_RESERVATION_CHECK_TOURIST, tryActiveReservationTourist)
+    yield takeEvery(ACTIVE_RESERVATION_CHECK_TOUR_GUIDE, tryActiveReservationTourGuide)
     yield takeEvery(MY_PROFILE_CHECK, tryMyProfile)
 }

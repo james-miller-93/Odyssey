@@ -78,8 +78,35 @@ class Register extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors && nextProps.errors !== this.props.errors) {
-            this.props.alertWithType('error','Error',nextProps.errors);
-        } 
+            const emailError = '';
+            const passError = '';
+            try {
+                emailError = nextProps.errors.email[0];
+            } catch(e) {
+                emailError = ''
+                console.log('no email error')
+            }
+            try {
+                passError = nextProps.errors.password[0];
+            } catch(e) {
+                passError = ''
+                console.log('no password error')
+            }
+            allErrors = ''
+            if (emailError !== '') {
+                if (passError !== '') {
+                    allErrors= 'Email ' + emailError + ', ' + 'Password ' + passError
+                } else {
+                    allErrors = 'Email ' + emailError
+                }
+            } else {
+                allErrors = 'Password ' + passError
+            }
+            this.props.alertWithType('error','Error',allErrors);
+        } else if (nextProps.result && nextProps.result !== this.props.result) {
+            console.log('-----success------')
+            this.props.alertWithType('success','Success','Registration successful')
+        }
     }
     
     handleFirstNameChange = (text) => {
@@ -199,10 +226,12 @@ const mapStateToProps = (state) => {
     //const password = state.Register.password;
     //const passwordConfirmation = state.Register.passwordConfirmation;
     const errors = state.Register.errors;
+    const result = state.Register.result;
 
     return {
         user,
-        errors
+        errors,
+        result
     };
 };
 

@@ -144,11 +144,13 @@ class HomeAlternate extends Component {
     return (
         <TouchableOpacity
         underlayColor="#FFF"
-        onPress={()=> {this.setState({ isModalVisible: false }); navigate('UserProfile')}} >
+        onPress={()=> {this.setState({ isModalVisible: false }); navigate('MyTouristProfile')}} >
         <Text style={screenStyles.settingText}>My Profile</Text> 
         </TouchableOpacity>
         )
     }
+
+    
 
 
 

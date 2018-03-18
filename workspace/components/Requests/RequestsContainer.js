@@ -33,7 +33,7 @@ export default class RequestsContainer extends Component {
                          
                           <TouchableOpacity
                           style={styles.generalButton}
-                          //onPress={this.props.handlePress}
+                          onPress={this.props.handleAcceptPress}
 
                           >
 
@@ -47,7 +47,7 @@ export default class RequestsContainer extends Component {
                          
                           <TouchableOpacity
                           style={styles.generalButton}
-                          //onPress={this.props.handlePress}
+                          onPress={this.props.handleDeclinePress}
 
                           >
 
