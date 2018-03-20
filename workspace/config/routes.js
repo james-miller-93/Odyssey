@@ -17,6 +17,10 @@ import Notifications from '../screens/Notifications';
 import Requests from '../screens/Requests';
 import MyGuideProfile from '../screens/MyGuideProfile';
 import MyTouristProfile from '../screens/MyTouristProfile';
+import UpdateAccount from '../screens/UpdateAccount';
+import ManageTours from '../screens/ManageTours';
+import CreateTours from '../screens/CreateTours';
+
 
 export default StackNavigator({
     /*Test: {
@@ -25,7 +29,39 @@ export default StackNavigator({
             header: () => null,
         }
     },*/
+    
+    MyGuideProfile: {
+        screen: MyGuideProfile,
+        navigationOptions: {
+            header: () => null,
+        }
+    },
 
+    CreateTours: {
+        screen: CreateTours,
+        navigationOptions: {
+            header: () => null,
+        }
+    },
+    ManageTours: {
+        screen: ManageTours,
+        navigationOptions: {
+            header: () => null,
+        }
+    },
+    UpdateAccount: {
+        screen: UpdateAccount,
+        navigationOptions: {
+            header: () => null,
+        }
+    },
+
+     MyGuideProfile: {
+        screen: MyGuideProfile,
+        navigationOptions: {
+            header: () => null,
+        }
+    },
     Loading: {
         screen: Loading,
         navigationOptions: {
