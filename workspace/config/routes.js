@@ -29,6 +29,12 @@ export default StackNavigator({
             header: () => null,
         }
     },*/
+    Loading: {
+        screen: Loading,
+        navigationOptions: {
+            header: () => null
+        }
+    },
     
     MyGuideProfile: {
         screen: MyGuideProfile,
@@ -62,12 +68,7 @@ export default StackNavigator({
             header: () => null,
         }
     },
-    Loading: {
-        screen: Loading,
-        navigationOptions: {
-            header: () => null
-        }
-    },
+    
 
     Requests: {
         screen: Requests,

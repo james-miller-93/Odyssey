@@ -11,6 +11,7 @@ import { connectAlert } from '../components/Alert';
 
 import { acceptActiveReservation,
     declineActiveReservation } from '../actions/ActiveReservation';
+import { sendLogOutRequest } from '../actions/LogOut';
 
 
 
@@ -34,6 +35,23 @@ class Requests extends Component {
         )
     }
 
+    logoutButton() {
+        const { navigate } = this.props.navigation;
+        return (
+            <TouchableOpacity
+            underlayColor="#FFF"
+            onPress={this.handleLogout} >
+                <Text style={styles.settingText}>Logout</Text> 
+            </TouchableOpacity>
+            )
+      }
+
+      handleLogout = () => {
+        this.setState({ isModalVisible: false});
+        this.props.dispatch( sendLogOutRequest(this.state.authentication_token,this.state.email) )
+        //this.props.navigation.navigate('Requests')
+      }
+
     async componentDidMount() {
         let storedToken = await AsyncStorage.getItem('authentication_token')
         let storedEmail = await AsyncStorage.getItem('email')
@@ -47,7 +65,12 @@ class Requests extends Component {
         if (nextProps.actionErrors && nextProps.actionErrors !== this.props.actionErrors) {
             this.props.alertWithType('error','Error',nextProps.actionErrors);
         } else if(nextProps.actionResult && nextProps.actionResult !== this.props.actionResult) {
-            this.props.alertWithType('success','Success',nextProps.actionResult);
+            this.props.alertWithType('success','Success','Action Successful');
+        } else if (nextProps.logoutError && nextProps.logoutError !== this.props.logoutError) {
+            this.props.alertWithType('error','Error',nextProps.logoutError);
+        } else if(nextProps.logoutResult && nextProps.logoutResult !== this.props.logoutResult) {
+            console.log(nextProps.logoutResult);
+            this.props.navigation.navigate('Login')
         }
     }
 
@@ -77,7 +100,7 @@ class Requests extends Component {
                     <View style={styles.border}></View>
                     <Text style={styles.settingText}>Notifications</Text> 
                     <View style={styles.border}></View>
-                    <Text style={styles.settingText}>Logout</Text> 
+                    {this.logoutButton()}
 
                 </View>
 
@@ -125,11 +148,16 @@ const mapStateToProps = (state) => {
     const actionResult = state.ActiveReservation.actionResult;
     const actionErrors = state.ActiveReservation.actionErrors;
 
+    const logoutResult = state.LogOut.result;
+    const logoutError = state.LogOut.errors;
+
     return {
         reservations,
         myID,
         actionResult,
-        actionErrors
+        actionErrors,
+        logoutResult,
+        logoutError
     }
 }
 
