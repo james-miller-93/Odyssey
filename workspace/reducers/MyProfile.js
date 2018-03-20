@@ -13,7 +13,7 @@ myProfile: {
     lastname: '',
     email: '',
     phone_number: ''
-}
+},
 };
 
 const reducer = (state = initialState, action) => {

@@ -5,11 +5,13 @@ import styles from '../screens/styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TravelerNotification } from '../components/Notification';
 import Modal from "react-native-modal";
-import { Card } from 'react-native-elements'
+import { Card } from 'react-native-elements';
+import { connect } from 'react-redux';
+
+import { connectAlert } from '../components/Alert';
 
 
-
-export default class Notifications extends Component {
+class Notifications extends Component {
 
 	state = {
     isModalVisible: false
@@ -62,9 +64,22 @@ export default class Notifications extends Component {
             </Modal>
         
           	<View style={{top: 120}}> 
-            <TravelerNotification navigation={this.props.navigation} tourGuideName = {"TOUR GUIDE NAME"} message = {"accepted"} />
-            <TravelerNotification navigation={this.props.navigation} tourGuideName = {"TOUR GUIDE NAME"} message = {"declined"}
-           /> 
+
+                {this.props.reservations.map((data) => {
+                    
+                    return (
+                        <TravelerNotification
+                        key={data.id}
+                        navigation = {this.props.navigation}
+                        handleAcceptPress={this.acceptReservation}
+                        handleDeclinePress={this.declineReservation}
+                        travelerName={''}
+                        message={'accepted/declined'}
+                        />
+                    )
+            })}
+
+             
            </View>
            
                 
@@ -76,3 +91,16 @@ export default class Notifications extends Component {
     };
 
 };
+
+const mapStateToProps = (state) => {
+    const reservations = state.ActiveReservation.result.reservation;
+    
+    const myID = state.MyProfile.result[0];
+
+    return {
+        reservations,
+        myID
+    }
+}
+
+export default connect(mapStateToProps)(connectAlert(Notifications))

@@ -125,9 +125,10 @@ handleRequestPress = () => {
 };
 
 handleNotifications = () => {
+  this.setState({ isModalVisible: false});
   this.props.dispatch(checkActiveReservationTourGuide(this.props.profileID,
     this.state.authentication_token,this.state.email))
-  this.props.navigation.navigate('Requests')
+  //this.props.navigation.navigate('Requests')
 }
 
 handleLogout = () => {

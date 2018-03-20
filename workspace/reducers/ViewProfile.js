@@ -1,5 +1,5 @@
 import { VIEW_PROFILE_CHECK, VIEW_PROFILE_ERROR,
-    VIEW_PROFILE_RESULT, VIEW_PROFILE_CLEAR } from '../actions/ViewProfile';
+    VIEW_PROFILE_RESULT, VIEW_PROFILE_CLEAR,} from '../actions/ViewProfile';
 
 const initialState = {
 email: '',
@@ -13,7 +13,9 @@ tourInfo: {
     duration: '',
     description: '',
     tourID: ''
-}
+},
+tourErrors: '',
+tourResult: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -52,6 +54,7 @@ switch(action.type) {
                 tourID: ''
             }
         }
+    
     default:
         return state;
 }

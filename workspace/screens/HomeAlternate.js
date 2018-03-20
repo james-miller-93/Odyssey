@@ -9,6 +9,7 @@ import { CalloutContent } from '../components/MapComponents/';
 import { connectAlert } from '../components/Alert';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import { checkActiveReservationTourist } from '../actions/ActiveReservation'
 
 import { changeTourLocationValue } from '../actions/TourList';
 import { pressProfileView } from '../actions/ViewProfile';
@@ -107,6 +108,11 @@ class HomeAlternate extends Component {
         } else if(nextProps.profileResult && nextProps.profileResult !== this.props.profileResult) {
             this.props.navigation.navigate('UserProfile');
             //this.props.navigation.pop('HomeAlternate');
+        } else if (nextProps.reservationError && nextProps.reservationError !== this.props.reservationError) {
+            this.props.alertWithType('error','Error',nextProps.reservationError);
+        } else if(nextProps.reservationResult && nextProps.reservationResult !== this.props.reservationResult) {
+            //console.log(nextProps.reservationResult);
+            this.props.navigation.navigate('Notifications')
         }
     }
 
@@ -132,6 +138,13 @@ class HomeAlternate extends Component {
         //this.props.navigation.navigate('TourGuide');
     };
 
+    handleNotifications = () => {
+        this.setState({ isModalVisible: false })
+        this.props.dispatch(checkActiveReservationTourist(this.props.profileID,
+          this.state.authentication_token,this.state.email))
+        //this.props.navigation.navigate('Requests')
+      }
+
     state = {
     isModalVisible: false
     };
@@ -150,7 +163,16 @@ class HomeAlternate extends Component {
         )
     }
 
-    
+    notificationsButton() {
+        const { navigate } = this.props.navigation;
+        return (
+            <TouchableOpacity
+            underlayColor="#FFF"
+            onPress={this.handleNotifications} >
+                <Text style={screenStyles.settingText}>Notifications</Text> 
+            </TouchableOpacity>
+            )
+      }
 
 
 
@@ -232,7 +254,7 @@ class HomeAlternate extends Component {
                                 
                     {this.profileButton()}
                     <View style={screenStyles.border}></View>
-                    <Text style={screenStyles.settingText}>Notifications</Text> 
+                    {this.notificationsButton()} 
                     <View style={screenStyles.border}></View>
                     <Text style={screenStyles.settingText}>Logout</Text> 
 
@@ -322,12 +344,19 @@ const mapStateToProps = (state) => {
     const profileError = state.ViewProfile.errors;
     const profileResult = state.ViewProfile.result;
     
+    const reservationResult = state.ActiveReservation.result;
+    const reservationError = state.ActiveReservation.errors;
+
+    const profileID = state.MyProfile.result[0];
 
     return {
         mapLocation,
         tourArray,
         profileError,
-        profileResult
+        profileResult,
+        reservationResult,
+        reservationError,
+        profileID
     };
 };
 

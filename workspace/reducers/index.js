@@ -9,6 +9,7 @@ import ViewProfile from './ViewProfile';
 import Reservation from './Reservation';
 import ActiveReservation from './ActiveReservation';
 import MyProfile from './MyProfile';
+import ViewTours from './ViewTours';
 
 export default combineReducers({
     Register,
@@ -19,5 +20,6 @@ export default combineReducers({
     ViewProfile,
     Reservation,
     ActiveReservation,
-    MyProfile
+    MyProfile,
+    ViewTours
 });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, KeyboardAvoidingView, ImageBackground, Image ,TouchableOpacity} from 'react-native';
+import { View, Text, KeyboardAvoidingView, ImageBackground, Image ,TouchableOpacity, AsyncStorage} from 'react-native';
 import { ButtonText, ButtonContainer} from '../components/Button';
 import styles from '../screens/styles';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -8,6 +8,9 @@ import Modal from "react-native-modal";
 import { Card } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { connectAlert } from '../components/Alert';
+
+import { acceptActiveReservation,
+    declineActiveReservation } from '../actions/ActiveReservation';
 
 
 
@@ -31,13 +34,23 @@ class Requests extends Component {
         )
     }
 
-    acceptReservation = () => {
+    async componentDidMount() {
+        let storedToken = await AsyncStorage.getItem('authentication_token')
+        let storedEmail = await AsyncStorage.getItem('email')
+        this.setState( {
+            authentication_token: storedToken,
+            email: storedEmail
+        })
+    };
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.actionErrors && nextProps.actionErrors !== this.props.actionErrors) {
+            this.props.alertWithType('error','Error',nextProps.actionErrors);
+        } else if(nextProps.actionResult && nextProps.actionResult !== this.props.actionResult) {
+            this.props.alertWithType('success','Success',nextProps.actionResult);
+        }
     }
 
-    declineReservation = () => {
-
-    }
 
    render() {
 
@@ -72,18 +85,26 @@ class Requests extends Component {
         
           	<View style={{top: 120}}> 
 
-            {this.props.reservations.map((reserv) => {
-                return (
-                    <RequestsContainer
-                    handleAcceptPress={this.acceptReservation}
-                    handleDeclinePress={this.declineReservation}
-                    />
-                )
+            {this.props.reservations.map((data) => {
+                if (data.guide_id === this.props.myID )    
+                    return (
+                        <RequestsContainer
+                        key={data.id}
+                        navigation = {this.props.navigation}
+                        handleAcceptPress={() => {
+                            this.props.dispatch(acceptActiveReservation(data.id,
+                                this.state.authentication_token,this.state.email))
+                        }}
+                        handleDeclinePress={() => {
+                            this.props.dispatch(declineActiveReservation(data.id,
+                                this.state.authentication_token,this.state.email))
+                        }}
+                        travelerName={''}
+                        />
+                    )
             })}
 
-            <RequestsContainer navigation = {this.props.navigation} travelerName = {"TRAVELER NAME"} />
-            <RequestsContainer navigation = {this.props.navigation} travelerName = {"TRAVELER NAME"} 
-           /> 
+             
            </View>
            
                 
@@ -97,10 +118,18 @@ class Requests extends Component {
 };
 
 const mapStateToProps = (state) => {
-    const reservations = [];
+    const reservations = state.ActiveReservation.result.reservation;
+    
+    const myID = state.MyProfile.result[0];
+
+    const actionResult = state.ActiveReservation.actionResult;
+    const actionErrors = state.ActiveReservation.actionErrors;
 
     return {
-        reservations
+        reservations,
+        myID,
+        actionResult,
+        actionErrors
     }
 }
 
