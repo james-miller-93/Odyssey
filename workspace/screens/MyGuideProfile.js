@@ -16,6 +16,7 @@ import HideableView from 'react-native-hideable-view';
 import { Calendar } from 'react-native-calendars';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/Entypo';
 
 import Modal from "react-native-modal";
 
@@ -273,12 +274,22 @@ renderSeparator = () => (
 renderTours = () => ( 
 
     <View style={styles.sceneContainer}>
+
+    <TouchableOpacity style={{ height: 25, width: 30, right: 10, position: 'absolute'}}
+         underlayColor="#FFF">
+            <Icon2 name="dots-three-horizontal" style={styles.settingsIcon} size={25} 
+            onPress={()=> {this.props.navigation.navigate('ManageTours');}} />
+         </TouchableOpacity>
+
+
+<View style={{padding: 10}}/>
+
     
         <View style={styles.eachTourContainer}>
           <View style = {styles.tourTextButton}>
             <View style={styles.tourList}>
                 <View style={styles.postRow}>
-                    <Text>{this.props.tourInfo.name}</Text>
+                    <Text>Tour Name</Text>
                     <Text style={styles.date}>{this.props.tourInfo.duration} hours</Text>
                 </View>
                 <View style={styles.wordRow}>

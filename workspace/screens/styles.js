@@ -2,6 +2,16 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { View, Text, Platform, TouchableOpacity, Button, ScrollView, KeyboardAvoidingView, Dimensions} from 'react-native';
 
 export default EStyleSheet.create({
+// GENERAL
+  generalContainer: {
+    height: '100%',
+    width: '100%',
+    alignItems: 'center',
+    backgroundColor: '#FFF'
+
+  },
+
+
 //LOGIN
     loginBackground: {
         height: '100%',
