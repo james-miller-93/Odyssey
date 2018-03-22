@@ -16,7 +16,7 @@ import { MY_PROFILE_CHECK, MY_PROFILE_ERROR, MY_PROFILE_RESULT } from '../action
 import { CREATE_TOUR_SUBMIT, CREATE_TOUR_ERROR, CREATE_TOUR_RESULT } from '../actions/CreateTours';
 
 
-import { VIEW_TOURS_CHECK, VIEW_TOURS_RESULT, VIEW_TOURS_ERROR } from '../actions/ViewTours';
+import { VIEW_TOURS_CHECK, VIEW_TOURS_RESULT, VIEW_TOURS_ERROR, VIEW_TOURS_DELETE, VIEW_TOURS_DELETE_ERROR, VIEW_TOURS_DELETE_RESULT } from '../actions/ViewTours';
 
 const postInitialLogin = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/sessions', {
     method: 'GET',
@@ -186,6 +186,17 @@ const postDeclineRequest = action => fetch('http://odyssey-api-demo.herokuapp.co
 
 const getTours = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/listings', {
     method: 'GET',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Traveler-Token': action.authentication_token,
+        'X-Traveler-Email': action.email,
+    },
+    body: ''
+});
+
+const deleteTours = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/tours/'+action.deleteTourID, {
+    method: 'DELETE',
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -546,6 +557,26 @@ function* tryViewTours(action) {
     }
 }
 
+function* tryDeleteTours(action) {
+
+    try {
+        const response = yield call(deleteTours, action);
+        console.log('--------response--------')
+        console.log(response)
+        const result = yield response.json();
+        
+        if (result.error) {
+            
+            yield put({ type: VIEW_TOURS_DELETE_ERROR, deleteTourErrors: result.error});
+        } else {
+            
+            yield put({ type: VIEW_TOURS_DELETE_RESULT, deleteTourResult: result});
+        }
+    } catch(e) {
+            yield put({ type: VIEW_TOURS_DELETE_ERROR, deleteTourErrors: e.message});
+    }
+}
+
 export default function* rootSaga() {
     yield takeEvery(INITIAL_LOGIN_CHECK, tryInitialLogin)
     yield takeEvery(REGISTER_SUBMIT, tryRegisterUser)
@@ -561,4 +592,5 @@ export default function* rootSaga() {
     yield takeEvery(ACTIVE_RESERVATION_ACCEPT, tryAcceptRequest)
     yield takeEvery(ACTIVE_RESERVATION_DECLINE, tryDeclineRequest)
     yield takeEvery(VIEW_TOURS_CHECK, tryViewTours)
+    yield takeEvery(VIEW_TOURS_DELETE, tryDeleteTours)
 }
