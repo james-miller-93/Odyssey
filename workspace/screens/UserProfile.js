@@ -52,7 +52,7 @@ class UserProfile extends Component {
     return (
         <TouchableOpacity
         underlayColor="#FFF"
-        onPress={()=> {this.setState({ isModalVisible: false }); navigate('UserProfile')}} >
+        onPress={()=> {this.setState({ isModalVisible: false }); navigate('MyTouristProfile')}} >
             <Text style={styles.settingText}>My Profile</Text> 
         </TouchableOpacity>
         )
@@ -85,6 +85,7 @@ componentWillReceiveProps(nextProps) {
       this.props.alertWithType('error','Error',nextProps.reservationError);
   } else if(nextProps.reservationResult && nextProps.reservationResult !== this.props.reservationResult) {
       console.log(nextProps.reservationResult);
+      this.props.alertWithType('success','Success','Your Request Has Been Sent');
   }
 }
 

@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { connectAlert } from '../components/Alert';
 
 import { acceptActiveReservation,
-    declineActiveReservation } from '../actions/ActiveReservation';
+    declineActiveReservation, checkActiveReservationTourGuide } from '../actions/ActiveReservation';
 import { sendLogOutRequest } from '../actions/LogOut';
 
 
@@ -66,11 +66,19 @@ class Requests extends Component {
             this.props.alertWithType('error','Error',nextProps.actionErrors);
         } else if(nextProps.actionResult && nextProps.actionResult !== this.props.actionResult) {
             this.props.alertWithType('success','Success','Action Successful');
+            //this.props.navigation.navigate('Requests')
+            this.props.dispatch(checkActiveReservationTourGuide(this.props.profileID,
+                this.state.authentication_token,this.state.email))
         } else if (nextProps.logoutError && nextProps.logoutError !== this.props.logoutError) {
             this.props.alertWithType('error','Error',nextProps.logoutError);
         } else if(nextProps.logoutResult && nextProps.logoutResult !== this.props.logoutResult) {
             console.log(nextProps.logoutResult);
             this.props.navigation.navigate('Login')
+        } else if (nextProps.reservationError && nextProps.reservationError !== this.props.reservationError) {
+            this.props.alertWithType('error','Error',nextProps.reservationError);
+        } else if(nextProps.reservationResult && nextProps.reservationResult !== this.props.reservationResult) {
+            console.log(nextProps.reservationResult);
+            this.props.navigation.navigate('Requests')
         }
     }
 
@@ -108,8 +116,8 @@ class Requests extends Component {
         
           	<View style={{top: 120}}> 
 
-            {this.props.reservations.map((data) => {
-                if (data.guide_id === this.props.myID )    
+            {this.props.reservations.map((data) => { 
+                if(data.status === 'Waiting') if (data.status !== 'Accepted' && data.status !== 'Declined') {
                     return (
                         <RequestsContainer
                         key={data.id}
@@ -125,6 +133,7 @@ class Requests extends Component {
                         travelerName={''}
                         />
                     )
+                }
             })}
 
              
@@ -151,13 +160,21 @@ const mapStateToProps = (state) => {
     const logoutResult = state.LogOut.result;
     const logoutError = state.LogOut.errors;
 
+    const profileID = state.MyProfile.result[0];
+
+    const reservationResult = state.ActiveReservation.result;
+    const reservationError = state.ActiveReservation.errors;
+
     return {
         reservations,
         myID,
         actionResult,
         actionErrors,
         logoutResult,
-        logoutError
+        logoutError,
+        profileID,
+        reservationResult,
+        reservationError
     }
 }
 

@@ -23,6 +23,7 @@ class UserRole extends Component {
             authentication_token: "",
             email: "",
             mode: '',
+            rolePage: true,
         }
     }
 
@@ -46,36 +47,42 @@ class UserRole extends Component {
             this.props.dispatch(pressProfileView(userID,this.state.authentication_token,
                 this.state.email,''));
         } else if(nextProps.viewProfileResult && nextProps.viewProfileResult !== this.props.viewProfileResult) {
-            const res = nextProps.viewProfileResult
-            const myProfileInfo = {
-                firstname: res.traveler.firstname,
-                lastname: res.traveler.lastname,
-                email: res.traveler.email,
-                phone_number: res.traveler.phone_number
+            
+            if (this.state.rolePage) {
+                const res = nextProps.viewProfileResult
+                const myProfileInfo = {
+                    firstname: res.traveler.firstname,
+                    lastname: res.traveler.lastname,
+                    email: res.traveler.email,
+                    phone_number: res.traveler.phone_number
+                }
+                this.props.dispatch(setMyProfile(myProfileInfo))
+                this.props.dispatch(viewTours(this.state.authentication_token,this.state.email))
+                //this.props.dispatch(clearViewProfile())
             }
-            this.props.dispatch(setMyProfile(myProfileInfo))
-            this.props.dispatch(viewTours(this.state.authentication_token,this.state.email))
-            //this.props.dispatch(clearViewProfile())
         } else if(nextProps.viewToursError && nextProps.viewToursError !== this.props.viewToursError) {
             this.props.alertWithType('error','Error',nextProps.viewToursError)
         } else if(nextProps.viewToursResult && nextProps.viewToursResult !== this.props.viewToursResult) {
             
             if (this.state.mode === 'traveler') {
                 this.props.navigation.navigate('HomeAlternate');
+                this.setState({ rolePage: false})
             } else if (this.state.mode === 'local') {
                 this.props.navigation.navigate('MyGuideProfile');
+                this.setState({ rolePage: false})
             }
+            
         }
     }
 
     onTravelerPress = () => {
-        this.setState({ mode: 'traveler'})
+        this.setState({ mode: 'traveler', rolePage: true})
         this.props.dispatch(pressMyProfile(this.state.authentication_token,this.state.email))
         //this.props.navigation.navigate('HomeAlternate');
     }
 
     onLocalPress = () => {
-        this.setState({ mode: 'local'})
+        this.setState({ mode: 'local', rolePage: true})
         this.props.dispatch(pressMyProfile(this.state.authentication_token,this.state.email))
         //this.props.navigation.navigate('MyGuideProfile');
     }

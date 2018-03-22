@@ -362,9 +362,9 @@ function* tryCreateReservation(action) {
         //console.log("--------------")
 
         const response = yield call(postReservation, action);
-        //console.log('-----------response profile-----');
-        //console.log('------------------------');
-        //console.log(response);
+        console.log('-----------response profile-----');
+        console.log('------------------------');
+        console.log(response);
         const result = yield response.json();
         //yield put({ type: LOGIN_RESULT, response})
 

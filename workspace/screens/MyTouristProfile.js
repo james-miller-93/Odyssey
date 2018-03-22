@@ -25,7 +25,7 @@ import { changeLoginEmailValue, changeLoginPasswordValue,
 import { sendLogOutRequest } from '../actions/LogOut';
 
 import { submitNewReservation } from '../actions/Reservation';
-import { checkActiveReservationTourGuide } from '../actions/ActiveReservation';
+import { checkActiveReservationTourGuide, checkActiveReservationTourist } from '../actions/ActiveReservation';
 
 const headerImage = require('../assets/images/LoginCover.jpg');
 const profilePic = require('../components/Container/profilePic.png');
@@ -129,7 +129,7 @@ handleRequestPress = () => {
 };
 
 handleNotifications = () => {
-  this.props.dispatch(checkActiveReservationTourGuide(this.props.profileID,
+  this.props.dispatch(checkActiveReservationTourist(this.props.profileID,
     this.state.authentication_token,this.state.email))
   this.props.navigation.navigate('Notifications')
 }
@@ -178,7 +178,7 @@ handleNotifications = () => {
                     
             <Text style={styles.settingText}>My Profile</Text>
             <View style={styles.border}></View>
-            {this.notificationsButton()}
+            <Text style={styles.settingText}>Notifications</Text>
             <View style={styles.border}></View>
             {this.logoutButton()}
              

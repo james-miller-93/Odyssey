@@ -10,6 +10,7 @@ import { connectAlert } from '../components/Alert';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { checkActiveReservationTourist } from '../actions/ActiveReservation'
+import { sendLogOutRequest } from '../actions/LogOut';
 
 import { changeTourLocationValue } from '../actions/TourList';
 import { pressProfileView } from '../actions/ViewProfile';
@@ -113,7 +114,12 @@ class HomeAlternate extends Component {
         } else if(nextProps.reservationResult && nextProps.reservationResult !== this.props.reservationResult) {
             //console.log(nextProps.reservationResult);
             this.props.navigation.navigate('Notifications')
-        }
+        } else if (nextProps.logoutError && nextProps.logoutError !== this.props.logoutError) {
+            this.props.alertWithType('error','Error',nextProps.logoutError);
+          } else if(nextProps.logoutResult && nextProps.logoutResult !== this.props.logoutResult) {
+            console.log(nextProps.logoutResult);
+            this.props.navigation.navigate('Login')
+          }
     }
 
     
@@ -145,6 +151,12 @@ class HomeAlternate extends Component {
         //this.props.navigation.navigate('Requests')
       }
 
+      handleLogout = () => {
+        this.setState({ isModalVisible: false});
+        this.props.dispatch( sendLogOutRequest(this.state.authentication_token,this.state.email) )
+        //this.props.navigation.navigate('Requests')
+      }
+
     state = {
     isModalVisible: false
     };
@@ -170,6 +182,17 @@ class HomeAlternate extends Component {
             underlayColor="#FFF"
             onPress={this.handleNotifications} >
                 <Text style={screenStyles.settingText}>Notifications</Text> 
+            </TouchableOpacity>
+            )
+      }
+
+      logoutButton() {
+        const { navigate } = this.props.navigation;
+        return (
+            <TouchableOpacity
+            underlayColor="#FFF"
+            onPress={this.handleLogout} >
+                <Text style={screenStyles.settingText}>Logout</Text> 
             </TouchableOpacity>
             )
       }
@@ -256,7 +279,7 @@ class HomeAlternate extends Component {
                     <View style={screenStyles.border}></View>
                     {this.notificationsButton()} 
                     <View style={screenStyles.border}></View>
-                    <Text style={screenStyles.settingText}>Logout</Text> 
+                    {this.logoutButton()} 
 
                 </View>
 
@@ -282,7 +305,8 @@ class HomeAlternate extends Component {
                     width: '100%',
                     backgroundColor: '#000000',
                 }}
-                onPress={this.handleListPress}
+                
+                //onPress={this.handleListPress}
                 >
                     <Text style={{ color: '#ffffff', fontSize: 16 }}>
                         List View
@@ -302,7 +326,7 @@ class HomeAlternate extends Component {
                     width: '100%',
                     backgroundColor: '#000000',
                 }}
-                onPress={this.handleMarkerPress}
+                //onPress={this.handleMarkerPress}
                 //onPress={this.handleSettingsPress}
                 >
                     <Text style={{ color: '#ffffff', fontSize: 16 }}>
@@ -349,6 +373,9 @@ const mapStateToProps = (state) => {
 
     const profileID = state.MyProfile.result[0];
 
+    const logoutResult = state.LogOut.result;
+    const logoutError = state.LogOut.errors;
+
     return {
         mapLocation,
         tourArray,
@@ -356,7 +383,9 @@ const mapStateToProps = (state) => {
         profileResult,
         reservationResult,
         reservationError,
-        profileID
+        profileID,
+        logoutResult,
+        logoutError
     };
 };
 
