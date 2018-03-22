@@ -9,6 +9,7 @@ import styles from '../screens/styles';
 import { CreateTourContainer } from '../components/CreateTours';
 import { connectAlert } from '../components/Alert';
 import { createTourSubmit, createTourResult} from '../actions/CreateTours';
+import {viewTours} from '../actions/ViewTours';
 
 
 class CreateTours extends Component {
@@ -57,11 +58,18 @@ class CreateTours extends Component {
       this.props.alertWithType('error','Error',nextProps.errors);
   	} else if(nextProps.result && nextProps.result !== this.props.result) {
       console.log(nextProps.result);
-      this.props.navigation.navigate('ManageTours');
 
+      	this.props.dispatch(viewTours(this.state.authentication_token,this.state.email))
 
-      //what exactly needs to happen here?
   	}
+
+  	else if(nextProps.viewToursError && nextProps.viewToursError !== this.props.viewToursError) {
+            this.props.alertWithType('error','Error',nextProps.viewToursError)
+        } else if(nextProps.viewToursResult && nextProps.viewToursResult !== this.props.viewToursResult) {
+            
+            this.props.navigation.navigate('ManageTours');
+            
+        }
 	}
 
 	newName = (text) => {
@@ -249,6 +257,8 @@ const mapStateToProps = (state) => {
 	const tourInfo = state.CreateTours.tourInfo;
 	const errors = state.CreateTours.errors;
     const result = state.CreateTours.result;
+     const viewToursError = state.ViewTours.errors;
+    const viewToursResult = state.ViewTours.result;
 
 
     return {
@@ -256,6 +266,8 @@ const mapStateToProps = (state) => {
         tourInfo,
         errors,
         result,
+        viewToursError,
+        viewToursResult,
     };
 };
 

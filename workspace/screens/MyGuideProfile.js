@@ -271,6 +271,7 @@ handleLogout = () => {
 
   renderEmail = () => (
 
+    <View>
       <View style={styles.innerEmailContainer}>
       <View style={styles.iconRow2}>
         
@@ -288,6 +289,36 @@ handleLogout = () => {
         </View>
         </View>
         </View>
+        
+  </View>
+  )
+
+  renderSwitch = () => (
+
+    <View style={{ height: 100, width: '100%'}}>
+    <View style={{flexDirection: 'row', top : 20, height: 35, width: '100%'}}>
+    <Text style={{marginLeft: 20, fontSize: 17, top: 5}}> Are you ready to give tours? </Text> 
+
+    
+    <Switch
+    onValueChange={(value) => this.ShowAlert(value)} 
+    value={this.state.SwitchOnValueHolder}
+    style={{height: 30, width: 52, right: 7, position: 'absolute' }}
+    />
+
+    </View>
+    
+    <View>
+    <TouchableOpacity style={{ top: 20, height: 45, width: 35, right: 12, position: 'absolute'}}
+         underlayColor="#FFF"
+         >
+            <Icon2 name="dots-three-horizontal" style={styles.settingsIcon} size={25} 
+            onPress={()=> {this.props.navigation.navigate('ManageTours');}} />
+         </TouchableOpacity>
+    </View>
+    <View style={{padding: 10}}/>
+    </View>
+
   )
 
 renderSeparator = () => (
@@ -299,34 +330,14 @@ renderSeparator = () => (
 
 renderTours = (tourName,tourDuration,tourDescription,tourKey) => ( 
 
-    <View style={styles.sceneContainer}>
-
-    <View style={{flexDirection: 'row', top : 20, height: 35, width: '100%'}}>
-    <Text style={{marginLeft: 20, fontSize: 17, top: 5}}> Are you ready to give tours? </Text> 
-    
-    <Switch
-    onValueChange={(value) => this.ShowAlert(value)} 
-    value={this.state.SwitchOnValueHolder}
-    style={{height: 30, width: 52, right: 7, position: 'absolute'}}
-    />
-
-    </View>
-    <View>
-    <TouchableOpacity style={{ top: 15, height: 25, width: 30, right: 10, position: 'absolute'}}
-         underlayColor="#FFF">
-            <Icon2 name="dots-three-horizontal" style={styles.settingsIcon} size={25} 
-            onPress={()=> {this.props.navigation.navigate('ManageTours');}} />
-         </TouchableOpacity>
-    </View>
-
-<View style={{padding: 10}}/>
+    <View style={{top:20}}>
 
     
         <View style={styles.eachTourContainer}>
           <View style = {styles.tourTextButton}>
             <View style={styles.tourList}>
                 <View style={styles.postRow}>
-                    <Text> {tourName} </Text>
+                    <Text>{tourName} </Text>
                     <Text style={styles.date}>{tourDuration} hours</Text>
                 </View>
                 <View style={styles.wordRow}>
@@ -355,6 +366,7 @@ renderTours = (tourName,tourDuration,tourDescription,tourKey) => (
             {this.renderSeparator()}
             {this.renderEmail()}
             {this.renderSeparator()}
+            {this.renderSwitch()}
             {this.props.tours.map((data) => {
               
               return (

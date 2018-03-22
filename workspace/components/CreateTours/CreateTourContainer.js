@@ -13,7 +13,6 @@ const profilePic = require('../Container/profilePic.png');
 
 export default class CreateTourContainer extends Component {
 
-  
 
 	constructor(props) {
         super(props);

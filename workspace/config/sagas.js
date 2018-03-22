@@ -12,11 +12,19 @@ import { ACTIVE_RESERVATION_CHECK_TOUR_GUIDE, ACTIVE_RESERVATION_CHECK_TOURIST,
     ACTIVE_RESERVATION_ACCEPT, ACTIVE_RESERVATION_DECLINE,
     ACTIVE_RESERVATION_ACTION_RESULT, ACTIVE_RESERVATION_ACTION_ERROR } from '../actions/ActiveReservation';
 import { MY_PROFILE_CHECK, MY_PROFILE_ERROR, MY_PROFILE_RESULT } from '../actions/MyProfile';
+<<<<<<< HEAD
+import { CREATE_TOUR_SUBMIT, CREATE_TOUR_ERROR, CREATE_TOUR_RESULT } from '../actions/CreateTours';
+=======
+>>>>>>> 77fd372e574292d84f567ef68013fbc37e8fa932
+
 import { CREATE_TOUR_SUBMIT, CREATE_TOUR_ERROR, CREATE_TOUR_RESULT } from '../actions/CreateTours';
 
 
-
 import { VIEW_TOURS_CHECK, VIEW_TOURS_RESULT, VIEW_TOURS_ERROR } from '../actions/ViewTours';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 77fd372e574292d84f567ef68013fbc37e8fa932
 
 const postInitialLogin = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/sessions', {
     method: 'GET',
@@ -134,22 +142,39 @@ const getMyProfile = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/t
     body: ''
 });
 
+<<<<<<< HEAD
 //still need to get url
 const postTour = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/tours/', {
 
     method: 'POST',
+=======
+
+//still need to get url
+const postTour = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/tours/', {
+
+     method: 'POST',
+>>>>>>> 77fd372e574292d84f567ef68013fbc37e8fa932
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'X-Traveler-Token': action.authentication_token,
         'X-Traveler-Email': action.email,
     },
+<<<<<<< HEAD
+=======
+
+>>>>>>> 77fd372e574292d84f567ef68013fbc37e8fa932
     //ask backend
     body: JSON.stringify({
         'tour': action.tourInfo,
     }),
 });
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 77fd372e574292d84f567ef68013fbc37e8fa932
 const postAcceptRequest = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/reservations/'+action.reservationID+'/approve', {
 
     method: 'POST',
@@ -159,7 +184,10 @@ const postAcceptRequest = action => fetch('http://odyssey-api-demo.herokuapp.com
         'X-Traveler-Token': action.authentication_token,
         'X-Traveler-Email': action.email,
     },
+<<<<<<< HEAD
 
+=======
+>>>>>>> 77fd372e574292d84f567ef68013fbc37e8fa932
     body: JSON.stringify({
         'reservation': {
             'status': 'Approved'
@@ -469,7 +497,8 @@ function* tryCreateTours(action) {
         const result = yield response.json();
 
         if (result.error) {
-                    
+            
+
             yield put({ type: CREATE_TOUR_ERROR, errors: result.error});
         } else {
             
@@ -480,6 +509,7 @@ function* tryCreateTours(action) {
     }
 }
 
+        
 
 function* tryAcceptRequest(action) {
 

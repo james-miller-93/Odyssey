@@ -9,8 +9,11 @@ import ViewProfile from './ViewProfile';
 import Reservation from './Reservation';
 import ActiveReservation from './ActiveReservation';
 import MyProfile from './MyProfile';
-import CreateTours from './CreateTours'
+
+import CreateTours from './CreateTours';
+
 import ViewTours from './ViewTours';
+
 
 export default combineReducers({
     Register,
