@@ -10,6 +10,10 @@ import { RESERVATION_CHECK, RESERVATION_ERROR, RESERVATION_RESULT } from '../act
 import { ACTIVE_RESERVATION_CHECK_TOUR_GUIDE, ACTIVE_RESERVATION_CHECK_TOURIST,
      ACTIVE_RESERVATION_ERROR, ACTIVE_RESERVATION_RESULT } from '../actions/ActiveReservation';
 import { MY_PROFILE_CHECK, MY_PROFILE_ERROR, MY_PROFILE_RESULT } from '../actions/MyProfile';
+import { CREATE_TOUR_SUBMIT, CREATE_TOUR_ERROR, CREATE_TOUR_RESULT } from '../actions/CreateTours';
+
+
+
 
 const postInitialLogin = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/sessions', {
     method: 'GET',
@@ -107,7 +111,7 @@ const getReservationTourist = action => fetch('http://odyssey-api-demo.herokuapp
 const getReservationTourGuide = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/reservations', {
     method: 'GET',
     headers: {
-        Accept: 'application/json',
+        Accept: 'application/json', 
         'Content-Type': 'application/json',
         'X-Traveler-Token': action.authentication_token,
         'X-Traveler-Email': action.email,
@@ -125,6 +129,21 @@ const getMyProfile = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/t
         'X-Traveler-Email': action.email,
     },
     body: ''
+});
+
+//still need to get url
+const postTour = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/tours/', {
+    method: 'POST',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Traveler-Token': action.authentication_token,
+        'X-Traveler-Email': action.email,
+    },
+    //ask backend
+    body: JSON.stringify({
+        'tour': action.tourInfo,
+    }),
 });
 
 function* tryInitialLogin(action) {
@@ -393,6 +412,26 @@ function* tryMyProfile(action) {
     }
 }
 
+function* tryCreateTours(action) {
+
+    try {
+        
+        const response = yield call(postTour, action);
+        
+        const result = yield response.json();
+
+        if (result.error) {
+            
+            yield put({ type: CREATE_TOUR_ERROR, errors: result.error});
+        } else {
+            
+            yield put({ type: CREATE_TOUR_RESULT, result: result});
+        }
+    } catch(e) {
+            yield put({ type: CREATE_TOUR_ERROR, errors: e.message});
+    }
+}
+
 export default function* rootSaga() {
     yield takeEvery(INITIAL_LOGIN_CHECK, tryInitialLogin)
     yield takeEvery(REGISTER_SUBMIT, tryRegisterUser)
@@ -404,4 +443,7 @@ export default function* rootSaga() {
     yield takeEvery(ACTIVE_RESERVATION_CHECK_TOURIST, tryActiveReservationTourist)
     yield takeEvery(ACTIVE_RESERVATION_CHECK_TOUR_GUIDE, tryActiveReservationTourGuide)
     yield takeEvery(MY_PROFILE_CHECK, tryMyProfile)
+    yield takeEvery(CREATE_TOUR_SUBMIT, tryCreateTours)
+
+
 }

@@ -71,6 +71,7 @@ class UserRole extends Component {
     onLocalPress = () => {
         this.setState({ mode: 'local'})
         this.props.dispatch(pressMyProfile(this.state.authentication_token,this.state.email))
+        
         //this.props.navigation.navigate('MyGuideProfile');
     }
 

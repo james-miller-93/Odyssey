@@ -10,6 +10,41 @@ export default EStyleSheet.create({
     backgroundColor: '#FFF'
 
   },
+//REGISTER
+
+slide: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#9DD6EB',
+    padding: 15,
+  },
+  text: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+
+  slide1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#9DD6EB',
+  },
+  slide2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#97CAE5',
+  },
+  slide3: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#92BBD9',
+  },
+
+
 
 
 //LOGIN
@@ -18,7 +53,7 @@ export default EStyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        backgroundColor: '#5D87A8'
+        backgroundColor: '#5D87A8',
     },
     loginKeyboard: {
         height: '80%',
