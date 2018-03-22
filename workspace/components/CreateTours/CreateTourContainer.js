@@ -13,12 +13,6 @@ const profilePic = require('../Container/profilePic.png');
 
 export default class CreateTourContainer extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-        checked: false
-    };
-  };
 
 	constructor(props) {
         super(props);
@@ -196,16 +190,12 @@ export default class CreateTourContainer extends Component {
   checkedIcon='dot-circle-o'
   uncheckedIcon='circle-o'
   checkedColor='black'
-<<<<<<< HEAD
-  checked={this.state.checked}
-  //onIconPress={() => { this.setState({ checked: !this.state.checked })}}
-  onPress={() => { this.setState({ checked: !this.state.checked })} }
-=======
+
   checked={this.state.nightLifeChecked}
   onPress={()=> { this.setState({ nightLifeChecked: !this.state.nightLifeChecked }); this.props.nightLifePress()}}
   //this.props.nightLife 
   // nightLife = function that would update the 
->>>>>>> dc582c82f5bd3c79757f23d82c1cd6271a0ada7c
+
 />
 <CheckBox
   center
