@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import { View, Text, KeyboardAvoidingView, ImageBackground, Image ,TouchableOpacity} from 'react-native';
+import { View, Text, KeyboardAvoidingView,
+    ImageBackground, Image ,TouchableOpacity,
+    AsyncStorage } from 'react-native';
 import { ButtonText, ButtonContainer} from '../components/Button';
 import styles from '../screens/styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TravelerNotification } from '../components/Notification';
 import Modal from "react-native-modal";
-import { Card } from 'react-native-elements'
+import { Card } from 'react-native-elements';
+import { connect } from 'react-redux';
+
+import { connectAlert } from '../components/Alert';
+
+import { sendLogOutRequest } from '../actions/LogOut';
 
 
-
-export default class Notifications extends Component {
+class Notifications extends Component {
 
 	state = {
     isModalVisible: false
@@ -29,6 +35,40 @@ export default class Notifications extends Component {
         )
     }
 
+    logoutButton() {
+        const { navigate } = this.props.navigation;
+        return (
+            <TouchableOpacity
+            underlayColor="#FFF"
+            onPress={this.handleLogout} >
+                <Text style={styles.settingText}>Logout</Text> 
+            </TouchableOpacity>
+            )
+      }
+
+      async componentDidMount() {
+        let storedToken = await AsyncStorage.getItem('authentication_token')
+        let storedEmail = await AsyncStorage.getItem('email')
+        this.setState( {
+            authentication_token: storedToken,
+            email: storedEmail
+        })
+      };
+
+      componentWillReceiveProps(nextProps) {
+        if (nextProps.logoutError && nextProps.logoutError !== this.props.logoutError) {
+          this.props.alertWithType('error','Error',nextProps.logoutError);
+        } else if(nextProps.logoutResult && nextProps.logoutResult !== this.props.logoutResult) {
+          console.log(nextProps.logoutResult);
+          this.props.navigation.navigate('Login')
+        }
+      }
+
+    handleLogout = () => {
+        this.setState({ isModalVisible: false});
+        this.props.dispatch( sendLogOutRequest(this.state.authentication_token,this.state.email) )
+        //this.props.navigation.navigate('Requests')
+      }
 
    render() {
 
@@ -55,16 +95,29 @@ export default class Notifications extends Component {
                     <View style={styles.border}></View>
                     <Text style={styles.settingText}>Notifications</Text> 
                     <View style={styles.border}></View>
-                    <Text style={styles.settingText}>Logout</Text> 
+                    {this.logoutButton()} 
 
                 </View>
 
             </Modal>
         
           	<View style={{top: 120}}> 
-            <TravelerNotification navigation={this.props.navigation} tourGuideName = {"TOUR GUIDE NAME"} message = {"accepted"} />
-            <TravelerNotification navigation={this.props.navigation} tourGuideName = {"TOUR GUIDE NAME"} message = {"declined"}
-           /> 
+
+                {this.props.reservations.map((data) => {
+                    
+                    return (
+                        <TravelerNotification
+                        key={data.id}
+                        navigation = {this.props.navigation}
+                        handleAcceptPress={this.acceptReservation}
+                        handleDeclinePress={this.declineReservation}
+                        travelerName={''}
+                        message={data.status}
+                        />
+                    )
+            })}
+
+             
            </View>
            
                 
@@ -76,3 +129,21 @@ export default class Notifications extends Component {
     };
 
 };
+
+const mapStateToProps = (state) => {
+    const reservations = state.ActiveReservation.result.reservation;
+    
+    const myID = state.MyProfile.result[0];
+
+    const logoutResult = state.LogOut.result;
+    const logoutError = state.LogOut.errors;
+
+    return {
+        reservations,
+        myID,
+        logoutResult,
+        logoutError
+    }
+}
+
+export default connect(mapStateToProps)(connectAlert(Notifications))

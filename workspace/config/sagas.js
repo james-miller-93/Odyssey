@@ -8,12 +8,18 @@ import { LOGOUT_CHECK, LOGOUT_ERROR, LOGOUT_RESULT } from '../actions/LogOut';
 import { VIEW_PROFILE_CHECK, VIEW_PROFILE_ERROR, VIEW_PROFILE_RESULT } from '../actions/ViewProfile';
 import { RESERVATION_CHECK, RESERVATION_ERROR, RESERVATION_RESULT } from '../actions/Reservation';
 import { ACTIVE_RESERVATION_CHECK_TOUR_GUIDE, ACTIVE_RESERVATION_CHECK_TOURIST,
-     ACTIVE_RESERVATION_ERROR, ACTIVE_RESERVATION_RESULT } from '../actions/ActiveReservation';
+     ACTIVE_RESERVATION_ERROR, ACTIVE_RESERVATION_RESULT,
+    ACTIVE_RESERVATION_ACCEPT, ACTIVE_RESERVATION_DECLINE,
+    ACTIVE_RESERVATION_ACTION_RESULT, ACTIVE_RESERVATION_ACTION_ERROR } from '../actions/ActiveReservation';
 import { MY_PROFILE_CHECK, MY_PROFILE_ERROR, MY_PROFILE_RESULT } from '../actions/MyProfile';
+<<<<<<< HEAD
 import { CREATE_TOUR_SUBMIT, CREATE_TOUR_ERROR, CREATE_TOUR_RESULT } from '../actions/CreateTours';
 
 
 
+=======
+import { VIEW_TOURS_CHECK, VIEW_TOURS_RESULT, VIEW_TOURS_ERROR } from '../actions/ViewTours';
+>>>>>>> 4e7282d94ce338a37660bfb3354203eb71ee9b7d
 
 const postInitialLogin = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/sessions', {
     method: 'GET',
@@ -70,8 +76,8 @@ const deleteLogOut = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/s
     },
     body: ''
 });
-//+action.profileID
-const getProfile = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/travelers/14', {
+//
+const getProfile = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/travelers/'+action.profileID, {
     method: 'GET',
     headers: {
         Accept: 'application/json',
@@ -103,19 +109,19 @@ const getReservationTourist = action => fetch('http://odyssey-api-demo.herokuapp
         'Content-Type': 'application/json',
         'X-Traveler-Token': action.authentication_token,
         'X-Traveler-Email': action.email,
-        'tourist_id': action.ID
+        'id': action.ID
     },
     body: ''
 });
 
-const getReservationTourGuide = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/reservations', {
+const getReservationTourGuide = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/reservations/requests', {
     method: 'GET',
     headers: {
         Accept: 'application/json', 
         'Content-Type': 'application/json',
         'X-Traveler-Token': action.authentication_token,
         'X-Traveler-Email': action.email,
-        'guide_id': action.ID
+        'id': action.ID
     },
     body: ''
 });
@@ -131,8 +137,12 @@ const getMyProfile = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/t
     body: ''
 });
 
+<<<<<<< HEAD
 //still need to get url
 const postTour = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/tours/', {
+=======
+const postAcceptRequest = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/reservations/'+action.reservationID+'/approve', {
+>>>>>>> 4e7282d94ce338a37660bfb3354203eb71ee9b7d
     method: 'POST',
     headers: {
         Accept: 'application/json',
@@ -140,12 +150,49 @@ const postTour = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/tours
         'X-Traveler-Token': action.authentication_token,
         'X-Traveler-Email': action.email,
     },
+<<<<<<< HEAD
     //ask backend
     body: JSON.stringify({
         'tour': action.tourInfo,
     }),
 });
 
+=======
+    body: JSON.stringify({
+        'reservation': {
+            'status': 'Approved'
+        }
+    }),
+});
+
+const postDeclineRequest = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/reservations/'+action.reservationID+'/decline', {
+    method: 'POST',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Traveler-Token': action.authentication_token,
+        'X-Traveler-Email': action.email,
+    },
+    body: JSON.stringify({
+        'reservation': {
+            'status': 'Declined'
+        }
+    }),
+});
+
+const getTours = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/listings', {
+    method: 'GET',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Traveler-Token': action.authentication_token,
+        'X-Traveler-Email': action.email,
+    },
+    body: ''
+});
+
+
+>>>>>>> 4e7282d94ce338a37660bfb3354203eb71ee9b7d
 function* tryInitialLogin(action) {
 
     try {
@@ -412,16 +459,48 @@ function* tryMyProfile(action) {
     }
 }
 
+<<<<<<< HEAD
 function* tryCreateTours(action) {
 
     try {
         
         const response = yield call(postTour, action);
         
+=======
+function* tryAcceptRequest(action) {
+
+    try {
+        
+        const response = yield call(postAcceptRequest, action);
+        console.log('-------------response---------')
+        console.log(response)
         const result = yield response.json();
 
         if (result.error) {
             
+            yield put({ type: ACTIVE_RESERVATION_ACTION_ERROR, actionErrors: result.error});
+        } else {
+            
+            yield put({ type: ACTIVE_RESERVATION_ACTION_RESULT, actionResult: result});
+        }
+    } catch(e) {
+            yield put({ type: ACTIVE_RESERVATION_ACTION_ERROR, actionErrors: e.message});
+    }
+}
+
+function* tryDeclineRequest(action) {
+
+    try {
+        
+        const response = yield call(postDeclineRequest, action);
+        console.log('------response-----------------')
+        console.log(response)
+>>>>>>> 4e7282d94ce338a37660bfb3354203eb71ee9b7d
+        const result = yield response.json();
+
+        if (result.error) {
+            
+<<<<<<< HEAD
             yield put({ type: CREATE_TOUR_ERROR, errors: result.error});
         } else {
             
@@ -429,6 +508,34 @@ function* tryCreateTours(action) {
         }
     } catch(e) {
             yield put({ type: CREATE_TOUR_ERROR, errors: e.message});
+=======
+            yield put({ type: ACTIVE_RESERVATION_ACTION_ERROR, actionErrors: result.error});
+        } else {
+            
+            yield put({ type: ACTIVE_RESERVATION_ACTION_RESULT, actionResult: result});
+        }
+    } catch(e) {
+            yield put({ type: ACTIVE_RESERVATION_ACTION_ERROR, actionErrors: e.message});
+    }
+}
+
+function* tryViewTours(action) {
+
+    try {
+        const response = yield call(getTours, action);
+        
+        const result = yield response.json();
+        
+        if (result.error) {
+            
+            yield put({ type: VIEW_TOURS_ERROR, errors: result.error});
+        } else {
+            
+            yield put({ type: VIEW_TOURS_RESULT, result: result});
+        }
+    } catch(e) {
+            yield put({ type: VIEW_TOURS_ERROR, errors: e.message});
+>>>>>>> 4e7282d94ce338a37660bfb3354203eb71ee9b7d
     }
 }
 
@@ -438,12 +545,18 @@ export default function* rootSaga() {
     yield takeEvery(LOGIN_SUBMIT, tryLoginUser)
     yield takeEvery(TOUR_LOCATION, tryTourList)
     yield takeEvery(LOGOUT_CHECK, tryLogOutUser)
-    yield throttle(1, VIEW_PROFILE_CHECK, tryViewProfile)
+    yield takeEvery(VIEW_PROFILE_CHECK, tryViewProfile)
     yield takeEvery(RESERVATION_CHECK, tryCreateReservation)
     yield takeEvery(ACTIVE_RESERVATION_CHECK_TOURIST, tryActiveReservationTourist)
     yield takeEvery(ACTIVE_RESERVATION_CHECK_TOUR_GUIDE, tryActiveReservationTourGuide)
     yield takeEvery(MY_PROFILE_CHECK, tryMyProfile)
+<<<<<<< HEAD
     yield takeEvery(CREATE_TOUR_SUBMIT, tryCreateTours)
 
 
+=======
+    yield takeEvery(ACTIVE_RESERVATION_ACCEPT, tryAcceptRequest)
+    yield takeEvery(ACTIVE_RESERVATION_DECLINE, tryDeclineRequest)
+    yield takeEvery(VIEW_TOURS_CHECK, tryViewTours)
+>>>>>>> 4e7282d94ce338a37660bfb3354203eb71ee9b7d
 }

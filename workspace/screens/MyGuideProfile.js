@@ -151,12 +151,14 @@ handleRequestPress = () => {
 };
 
 handleNotifications = () => {
+  this.setState({ isModalVisible: false});
   this.props.dispatch(checkActiveReservationTourGuide(this.props.profileID,
     this.state.authentication_token,this.state.email))
-  this.props.navigation.navigate('Requests')
+  //this.props.navigation.navigate('Requests')
 }
 
 handleLogout = () => {
+  this.setState({ isModalVisible: false});
   this.props.dispatch( sendLogOutRequest(this.state.authentication_token,this.state.email) )
   //this.props.navigation.navigate('Requests')
 }
@@ -295,7 +297,7 @@ renderSeparator = () => (
   </View>
 )
 
-renderTours = () => ( 
+renderTours = (tourName,tourDuration,tourDescription,tourKey) => ( 
 
     <View style={styles.sceneContainer}>
 
@@ -324,11 +326,11 @@ renderTours = () => (
           <View style = {styles.tourTextButton}>
             <View style={styles.tourList}>
                 <View style={styles.postRow}>
-                    <Text>Tour Name</Text>
-                    <Text style={styles.date}>{this.props.tourInfo.duration} hours</Text>
+                    <Text> {tourName} </Text>
+                    <Text style={styles.date}>{tourDuration} hours</Text>
                 </View>
                 <View style={styles.wordRow}>
-                    <Text style={styles.wordText}>{this.props.tourInfo.description}</Text>
+                    <Text style={styles.wordText}>{tourDescription}</Text>
                 </View>
                 
             </View>
@@ -353,7 +355,14 @@ renderTours = () => (
             {this.renderSeparator()}
             {this.renderEmail()}
             {this.renderSeparator()}
-            {this.renderTours()}
+            {this.props.tours.map((data) => {
+              
+              return (
+                <View key={data.id} >
+                {this.renderTours(data.title,data.duration,data.description)}
+                </View>
+              )
+            })}
           </Card>
         </View>
       </ScrollView>
@@ -378,6 +387,8 @@ const mapStateToProps = (state) => {
     const logoutResult = state.LogOut.result;
     const logoutError = state.LogOut.errors;
 
+    const tours = state.ViewTours.result.tours;
+
     return {
         profileInfo,
         profileID,
@@ -386,7 +397,8 @@ const mapStateToProps = (state) => {
         reservationResult,
         reservationError,
         logoutResult,
-        logoutError
+        logoutError,
+        tours
     };
 };
 

@@ -43,19 +43,12 @@ export default StackNavigator({
             header: () => null,
         }
     },
+
     MyGuideProfile: {
         screen: MyGuideProfile,
         navigationOptions: {
             header: () => null,
         }
-    },
-
-    Register: {
-        screen: Register,
-         navigationOptions: {
-            header: () => null,
-        }
-        
     },
 
   
@@ -74,13 +67,8 @@ export default StackNavigator({
         }
     },
 
-     MyGuideProfile: {
-        screen: MyGuideProfile,
-        navigationOptions: {
-            header: () => null,
-        }
-    },
     
+
     Requests: {
         screen: Requests,
         navigationOptions: {
@@ -159,12 +147,6 @@ export default StackNavigator({
         },
     },
     
-    Profile: {
-        screen: Profile,
-        navigationOptions: {
-            header: () => null,
-        },
-    },
     
     Register: {
         screen: Register

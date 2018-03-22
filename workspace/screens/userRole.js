@@ -13,6 +13,7 @@ import styles from '../screens/styles';
 
 import { pressMyProfile, setMyProfile } from '../actions/MyProfile';
 import { pressProfileView, clearViewProfile } from '../actions/ViewProfile'
+import { viewTours } from '../actions/ViewTours';
 
 class UserRole extends Component {
 
@@ -53,7 +54,12 @@ class UserRole extends Component {
                 phone_number: res.traveler.phone_number
             }
             this.props.dispatch(setMyProfile(myProfileInfo))
+            this.props.dispatch(viewTours(this.state.authentication_token,this.state.email))
             //this.props.dispatch(clearViewProfile())
+        } else if(nextProps.viewToursError && nextProps.viewToursError !== this.props.viewToursError) {
+            this.props.alertWithType('error','Error',nextProps.viewToursError)
+        } else if(nextProps.viewToursResult && nextProps.viewToursResult !== this.props.viewToursResult) {
+            
             if (this.state.mode === 'traveler') {
                 this.props.navigation.navigate('HomeAlternate');
             } else if (this.state.mode === 'local') {
@@ -111,11 +117,16 @@ const mapStateToProps = (state) => {
     const viewProfileError = state.ViewProfile.errors;
     const viewProfileResult = state.ViewProfile.result;
 
+    const viewToursError = state.ViewTours.errors;
+    const viewToursResult = state.ViewTours.result;
+
     return {
         myProfileError,
         myProfileResult,
         viewProfileError,
-        viewProfileResult
+        viewProfileResult,
+        viewToursError,
+        viewToursResult
     };
 };
 

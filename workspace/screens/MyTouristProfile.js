@@ -22,6 +22,7 @@ import Modal from "react-native-modal";
 import { changeLoginEmailValue, changeLoginPasswordValue,
         pressLoginSubmit, checkInitialLogin,
          cleanLoginErrorLog } from '../actions/Login';
+import { sendLogOutRequest } from '../actions/LogOut';
 
 import { submitNewReservation } from '../actions/Reservation';
 import { checkActiveReservationTourGuide } from '../actions/ActiveReservation';
@@ -45,6 +46,12 @@ class MyTouristProfile extends Component {
         this.props.navigation.navigate('Register');
     };
 
+    handleLogout = () => {
+      this.setState({ isModalVisible: false});
+      this.props.dispatch( sendLogOutRequest(this.state.authentication_token,this.state.email) )
+      //this.props.navigation.navigate('Requests')
+    }
+/*
     profileButton(){
     const { navigate } = this.props.navigation;
     return (
@@ -54,6 +61,17 @@ class MyTouristProfile extends Component {
             <Text style={styles.settingText}>My Profile</Text> 
         </TouchableOpacity>
         )
+    }
+*/
+    logoutButton() {
+      const { navigate } = this.props.navigation;
+      return (
+          <TouchableOpacity
+          underlayColor="#FFF"
+          onPress={this.handleLogout} >
+              <Text style={styles.settingText}>Logout</Text> 
+          </TouchableOpacity>
+          )
     }
 
     notificationsButton(){
@@ -96,6 +114,11 @@ componentWillReceiveProps(nextProps) {
   } else if(nextProps.reservationResult && nextProps.reservationResult !== this.props.reservationResult) {
       console.log(nextProps.reservationResult);
       this.props.navigation.navigate('Requests')
+  } else if (nextProps.logoutError && nextProps.logoutError !== this.props.logoutError) {
+    this.props.alertWithType('error','Error',nextProps.logoutError);
+  } else if(nextProps.logoutResult && nextProps.logoutResult !== this.props.logoutResult) {
+    console.log(nextProps.logoutResult);
+    this.props.navigation.navigate('Login')
   }
 }
   
@@ -153,11 +176,12 @@ handleNotifications = () => {
         >
           <View style={styles.settingWindow}>
                     
-            {this.profileButton()}
+            <Text style={styles.settingText}>My Profile</Text>
             <View style={styles.border}></View>
             {this.notificationsButton()}
             <View style={styles.border}></View>
-            <Text style={styles.settingText}>Logout</Text> 
+            {this.logoutButton()}
+             
 
         </View>
         </Modal>
@@ -304,13 +328,18 @@ const mapStateToProps = (state) => {
     const reservationResult = state.ActiveReservation.result;
     const reservationError = state.ActiveReservation.errors;
 
+    const logoutResult = state.LogOut.result;
+    const logoutError = state.LogOut.errors;
+
     return {
         profileInfo,
         profileID,
         traveler,
         tourInfo,
         reservationResult,
-        reservationError
+        reservationError,
+        logoutError,
+        logoutResult
     };
 };
 

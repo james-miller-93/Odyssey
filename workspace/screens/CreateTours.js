@@ -57,6 +57,8 @@ class CreateTours extends Component {
       this.props.alertWithType('error','Error',nextProps.errors);
   	} else if(nextProps.result && nextProps.result !== this.props.result) {
       console.log(nextProps.result);
+      this.props.navigation.navigate('ManageTours');
+
 
       //what exactly needs to happen here?
   	}
