@@ -16,7 +16,7 @@ import { MY_PROFILE_CHECK, MY_PROFILE_ERROR, MY_PROFILE_RESULT } from '../action
 import { CREATE_TOUR_SUBMIT, CREATE_TOUR_ERROR, CREATE_TOUR_RESULT } from '../actions/CreateTours';
 import { UPDATE_SWITCH_ACTIVE, SWITCH_ACTIVE_ERROR, SWITCH_ACTIVE_RESULT} from '../actions/IsActive';
 
-import { VIEW_TOURS_CHECK, VIEW_TOURS_RESULT, VIEW_TOURS_ERROR } from '../actions/ViewTours';
+import { VIEW_TOURS_CHECK, VIEW_TOURS_RESULT, VIEW_TOURS_ERROR, VIEW_TOURS_DELETE, VIEW_TOURS_DELETE_ERROR, VIEW_TOURS_DELETE_RESULT } from '../actions/ViewTours';
 
 const postInitialLogin = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/sessions', {
     method: 'GET',
@@ -197,10 +197,11 @@ const getTours = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/listi
     body: ''
 });
 
+
 //should it be + {traveler_id} ?
 const updateAvailibility = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/travelers/'+action.id, {
     method: 'PATCH',
-    headers: {
+     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'X-Traveler-Token': action.authentication_token,
@@ -212,6 +213,18 @@ const updateAvailibility = action => fetch('http://odyssey-api-demo.herokuapp.co
         }
     }
 });
+
+const deleteTours = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/tours/'+action.deleteTourID, {
+    method: 'DELETE',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Traveler-Token': action.authentication_token,
+        'X-Traveler-Email': action.email,
+    },
+    body: ''
+});
+
 
 function* tryInitialLogin(action) {
 
@@ -564,15 +577,16 @@ function* tryViewTours(action) {
     }
 }
 
+
 function* tryIsActive(action) {
 
     try {
         const response = yield call(updateAvailibility, action);
-        
         const result = yield response.json();
-        
-        if (result.error) {
+
+         if (result.error) {
             
+
             yield put({ type: SWITCH_ACTIVE_ERROR, errors: result.error});
         } else {
             
@@ -580,6 +594,28 @@ function* tryIsActive(action) {
         }
     } catch(e) {
             yield put({ type: SWITCH_ACTIVE_ERROR, errors: e.message});
+    }
+}
+        
+
+function* tryDeleteTours(action) {
+
+    try {
+        const response = yield call(deleteTours, action);
+        console.log('--------response--------')
+        console.log(response)
+
+        const result = yield response.json();
+        
+        if (result.error) {
+
+            yield put({ type: VIEW_TOURS_DELETE_ERROR, deleteTourErrors: result.error});
+        } else {
+            
+            yield put({ type: VIEW_TOURS_DELETE_RESULT, deleteTourResult: result});
+        }
+    } catch(e) {
+            yield put({ type: VIEW_TOURS_DELETE_ERROR, deleteTourErrors: e.message});
     }
 }
 
@@ -599,4 +635,6 @@ export default function* rootSaga() {
     yield takeEvery(ACTIVE_RESERVATION_DECLINE, tryDeclineRequest)
     yield takeEvery(VIEW_TOURS_CHECK, tryViewTours)
     yield takeEvery(UPDATE_SWITCH_ACTIVE, tryIsActive)
+    yield takeEvery(VIEW_TOURS_DELETE, tryDeleteTours)
+
 }

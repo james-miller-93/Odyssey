@@ -15,13 +15,14 @@ import {editTours} from '../../actions/CreateTours';
 import { connectAlert } from '../../components/Alert';
 
 import styles from './styles';
+import { deleteTours, viewTours } from '../../actions/ViewTours';
 
 const profilePic = require('../Container/profilePic.png');
 const tour2 = require('../../assets/images/tour2.jpeg');
 
 class ManageToursContainer extends Component {
 
-
+    
     deleteAlert = () => {
 
       return (
@@ -68,9 +69,12 @@ class ManageToursContainer extends Component {
               if(nextProps.tourInfo && nextProps.tourInfo !== this.props.tourInfo) {
                     this.props.navigation.navigate('CreateTours');
               //if success
-              } 
-            
-               
+              } else if (nextProps.deleteError && nextProps.deleteError !== this.props.deleteError) {
+                this.props.alertWithType('error','Error',nextProps.deleteError);
+            } else if(nextProps.deleteResult && nextProps.deleteResult !== this.props.deleteResult) {
+                this.props.dispatch(viewTours(this.props.authentication_token,this.props.email))
+            }
+                          
             
             }         
 
@@ -112,7 +116,11 @@ class ManageToursContainer extends Component {
        				<TouchableOpacity style= {styles.deletePress} onPress = {() => this.deleteAlert()} >
    					<Icon2
         			name="delete"
-       				style={styles.deleteIcon} size={25} />
+                       style={styles.deleteIcon} size={25}
+                       onPress={() => {
+                           this.props.dispatch(deleteTours(this.props.token,this.props.email,data.id))
+                       }}
+                       />
    					</TouchableOpacity>
 
                 <Text style={styles.date}>{data.duration} hours</Text>
@@ -145,13 +153,21 @@ class ManageToursContainer extends Component {
 
 const mapStateToProps = (state) => {
 
+    const token = state.ViewTours.authentication_token;
+
     const tours = state.ViewTours.result.tours;
+    const deleteError = state.ViewTours.deleteTourErrors;
+    const deleteResult = state.ViewTours.deleteTourResult;
+
     const authentication_token = state.ViewTours.authentication_token;
     const email = state.ViewTours.email;
     const tourInfo = state.CreateTours.tourInfo;
 
-
     return {
+        token,
+        tours,
+        deleteError,
+        deleteResult,
         tours,
         email,
         authentication_token,
