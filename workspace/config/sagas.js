@@ -14,7 +14,7 @@ import { ACTIVE_RESERVATION_CHECK_TOUR_GUIDE, ACTIVE_RESERVATION_CHECK_TOURIST,
 import { MY_PROFILE_CHECK, MY_PROFILE_ERROR, MY_PROFILE_RESULT } from '../actions/MyProfile';
 
 import { CREATE_TOUR_SUBMIT, CREATE_TOUR_ERROR, CREATE_TOUR_RESULT } from '../actions/CreateTours';
-
+import { UPDATE_SWITCH_ACTIVE, SWITCH_ACTIVE_ERROR, SWITCH_ACTIVE_RESULT} from '../actions/IsActive';
 
 import { VIEW_TOURS_CHECK, VIEW_TOURS_RESULT, VIEW_TOURS_ERROR } from '../actions/ViewTours';
 
@@ -28,6 +28,8 @@ const postInitialLogin = action => fetch('http://odyssey-api-demo.herokuapp.com/
     },
     body: ''
 });
+
+
 
 const postRegister = traveler => fetch('http://odyssey-api-demo.herokuapp.com/v1/travelers', {
     method: 'POST',
@@ -195,6 +197,21 @@ const getTours = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/listi
     body: ''
 });
 
+//should it be + {traveler_id} ?
+const updateAvailibility = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/travelers/'+action.id, {
+    method: 'PATCH',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Traveler-Token': action.authentication_token,
+        'X-Traveler-Email': action.email,
+    },
+    body: {
+    "traveler": {
+        'active': action.active,
+        }
+    }
+});
 
 function* tryInitialLogin(action) {
 
@@ -547,6 +564,25 @@ function* tryViewTours(action) {
     }
 }
 
+function* tryIsActive(action) {
+
+    try {
+        const response = yield call(updateAvailibility, action);
+        
+        const result = yield response.json();
+        
+        if (result.error) {
+            
+            yield put({ type: SWITCH_ACTIVE_ERROR, errors: result.error});
+        } else {
+            
+            yield put({ type: SWITCH_ACTIVE_RESULT, result: result});
+        }
+    } catch(e) {
+            yield put({ type: SWITCH_ACTIVE_ERROR, errors: e.message});
+    }
+}
+
 export default function* rootSaga() {
     yield takeEvery(INITIAL_LOGIN_CHECK, tryInitialLogin)
     yield takeEvery(REGISTER_SUBMIT, tryRegisterUser)
@@ -562,4 +598,5 @@ export default function* rootSaga() {
     yield takeEvery(ACTIVE_RESERVATION_ACCEPT, tryAcceptRequest)
     yield takeEvery(ACTIVE_RESERVATION_DECLINE, tryDeclineRequest)
     yield takeEvery(VIEW_TOURS_CHECK, tryViewTours)
+    yield takeEvery(UPDATE_SWITCH_ACTIVE, tryIsActive)
 }
