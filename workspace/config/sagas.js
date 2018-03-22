@@ -18,7 +18,6 @@ import { CREATE_TOUR_SUBMIT, CREATE_TOUR_ERROR, CREATE_TOUR_RESULT } from '../ac
 
 import { VIEW_TOURS_CHECK, VIEW_TOURS_RESULT, VIEW_TOURS_ERROR } from '../actions/ViewTours';
 
-
 const postInitialLogin = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/sessions', {
     method: 'GET',
     headers: {
@@ -146,7 +145,6 @@ const postTour = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/tours
         'X-Traveler-Token': action.authentication_token,
         'X-Traveler-Email': action.email,
     },
-
     //ask backend
     body: JSON.stringify({
         'tour': action.tourInfo,
@@ -482,7 +480,7 @@ function* tryCreateTours(action) {
         }
     } catch(e) {
             yield put({ type: CREATE_TOUR_ERROR, errors: e.message});
-}
+    }
 }
 
         
@@ -515,10 +513,11 @@ function* tryDeclineRequest(action) {
         const response = yield call(postDeclineRequest, action);
         console.log('------response-----------------')
         console.log(response)
+
         const result = yield respones.json();
 
         if (result.error) {
-        
+
             yield put({ type: ACTIVE_RESERVATION_ACTION_ERROR, actionErrors: result.error});
         } else {
             
@@ -545,7 +544,6 @@ function* tryViewTours(action) {
         }
     } catch(e) {
             yield put({ type: VIEW_TOURS_ERROR, errors: e.message});
-
     }
 }
 
@@ -564,5 +562,4 @@ export default function* rootSaga() {
     yield takeEvery(ACTIVE_RESERVATION_ACCEPT, tryAcceptRequest)
     yield takeEvery(ACTIVE_RESERVATION_DECLINE, tryDeclineRequest)
     yield takeEvery(VIEW_TOURS_CHECK, tryViewTours)
-
 }

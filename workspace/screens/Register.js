@@ -9,7 +9,7 @@ import { Errors } from '../components/Errors';
 import styles from '../screens/styles';
 import { SignUpContainer} from '../components/Container';
 import { connectAlert } from '../components/Alert';
-import Swiper from 'react-native-swiper';
+//import Swiper from 'react-native-swiper';
 
 import { changeRegisterFirstNameValue, changeRegisterLastNameValue, changeRegisterEmailValue,
         changeRegisterPasswordValue, changeRegisterPasswordConfirmationValue,

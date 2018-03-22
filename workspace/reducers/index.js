@@ -27,5 +27,4 @@ export default combineReducers({
     MyProfile,
     CreateTours,
     ViewTours
-
 });

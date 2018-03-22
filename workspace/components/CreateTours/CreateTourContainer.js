@@ -190,12 +190,10 @@ export default class CreateTourContainer extends Component {
   checkedIcon='dot-circle-o'
   uncheckedIcon='circle-o'
   checkedColor='black'
-
   checked={this.state.nightLifeChecked}
   onPress={()=> { this.setState({ nightLifeChecked: !this.state.nightLifeChecked }); this.props.nightLifePress()}}
   //this.props.nightLife 
   // nightLife = function that would update the 
-
 />
 <CheckBox
   center
