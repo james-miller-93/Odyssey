@@ -8,7 +8,7 @@ import { Errors } from '../components/Errors';
 import styles from '../screens/styles';
 import { CreateTourContainer } from '../components/CreateTours';
 import { connectAlert } from '../components/Alert';
-import { createTourSubmit, createTourResult} from '../actions/CreateTours';
+import { createTourSubmit, createTourResult, editTourSubmit} from '../actions/CreateTours';
 import {viewTours} from '../actions/ViewTours';
 
 
@@ -24,7 +24,7 @@ class CreateTours extends Component {
 			    title: this.props.tourInfo.title,
 			    duration: this.props.tourInfo.duration,
 			    description: this.props.tourInfo.description,
-			    tourID: '',
+			    tourID: this.props.tourInfo.tourID,
 			 	max_persons: this.props.tourInfo.max_persons,
 			 	is_daytrip: false,
 		        is_foodie: false,
@@ -39,8 +39,12 @@ class CreateTours extends Component {
     }
 
     handleSubmitPress = () => {
-        this.props.dispatch(createTourSubmit(this.state.authentication_token,this.state.email,this.state.tourInfo))
-        //this.props.dispatch(clearErrorLog())
+		if (this.props.tourMode === 'create') {
+        	this.props.dispatch(createTourSubmit(this.state.authentication_token,this.state.email,this.state.tourInfo))
+		//this.props.dispatch(clearErrorLog())
+		} else if (this.props.tourMode === 'edit') {
+			this.props.dispatch(editTourSubmit(this.state.authentication_token,this.state.email,this.state.tourInfo))
+		}
     };
 
      async componentDidMount() {
@@ -258,7 +262,8 @@ const mapStateToProps = (state) => {
 	const errors = state.CreateTours.errors;
     const result = state.CreateTours.result;
      const viewToursError = state.ViewTours.errors;
-    const viewToursResult = state.ViewTours.result;
+	const viewToursResult = state.ViewTours.result;
+	const tourMode = state.CreateTours.mode;
 
 
     return {
@@ -267,7 +272,8 @@ const mapStateToProps = (state) => {
         errors,
         result,
         viewToursError,
-        viewToursResult,
+		viewToursResult,
+		tourMode
     };
 };
 

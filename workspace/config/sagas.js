@@ -13,7 +13,7 @@ import { ACTIVE_RESERVATION_CHECK_TOUR_GUIDE, ACTIVE_RESERVATION_CHECK_TOURIST,
     ACTIVE_RESERVATION_ACTION_RESULT, ACTIVE_RESERVATION_ACTION_ERROR } from '../actions/ActiveReservation';
 import { MY_PROFILE_CHECK, MY_PROFILE_ERROR, MY_PROFILE_RESULT } from '../actions/MyProfile';
 
-import { CREATE_TOUR_SUBMIT, CREATE_TOUR_ERROR, CREATE_TOUR_RESULT } from '../actions/CreateTours';
+import { CREATE_TOUR_SUBMIT, CREATE_TOUR_ERROR, CREATE_TOUR_RESULT, EDIT_TOUR_SUBMIT } from '../actions/CreateTours';
 
 
 import { VIEW_TOURS_CHECK, VIEW_TOURS_RESULT, VIEW_TOURS_ERROR, VIEW_TOURS_DELETE, VIEW_TOURS_DELETE_ERROR, VIEW_TOURS_DELETE_RESULT } from '../actions/ViewTours';
@@ -139,6 +139,21 @@ const getMyProfile = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/t
 const postTour = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/tours/', {
 
      method: 'POST',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Traveler-Token': action.authentication_token,
+        'X-Traveler-Email': action.email,
+    },
+    //ask backend
+    body: JSON.stringify({
+        'tour': action.tourInfo,
+    }),
+});
+
+const patchTour = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/tours/'+action.tourInfo.tourID, {
+
+     method: 'PATCH',
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -494,6 +509,30 @@ function* tryCreateTours(action) {
     }
 }
 
+function* tryEditTours(action) {
+
+    try {
+        
+        const response = yield call(patchTour, action);
+        console.log('========action.tourInfo========')
+        console.log(action.tourInfo)
+        console.log('=========response=======')
+        console.log(response)
+        const result = yield response.json();
+
+        if (result.error) {
+            
+
+            yield put({ type: CREATE_TOUR_ERROR, errors: result.error});
+        } else {
+            
+            yield put({ type: CREATE_TOUR_RESULT, result: result});
+        }
+    } catch(e) {
+            yield put({ type: CREATE_TOUR_ERROR, errors: e.message});
+    }
+}
+
         
 
 function* tryAcceptRequest(action) {
@@ -590,6 +629,7 @@ export default function* rootSaga() {
     yield takeEvery(ACTIVE_RESERVATION_CHECK_TOUR_GUIDE, tryActiveReservationTourGuide)
     yield takeEvery(MY_PROFILE_CHECK, tryMyProfile)
     yield takeEvery(CREATE_TOUR_SUBMIT, tryCreateTours)
+    yield takeEvery(EDIT_TOUR_SUBMIT, tryEditTours)
     yield takeEvery(ACTIVE_RESERVATION_ACCEPT, tryAcceptRequest)
     yield takeEvery(ACTIVE_RESERVATION_DECLINE, tryDeclineRequest)
     yield takeEvery(VIEW_TOURS_CHECK, tryViewTours)

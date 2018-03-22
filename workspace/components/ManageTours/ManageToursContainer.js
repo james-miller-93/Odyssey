@@ -10,7 +10,7 @@ import { TimeDate, OneDateTime } from '../TimeDate';
 import HideableView from 'react-native-hideable-view';
 import { Calendar } from 'react-native-calendars';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import {editTours} from '../../actions/CreateTours';
+import {editTours, tourMode} from '../../actions/CreateTours';
 
 import { connectAlert } from '../../components/Alert';
 
@@ -22,24 +22,59 @@ const tour2 = require('../../assets/images/tour2.jpeg');
 
 class ManageToursContainer extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            tourID: ''
+        }
+    }
+
     
-    deleteAlert = () => {
+    deleteAlert = (tourID) => {
 
       return (
             Alert.alert(
             'Are you sure you want to delete this tour?',
             'You cannot undo this action.',
             [
-                {text: 'Delete', onPress: () => console.log('delete pressed') },//this.props.dispatch(deleteTours(this.props.token,this.props.email,data.id) },
+                {text: 'Delete', onPress: () => this.props.dispatch(deleteTours(this.props.token,this.props.email,tourID)) },
                 {text: 'Cancel', onPress: () => console.log('Cancel pressed'), style: 'cancel'},
                 
             ],
             { cancelable: false }
             )
-      )
+             
+        )
+    }
+
+    renderCreateInfo = () => {
+
+        this.props.dispatch(tourMode('create'))
+
+        const tourInfo = {
+                 
+            city: '',
+            title: '',
+            duration: '',
+            description: '',
+            tourID: '',
+            max_persons: '',
+            is_daytrip: false,
+            is_foodie: false,
+            is_landmarks: false,
+            is_museums: false,
+            is_nightlife: false,
+            is_outdoors: false, 
+            price: '',
+        }
+
+        this.props.dispatch(editTours(tourInfo))
+
     }
 
     renderOldInfo = (data) => {
+
+            this.props.dispatch(tourMode('edit'))
       
           console.log("here");
 
@@ -90,7 +125,8 @@ class ManageToursContainer extends Component {
    	<Icon3
         name="plus"
         style={styles.plusIcon} size={65} 
-        onPress={()=> {this.props.navigation.navigate('CreateTours');}} />
+        onPress={this.renderCreateInfo}
+         />
 
    	</TouchableOpacity>
     </View>
@@ -113,13 +149,11 @@ class ManageToursContainer extends Component {
               
 
        				</TouchableOpacity>
-       				<TouchableOpacity style= {styles.deletePress} onPress = {() => this.deleteAlert()} >
+       				<TouchableOpacity style= {styles.deletePress} onPress = {() => this.deleteAlert(data.id)} >
    					<Icon2
         			name="delete"
                        style={styles.deleteIcon} size={25}
-                       onPress={() => {
-                           this.props.dispatch(deleteTours(this.props.token,this.props.email,data.id))
-                       }}
+                       //onPress={() => { this.setState({ tourID: data.id })}}
                        />
    					</TouchableOpacity>
 

@@ -1,10 +1,11 @@
-import { CREATE_TOUR_SUBMIT, CREATE_TOUR_ERROR, CREATE_TOUR_RESULT, EDIT_TOUR} from '../actions/CreateTours';
+import { CREATE_TOUR_SUBMIT, CREATE_TOUR_ERROR, CREATE_TOUR_RESULT, EDIT_TOUR, TOUR_MODE} from '../actions/CreateTours';
 
 
 const initialState = {
 	email: '',
 	authentication_token: '',
-	result: '',
+    result: '',
+    mode: '',
 	errors: '',
 	tourInfo: {
 	    city: '',
@@ -46,11 +47,15 @@ switch(action.type) {
             result: action.result
         }
     case EDIT_TOUR:
-    return {
-        ...state,
-        tourInfo: action.tourInfo
+        return {
+            ...state,
+            tourInfo: action.tourInfo
     }
-    
+    case TOUR_MODE:
+        return {
+            ...state,
+            mode: action.mode
+        }
     default:
         return state;
 }
