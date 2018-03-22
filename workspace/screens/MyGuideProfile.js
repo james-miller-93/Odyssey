@@ -122,7 +122,7 @@ ShowAlert = (value) =>{
     //TODO: need to add a dispatch and change the is_active value to false
   }
 
-  this.props.dispatch(isActiveUpdate(this.state.authentication_token,this.state.email,this.props.active))
+  this.props.dispatch(isActiveUpdate(this.state.authentication_token,this.state.email,value,this.props.profileID))
  
 }
 

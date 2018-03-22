@@ -21,7 +21,8 @@ switch(action.type) {
             //maybe without the email/token
             email: action.email,
             authentication_token: action.authentication_token,
-            active: action.active
+            active: action.active,
+            id: action.id,
         }
     case ACTIVE_SWITCH_ERROR:
         return {

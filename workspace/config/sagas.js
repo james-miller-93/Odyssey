@@ -14,7 +14,7 @@ import { ACTIVE_RESERVATION_CHECK_TOUR_GUIDE, ACTIVE_RESERVATION_CHECK_TOURIST,
 import { MY_PROFILE_CHECK, MY_PROFILE_ERROR, MY_PROFILE_RESULT } from '../actions/MyProfile';
 
 import { CREATE_TOUR_SUBMIT, CREATE_TOUR_ERROR, CREATE_TOUR_RESULT } from '../actions/CreateTours';
-import { UPDATE_SWITCH_ACTIVE, SWITCH_ACTIVE_ERROR, SWITCH_ACTIVE_RESULT} from '../actions/IsActive';
+import { UPDATE_ACTIVE_SWITCH, ACTIVE_SWITCH_ERROR, ACTIVE_SWITCH_RESULT} from '../actions/IsActive';
 
 import { VIEW_TOURS_CHECK, VIEW_TOURS_RESULT, VIEW_TOURS_ERROR, VIEW_TOURS_DELETE, VIEW_TOURS_DELETE_ERROR, VIEW_TOURS_DELETE_RESULT } from '../actions/ViewTours';
 
@@ -207,11 +207,11 @@ const updateAvailibility = action => fetch('http://odyssey-api-demo.herokuapp.co
         'X-Traveler-Token': action.authentication_token,
         'X-Traveler-Email': action.email,
     },
-    body: {
+    body: JSON.stringify({
     "traveler": {
         'active': action.active,
         }
-    }
+    })
 });
 
 const deleteTours = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/tours/'+action.deleteTourID, {
@@ -582,18 +582,20 @@ function* tryIsActive(action) {
 
     try {
         const response = yield call(updateAvailibility, action);
+      
         const result = yield response.json();
 
+   
          if (result.error) {
             
 
-            yield put({ type: SWITCH_ACTIVE_ERROR, errors: result.error});
+            yield put({ type: ACTIVE_SWITCH_ERROR, errors: result.error});
         } else {
             
-            yield put({ type: SWITCH_ACTIVE_RESULT, result: result});
+            yield put({ type: ACTIVE_SWITCH_RESULT, result: result});
         }
     } catch(e) {
-            yield put({ type: SWITCH_ACTIVE_ERROR, errors: e.message});
+            yield put({ type: ACTIVE_SWITCH_ERROR, errors: e.message});
     }
 }
         
@@ -634,7 +636,7 @@ export default function* rootSaga() {
     yield takeEvery(ACTIVE_RESERVATION_ACCEPT, tryAcceptRequest)
     yield takeEvery(ACTIVE_RESERVATION_DECLINE, tryDeclineRequest)
     yield takeEvery(VIEW_TOURS_CHECK, tryViewTours)
-    yield takeEvery(UPDATE_SWITCH_ACTIVE, tryIsActive)
+    yield takeEvery(UPDATE_ACTIVE_SWITCH, tryIsActive)
     yield takeEvery(VIEW_TOURS_DELETE, tryDeleteTours)
 
 }
