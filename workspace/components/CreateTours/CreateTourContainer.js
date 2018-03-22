@@ -20,6 +20,18 @@ export default class CreateTourContainer extends Component {
     };
   };
 
+	constructor(props) {
+        super(props);
+        this.state = {
+        	nightLifeChecked: false,
+        	foodChecked: false,
+        	daytripChecked: false,
+        	museumsChecked: false,
+        	outdoorsChecked: false,
+        	landmarksChecked: false,
+        }
+}
+
     render() {
       //const { navigate } = this.props.navigation;
     	return (
@@ -37,7 +49,7 @@ export default class CreateTourContainer extends Component {
                          
                           <TouchableOpacity
                           style={styles.generalSave}
-                          //onPress={this.props.handleDeclinePress}
+                          onPress={this.props.handleSavePress}
 
                           >
 
@@ -55,10 +67,11 @@ export default class CreateTourContainer extends Component {
             <View style={styles.tourName}> 
             	<TextInput
             	style={styles.generalTextInput}
+            	defaultValue= {this.props.oldName}
 	            placeholder="TOUR NAME"
 	            placeholderTextColor={'#C0C0C0'}
 	            //secureTextEntry={this.props.secure}
-	            onChangeText={this.props.handleTextChange}
+	            onChangeText={this.props.name}
 	            adjustsFontSizeToFit
             />
             </View>
@@ -67,10 +80,11 @@ export default class CreateTourContainer extends Component {
             <View style={styles.location}>
             <TextInput
             style={styles.generalTextInput}
-            placeholder="LOCATION"
+            defaultValue={this.props.oldLocation}
             placeholderTextColor={'#C0C0C0'}
+            placeholder="LOCATION"
             //secureTextEntry={this.props.secure}
-            onChangeText={this.props.handleTextChange}
+            onChangeText={this.props.location}
             adjustsFontSizeToFit
             />
             </View>
@@ -87,10 +101,10 @@ export default class CreateTourContainer extends Component {
             <View style={styles.textInputContainer}>
             <TextInput
             style={styles.aboutText}
-            placeholder={this.props.oldValue}
+            defaultValue={this.props.oldDescription}
             placeholderTextColor={'#000'}
             //secureTextEntry={this.props.secure}
-            onChangeText={this.props.handleTextChange}
+            onChangeText={this.props.description}
             adjustsFontSizeToFit
             editable= {true}
             />
@@ -119,10 +133,10 @@ export default class CreateTourContainer extends Component {
             <View style={styles.textInputContainer}>
             <TextInput
             style={[styles.generalTextInput , {width: 150}]}
-            placeholder={this.props.oldValue}
+            defaultValue={this.props.oldMaxPeople}
             placeholderTextColor={'#FFFFFF'}
             //secureTextEntry={this.props.secure}
-            onChangeText={this.props.handleTextChange}
+            onChangeText={this.props.maxPeople}
             adjustsFontSizeToFit
             />
             </View>
@@ -130,10 +144,10 @@ export default class CreateTourContainer extends Component {
             <View style={styles.textInputContainer}>
             <TextInput
             style={[styles.generalTextInput , {width: 240}]}
-            placeholder={this.props.oldValue}
+            defaultValue={this.props.oldLanguages}
             placeholderTextColor={'#FFFFFF'}
             //secureTextEntry={this.props.secure}
-            onChangeText={this.props.handleTextChange}
+            onChangeText={this.props.languages}
             adjustsFontSizeToFit
             />
             </View>
@@ -141,31 +155,23 @@ export default class CreateTourContainer extends Component {
             <View style={styles.textInputContainer}>
             <TextInput
             style={[styles.generalTextInput , {width: 150}]}
-            placeholder={this.props.oldValue}
+            defaultValue={this.props.oldDuration}
             placeholderTextColor={'#FFFFFF'}
             //secureTextEntry={this.props.secure}
-            onChangeText={this.props.handleTextChange}
+            onChangeText={this.props.duration}
             adjustsFontSizeToFit
             />
             </View>
 
-            <View style={[styles.textInputContainer, {flexDirection: 'row'} ]}>
-            <TextInput
-            style={[styles.generalTextInput , {width: 90, fontSize: 15}]}
-            placeholder='Currency'
-            placeholderTextColor={'#C0C0C0'}
-            //secureTextEntry={this.props.secure}
-            onChangeText={this.props.handleTextChange}
-            adjustsFontSizeToFit
-            />
+       
           	
             <Text>  </Text>
             <TextInput
             style={[styles.generalTextInput , {width: 90, fontSize: 15}]}
-            placeholder="Amount"
+            defaultValue={this.props.oldPrice}
             placeholderTextColor={'#C0C0C0'}
             //secureTextEntry={this.props.secure}
-            onChangeText={this.props.handleTextChange}
+            onChangeText={this.props.price}
             adjustsFontSizeToFit
             />
             </View>
@@ -173,7 +179,7 @@ export default class CreateTourContainer extends Component {
         </View>
 
       
- </View>
+
 
 <View style={[styles.personalInfoContainer, {marginBottom:10}]}>
             <Text style={styles.personalInfo}>
@@ -182,7 +188,7 @@ export default class CreateTourContainer extends Component {
             </View>
 
      <View style={{flexDirection: 'row'}}>
-     <CheckBox
+  <CheckBox
   center
   title='Nightlife'
   iconRight
@@ -190,9 +196,16 @@ export default class CreateTourContainer extends Component {
   checkedIcon='dot-circle-o'
   uncheckedIcon='circle-o'
   checkedColor='black'
+<<<<<<< HEAD
   checked={this.state.checked}
   //onIconPress={() => { this.setState({ checked: !this.state.checked })}}
   onPress={() => { this.setState({ checked: !this.state.checked })} }
+=======
+  checked={this.state.nightLifeChecked}
+  onPress={()=> { this.setState({ nightLifeChecked: !this.state.nightLifeChecked }); this.props.nightLifePress()}}
+  //this.props.nightLife 
+  // nightLife = function that would update the 
+>>>>>>> dc582c82f5bd3c79757f23d82c1cd6271a0ada7c
 />
 <CheckBox
   center
@@ -202,12 +215,13 @@ export default class CreateTourContainer extends Component {
   checkedIcon='dot-circle-o'
   uncheckedIcon='circle-o'
   checkedColor='black'
-  //checked={this.state.checked}
+  checked={this.state.foodChecked}
+  onPress={()=> { this.setState({ foodChecked: !this.state.foodChecked }); this.props.foodPress()}}
 />
 	
  </View>
  <View style={{flexDirection: 'row'}}>
-     <CheckBox
+  <CheckBox
   center
   title='Museums'
   iconRight
@@ -215,7 +229,8 @@ export default class CreateTourContainer extends Component {
   checkedIcon='dot-circle-o'
   uncheckedIcon='circle-o'
   checkedColor='black'
-  //checked={this.state.checked}
+  checked={this.state.museumsChecked}
+  onPress={()=> { this.setState({ museumsChecked: !this.state.museumsChecked }); this.props.museumsPress()}}
 />
 <CheckBox
   center
@@ -225,7 +240,8 @@ export default class CreateTourContainer extends Component {
   checkedIcon='dot-circle-o'
   uncheckedIcon='circle-o'
   checkedColor='black'
-  //checked={this.state.checked}
+  checked={this.state.outdoorsChecked}
+  onPress={()=> { this.setState({ outdoorsChecked: !this.state.outdoorsChecked }); this.props.outdoorsPress()}}
 />
 
 
@@ -239,8 +255,9 @@ export default class CreateTourContainer extends Component {
   checkedIcon='dot-circle-o'
   uncheckedIcon='circle-o'
   checkedColor='black'
-  //checked={this.state.checked}
-/>
+  checked={this.state.landmarksChecked}
+  onPress={()=> { this.setState({ landmarksChecked: !this.state.landmarksChecked }); this.props.landmarksPress()}}
+  /> 
      <CheckBox
   center
   title='Daytrip'
@@ -249,7 +266,8 @@ export default class CreateTourContainer extends Component {
   checkedIcon='dot-circle-o'
   uncheckedIcon='circle-o'
   checkedColor='black'
-  //checked={this.state.checked}
+  checked={this.state.daytripChecked}
+  onPress={()=> { this.setState({ daytripChecked: !this.state.daytripChecked }); this.props.daytripPress()}}
 />
  </View>
 

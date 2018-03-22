@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, TouchableWithoutFeedback, Button, View, ScrollView, Platform, ListView, Linking, Image, Text, KeyboardAvoidingView, ImageBackground, AsyncStorage } from 'react-native';
+import { Alert, Switch, TouchableOpacity, TouchableWithoutFeedback, Button, View, ScrollView, Platform, ListView, Linking, Image, Text, KeyboardAvoidingView, ImageBackground, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, Icon as Icon1} from 'react-native-elements'
 import { Container } from '../components/Container';
@@ -10,7 +10,7 @@ import styles from '../screens/styles';
 import { UserProfileContainer } from '../components/Container';
 import { connectAlert } from '../components/Alert';
 import { TimeDate, OneDateTime } from '../components/TimeDate';
-
+//import { Switch } from 'react-native-switch';
 
 import HideableView from 'react-native-hideable-view';
 import { Calendar } from 'react-native-calendars';
@@ -91,10 +91,35 @@ constructor(props) {
       authentication_token: '',
       email: '',
       isModalVisible: false
+
       //dateSubmit: '',
       //timeSubmit: '',
   };
 };
+
+ShowAlert = (value) =>{
+ 
+  this.setState({
+ 
+    SwitchOnValueHolder: value
+  })
+ 
+  if(value === true)
+  {
+ 
+    //Perform any task here which you want to execute on Switch ON event.
+    Alert.alert("You are now active!");
+    //TODO: need to add a dispatch and change the is_active value to true
+    //dispatch(nameOfFunc(this.state.authentication_token,this.state.email,value)) 
+  }
+  else{
+ 
+    //Perform any task here which you want to execute on Switch OFF event.
+    Alert.alert("You are no longer active.");
+    //TODO: need to add a dispatch and change the is_active value to false
+  }
+ 
+}
 
 async componentDidMount() {
   let storedToken = await AsyncStorage.getItem('authentication_token')
@@ -276,12 +301,23 @@ renderTours = (tourName,tourDuration,tourDescription,tourKey) => (
 
     <View style={styles.sceneContainer}>
 
-    <TouchableOpacity style={{ height: 25, width: 30, right: 10, position: 'absolute'}}
+    <View style={{flexDirection: 'row', top : 20, height: 35, width: '100%'}}>
+    <Text style={{marginLeft: 20, fontSize: 17, top: 5}}> Are you ready to give tours? </Text> 
+    
+    <Switch
+    onValueChange={(value) => this.ShowAlert(value)} 
+    value={this.state.SwitchOnValueHolder}
+    style={{height: 30, width: 52, right: 7, position: 'absolute'}}
+    />
+
+    </View>
+    <View>
+    <TouchableOpacity style={{ top: 15, height: 25, width: 30, right: 10, position: 'absolute'}}
          underlayColor="#FFF">
             <Icon2 name="dots-three-horizontal" style={styles.settingsIcon} size={25} 
             onPress={()=> {this.props.navigation.navigate('ManageTours');}} />
          </TouchableOpacity>
-
+    </View>
 
 <View style={{padding: 10}}/>
 

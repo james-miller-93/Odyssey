@@ -29,13 +29,21 @@ export default StackNavigator({
             header: () => null,
         }
     },*/
+
     Loading: {
         screen: Loading,
         navigationOptions: {
             header: () => null
         }
     },
-    
+
+      CreateTours: {
+        screen: CreateTours,
+        navigationOptions: {
+            header: () => null,
+        }
+    },
+
     MyGuideProfile: {
         screen: MyGuideProfile,
         navigationOptions: {
@@ -43,12 +51,9 @@ export default StackNavigator({
         }
     },
 
-    CreateTours: {
-        screen: CreateTours,
-        navigationOptions: {
-            header: () => null,
-        }
-    },
+  
+
+  
     ManageTours: {
         screen: ManageTours,
         navigationOptions: {
@@ -62,12 +67,6 @@ export default StackNavigator({
         }
     },
 
-     MyGuideProfile: {
-        screen: MyGuideProfile,
-        navigationOptions: {
-            header: () => null,
-        }
-    },
     
 
     Requests: {
@@ -148,12 +147,6 @@ export default StackNavigator({
         },
     },
     
-    Profile: {
-        screen: Profile,
-        navigationOptions: {
-            header: () => null,
-        },
-    },
     
     Register: {
         screen: Register

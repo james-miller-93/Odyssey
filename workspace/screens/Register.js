@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, KeyboardAvoidingView, ImageBackground } from 'react-native';
+import { Button,View, Text, KeyboardAvoidingView, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Container } from '../components/Container';
@@ -9,6 +9,7 @@ import { Errors } from '../components/Errors';
 import styles from '../screens/styles';
 import { SignUpContainer} from '../components/Container';
 import { connectAlert } from '../components/Alert';
+import Swiper from 'react-native-swiper';
 
 import { changeRegisterFirstNameValue, changeRegisterLastNameValue, changeRegisterEmailValue,
         changeRegisterPasswordValue, changeRegisterPasswordConfirmationValue,
@@ -69,12 +70,8 @@ class Register extends Component {
             this.setState({errors: errorsArray});
         };
     };
-    
-/*
-    handleButtonPress = () => {
-        this.props.navigation.navigate('Home');
-    };
-*/
+     
+
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors && nextProps.errors !== this.props.errors) {
@@ -139,6 +136,8 @@ class Register extends Component {
         this.props.dispatch(clearErrorLog())
     };
 
+
+
     render() {
         return (
 
@@ -158,6 +157,8 @@ class Register extends Component {
             password={this.handlePassChange}
             passwordConfirm={this.handlePassConfChange}
             handlePress={this.handleSubmitPress}/>
+
+        
 
         </View>
 
