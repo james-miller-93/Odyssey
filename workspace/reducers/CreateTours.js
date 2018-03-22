@@ -1,4 +1,4 @@
-import { CREATE_TOUR_SUBMIT, CREATE_TOUR_ERROR, CREATE_TOUR_RESULT } from '../actions/CreateTours';
+import { CREATE_TOUR_SUBMIT, CREATE_TOUR_ERROR, CREATE_TOUR_RESULT, EDIT_TOUR} from '../actions/CreateTours';
 
 
 const initialState = {
@@ -45,6 +45,11 @@ switch(action.type) {
             ...state,
             result: action.result
         }
+    case EDIT_TOUR:
+    return {
+        ...state,
+        tourInfo: action.tourInfo
+    }
     
     default:
         return state;

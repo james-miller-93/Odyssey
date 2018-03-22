@@ -20,19 +20,19 @@ class CreateTours extends Component {
             authentication_token: "",
             email: "",
             tourInfo: {
-            	city: '',
-			    title: '',
-			    duration: '',
-			    description: '',
+            	city: this.props.tourInfo.city,
+			    title: this.props.tourInfo.title,
+			    duration: this.props.tourInfo.duration,
+			    description: this.props.tourInfo.description,
 			    tourID: '',
-			 	max_persons: '',
+			 	max_persons: this.props.tourInfo.max_persons,
 			 	is_daytrip: false,
 		        is_foodie: false,
 		        is_landmarks: false,
 		        is_museums: false,
 		        is_nightlife: false,
 		        is_outdoors: false, 
-		        price: '',
+		        price: this.props.tourInfo.price,
             }
          
         }
@@ -227,13 +227,13 @@ class CreateTours extends Component {
             oldDescription = {this.props.tourInfo.description}
             maxPeople = {this.NewMaxPeople}
 
-            oldMaxPeople = {this.props.tourInfo.max_persons}
+            oldMaxPeople = {this.props.tourInfo.max_persons.toString()}
            // languages = {(text) => {this.setState({ tourInfo: {languages: text} })}} 
            // oldLanguages = {this.props.tourInfo.languages}
           	duration = {this.newDuration}
-            oldDuration = {this.props.tourInfo.duration}
+            oldDuration = {this.props.tourInfo.duration.toString()}
             price = {this.newPrice}
-            oldPrice = {this.props.tourInfo.price}
+            oldPrice = {this.props.tourInfo.price.toString()}
             //oldNightLife??
             nightLifePress = {this.NewNightLife}
             foodPress = {this.NewFood}

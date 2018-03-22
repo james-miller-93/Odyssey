@@ -524,7 +524,8 @@ function* tryDeclineRequest(action) {
         const response = yield call(postDeclineRequest, action);
         console.log('------response-----------------')
         console.log(response)
-        const result = yield response.json();
+
+        const result = yield respones.json();
 
         if (result.error) {
 
