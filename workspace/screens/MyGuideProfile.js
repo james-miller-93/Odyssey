@@ -27,6 +27,7 @@ import { changeLoginEmailValue, changeLoginPasswordValue,
 import { submitNewReservation } from '../actions/Reservation';
 import { checkActiveReservationTourGuide } from '../actions/ActiveReservation';
 import { sendLogOutRequest } from '../actions/LogOut';
+import {isActiveUpdate} from '../actions/IsActive';
 
 const headerImage = require('../assets/images/LoginCover.jpg');
 const profilePic = require('../components/Container/profilePic.png');
@@ -110,7 +111,9 @@ ShowAlert = (value) =>{
     //Perform any task here which you want to execute on Switch ON event.
     Alert.alert("You are now active!");
     //TODO: need to add a dispatch and change the is_active value to true
-    //dispatch(nameOfFunc(this.state.authentication_token,this.state.email,value)) 
+    //dispatch(nameOfFunc(this.state.authentication_token,this.state.email,value))
+
+
   }
   else{
  
@@ -118,6 +121,8 @@ ShowAlert = (value) =>{
     Alert.alert("You are no longer active.");
     //TODO: need to add a dispatch and change the is_active value to false
   }
+
+  this.props.dispatch(isActiveUpdate(this.state.authentication_token,this.state.email,value,this.props.profileID))
  
 }
 
@@ -141,6 +146,12 @@ componentWillReceiveProps(nextProps) {
   } else if(nextProps.logoutResult && nextProps.logoutResult !== this.props.logoutResult) {
     console.log(nextProps.logoutResult);
     this.props.navigation.navigate('Login')
+  }
+  else if (nextProps.activeError && nextProps.activeError !== this.props.activeError) {
+    this.props.alertWithType('error','Error',nextProps.activeError);
+  } else if(nextProps.activeResult && nextProps.activeResult !== this.props.activeResult) {
+    console.log(nextProps.activeResult);
+    
   }
 }
   
@@ -401,6 +412,10 @@ const mapStateToProps = (state) => {
 
     const tours = state.ViewTours.result.tours;
 
+    const active = state.IsActive.active;
+    const activeError = state.IsActive.errors;
+    const activeResult = state.IsActive.result;
+
     return {
         profileInfo,
         profileID,
@@ -410,7 +425,10 @@ const mapStateToProps = (state) => {
         reservationError,
         logoutResult,
         logoutError,
-        tours
+        tours,
+        active,
+        activeError,
+        activeResult,
     };
 };
 
