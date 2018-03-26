@@ -212,13 +212,14 @@ const getTours = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/listi
     body: ''
 });
 
-const getActiveProfile = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/listings', {
+const getActiveProfile = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/tours', {
     method: 'GET',
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'X-Traveler-Token': action.authentication_token,
         'X-Traveler-Email': action.email,
+        'traveler_id': action.profileInfo.id
     },
     body: ''
 });
@@ -236,6 +237,8 @@ const updateAvailibility = action => fetch('http://odyssey-api-demo.herokuapp.co
     body: JSON.stringify({
     "traveler": {
         'active': action.active,
+        'latitude': action.location.latitude,
+        'longitude': action.location.longitude,
         }
     })
 });
@@ -650,6 +653,8 @@ function* tryViewActiveProfile(action) {
 function* tryIsActive(action) {
 
     try {
+        console.log('===========ACTION===============')
+        console.log(action)
         const response = yield call(updateAvailibility, action);
       
         const result = yield response.json();

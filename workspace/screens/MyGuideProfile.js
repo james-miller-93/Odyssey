@@ -111,20 +111,20 @@ constructor(props) {
 };
 
 ShowAlert = (value) =>{
- 
   this.setState({
  
     SwitchOnValueHolder: value
+
   })
- 
+  
   if(value === true)
   {
  
     //Perform any task here which you want to execute on Switch ON event.
-    Alert.alert("You are now active!");
+    //Alert.alert("You are now active!");
     //TODO: need to add a dispatch and change the is_active value to true
     //dispatch(nameOfFunc(this.state.authentication_token,this.state.email,value))
-
+    //this.setState({ isMapModalVisible: false });
 
   }
   else{
@@ -133,9 +133,11 @@ ShowAlert = (value) =>{
     Alert.alert("You are no longer active.");
     //TODO: need to add a dispatch and change the is_active value to false
   }
-
-  this.props.dispatch(isActiveUpdate(this.state.authentication_token,this.state.email,value,this.props.profileID))
- 
+  console.log('================action sent=================')
+  console.log(this.state.location)
+  this.props.dispatch(isActiveUpdate(this.state.authentication_token,this.state.email,value,this.state.location,this.props.profileID))
+    console.log('================action sent=================')
+    console.log(this.state.location)
 }
 
 _toggleMapModal = () => {
@@ -145,6 +147,11 @@ _toggleMapModal = () => {
 _hideMapModal = () => { this.setState({ isMapModalVisible: false }) };
 
 handleSwitch = (value) => {
+  this.setState({
+ 
+    SwitchOnValueHolder: value
+  })
+
   if (value === true) {
     this._toggleMapModal();
   }
@@ -292,7 +299,15 @@ handleLogout = () => {
 
             <TouchableOpacity
             onPress={() => {
-              this.setState({ isMapModalVisible: false })
+              this.setState({ isMapModalVisible: false });
+              this.props.dispatch(isActiveUpdate(this.state.authentication_token,this.state.email,true,this.state.location,this.props.profileID))
+              this.props.alertWithType('success','Success','You are now active.');
+              
+              
+              
+              
+              //Alert.alert("You are now active.");
+              //this.ShowAlert(true);
             }}
             >
               <Text> Submit Location</Text>
