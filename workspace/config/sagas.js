@@ -5,7 +5,7 @@ import { LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_RESULT} from '../actions/Login';
 import { INITIAL_LOGIN_CHECK, INITIAL_LOGIN_ERROR, INITIAL_LOGIN_RESULT } from '../actions/InitialLogin';
 import { TOUR_LOCATION, TOUR_RESULT, TOUR_ERROR } from '../actions/TourList';
 import { LOGOUT_CHECK, LOGOUT_ERROR, LOGOUT_RESULT } from '../actions/LogOut';
-import { VIEW_PROFILE_CHECK, VIEW_PROFILE_ERROR, VIEW_PROFILE_RESULT } from '../actions/ViewProfile';
+import { VIEW_PROFILE_CHECK, VIEW_PROFILE_ERROR, VIEW_PROFILE_RESULT, VIEW_ACTIVE_PROFILE_CHECK, VIEW_ACTIVE_PROFILE_ERROR, VIEW_ACTIVE_PROFILE_RESULT } from '../actions/ViewProfile';
 import { RESERVATION_CHECK, RESERVATION_ERROR, RESERVATION_RESULT } from '../actions/Reservation';
 import { ACTIVE_RESERVATION_CHECK_TOUR_GUIDE, ACTIVE_RESERVATION_CHECK_TOURIST,
      ACTIVE_RESERVATION_ERROR, ACTIVE_RESERVATION_RESULT,
@@ -53,7 +53,8 @@ const postLogin = traveler => fetch('http://odyssey-api-demo.herokuapp.com/v1/se
     }),
 });
 
-const getTourList = location => fetch('http://odyssey-api-demo.herokuapp.com/v1/tours', {
+//const getTourList = location => fetch('http://odyssey-api-demo.herokuapp.com/v1/tours', {
+const getTourList = location => fetch('http://odyssey-api-demo.herokuapp.com/v1/travelers', {    
     method: 'GET',
     headers: {
         Accept: 'application/json',
@@ -201,6 +202,17 @@ const postDeclineRequest = action => fetch('http://odyssey-api-demo.herokuapp.co
 });
 
 const getTours = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/listings', {
+    method: 'GET',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Traveler-Token': action.authentication_token,
+        'X-Traveler-Email': action.email,
+    },
+    body: ''
+});
+
+const getActiveProfile = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/listings', {
     method: 'GET',
     headers: {
         Accept: 'application/json',
@@ -615,6 +627,25 @@ function* tryViewTours(action) {
     }
 }
 
+function* tryViewActiveProfile(action) {
+
+    try {
+        const response = yield call(getActiveProfile, action);
+        
+        const result = yield response.json();
+        
+        if (result.error) {
+            
+            yield put({ type: VIEW_ACTIVE_PROFILE_ERROR, activeErrors: result.error});
+        } else {
+            
+            yield put({ type: VIEW_ACTIVE_PROFILE_RESULT, activeResult: result});
+        }
+    } catch(e) {
+            yield put({ type: VIEW_ACTIVE_PROFILE_ERROR, activeErrors: e.message});
+    }
+}
+
 
 function* tryIsActive(action) {
 
@@ -675,6 +706,7 @@ export default function* rootSaga() {
     yield takeEvery(ACTIVE_RESERVATION_ACCEPT, tryAcceptRequest)
     yield takeEvery(ACTIVE_RESERVATION_DECLINE, tryDeclineRequest)
     yield takeEvery(VIEW_TOURS_CHECK, tryViewTours)
+    yield takeEvery(VIEW_ACTIVE_PROFILE_CHECK, tryViewActiveProfile)
     yield takeEvery(UPDATE_ACTIVE_SWITCH, tryIsActive)
     yield takeEvery(VIEW_TOURS_DELETE, tryDeleteTours)
 

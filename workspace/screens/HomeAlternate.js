@@ -13,7 +13,7 @@ import { checkActiveReservationTourist } from '../actions/ActiveReservation'
 import { sendLogOutRequest } from '../actions/LogOut';
 
 import { changeTourLocationValue } from '../actions/TourList';
-import { pressProfileView } from '../actions/ViewProfile';
+import { pressProfileView, pressActiveProfileView } from '../actions/ViewProfile';
 
 import styles from '../components/Map/styles'
 import screenStyles from '../screens/styles';
@@ -89,7 +89,19 @@ class HomeAlternate extends Component {
                 duration: '',
                 description: '',
                 tourID: '',
-            }
+            },
+            profileInfo: {
+                firstname: '',
+                lastname: '',
+                id: '',
+                description: '',
+                distance: '',
+                email: '',
+                phone_number: '',
+                profile_image: '',
+                image: ''
+            },
+            tourArray: []
         };
         this.handleMarkerPress = this.handleMarkerPress.bind(this);
     };
@@ -101,12 +113,21 @@ class HomeAlternate extends Component {
             authentication_token: storedToken,
             email: storedEmail
         })
+        if (this.props.tourArray !== undefined) {
+            this.setState({ tourArray: this.props.tourArray})
+        }
     };
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.profileError && nextProps.profileError !== this.props.profileError) {
+        /*if (nextProps.profileError && nextProps.profileError !== this.props.profileError) {
             this.props.alertWithType('error','Error',nextProps.profileError);
         } else if(nextProps.profileResult && nextProps.profileResult !== this.props.profileResult) {
+            this.props.navigation.navigate('UserProfile');
+            //this.props.navigation.pop('HomeAlternate');
+        }*/
+        if (nextProps.activeProfileError && nextProps.activeProfileError !== this.props.activeProfileError) {
+            this.props.alertWithType('error','Error',nextProps.activeProfileError);
+        } else if(nextProps.activeProfileResult && nextProps.activeProfileResult !== this.props.activeProfileResult) {
             this.props.navigation.navigate('UserProfile');
             //this.props.navigation.pop('HomeAlternate');
         } else if (nextProps.reservationError && nextProps.reservationError !== this.props.reservationError) {
@@ -119,6 +140,8 @@ class HomeAlternate extends Component {
           } else if(nextProps.logoutResult && nextProps.logoutResult !== this.props.logoutResult) {
             console.log(nextProps.logoutResult);
             this.props.navigation.navigate('Login')
+          } else if (nextProps.tourArray && nextProps.tourArray !== this.props.tourArray) {
+              this.setState({ tourArray: nextProps.tourArray})
           }
     }
 
@@ -139,8 +162,9 @@ class HomeAlternate extends Component {
     }
     
     handleMarkerPress = () => {
-        this.props.dispatch(pressProfileView(this.state.ID,this.state.authentication_token,this.state.email,this.state.tourInfo));
+        this.props.dispatch(pressActiveProfileView(this.state.profileInfo,this.state.authentication_token,this.state.email));
 
+        //this.props.dispatch(pressProfileView(this.state.ID,this.state.authentication_token,this.state.email,this.state.tourInfo));
         //this.props.navigation.navigate('TourGuide');
     };
 
@@ -214,7 +238,7 @@ class HomeAlternate extends Component {
 
                 
                 
-                    {this.props.tourArray.map((data) => {
+                    {this.state.tourArray.map((data) => {
                     return (
                         <MapView.Marker
                         key={data.id}
@@ -225,10 +249,12 @@ class HomeAlternate extends Component {
                             longitudeDelta: 0.00421
                         }}
                         //onCalloutPress={this.state.pressable ? this.handleMarkerPress(data.traveler_id): null}
-                        description={data.title}
+                        description={data.firstname + ' ' + data.lastname}
+                        //image={require('../assets/images/blankAvatar.png')}
+                        //image={ data.profile_image}
                         //image={data.image}
                         //description = title
-                        onPress={() => {this.setState({ 
+                        /*onPress={() => {this.setState({ 
                             ID: data.traveler_id,
                             tourInfo: {
                                 city: data.city,
@@ -237,15 +263,29 @@ class HomeAlternate extends Component {
                                 description: data.description,
                                 tourID: data.id
                             }
-                         })}}
+                         })}}*/
+                        onPress={() => {this.setState({
+                            profileInfo: {
+                                firstname: data.firstname,
+                                lastname: data.lastname,
+                                id: data.id,
+                                description: data.description,
+                                distance: data.distance,
+                                email: data.email,
+                                phone_number: data.phone_number,
+                                profile_image: data.profile_image,
+                                image: data.image
+                            }
+                        })
+                        }}
                         >
                         
                         <MapView.Callout
                         onPress={this.handleMarkerPress}
                         >
                             <CalloutContent
-                            markerTitle={data.traveler_id}
-                            markerDescription={data.title}
+                            //markerTitle={data.traveler_id}
+                            markerTitle={data.firstname + ' ' + data.lastname}
                             
                             />
                         </MapView.Callout>
@@ -363,10 +403,14 @@ class HomeAlternate extends Component {
 
 const mapStateToProps = (state) => {
     const mapLocation = state.TourList.location;
-    const tourArray = state.TourList.result.tours;
+    const tourArray = state.TourList.result.travelers;
+    
 
     const profileError = state.ViewProfile.errors;
     const profileResult = state.ViewProfile.result;
+
+    const activeProfileError = state.ViewProfile.activeErrors;
+    const activeProfileResult = state.ViewProfile.activeResult;
     
     const reservationResult = state.ActiveReservation.result;
     const reservationError = state.ActiveReservation.errors;
@@ -381,6 +425,8 @@ const mapStateToProps = (state) => {
         tourArray,
         profileError,
         profileResult,
+        activeProfileError,
+        activeProfileResult,
         reservationResult,
         reservationError,
         profileID,

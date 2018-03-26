@@ -17,6 +17,7 @@ import { Calendar } from 'react-native-calendars';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/Entypo';
+import MapView, { Marker, Callout } from 'react-native-maps';
 
 import Modal from "react-native-modal";
 
@@ -33,6 +34,13 @@ const headerImage = require('../assets/images/LoginCover.jpg');
 const profilePic = require('../components/Container/profilePic.png');
 const tour1 = require('../assets/images/tour1.jpeg');
 const tour2 = require('../assets/images/tour2.jpeg');
+
+const INITIAL_REGION_HELP = {
+  latitude: 39.8283,
+  longitude: -98.5795,
+  latitudeDelta: 60,
+  longitudeDelta: 25
+}
   
 
 class MyGuideProfile extends Component {
@@ -91,7 +99,11 @@ constructor(props) {
       dateTimeSubmit: '',
       authentication_token: '',
       email: '',
-      isModalVisible: false
+      isModalVisible: false,
+      isMapModalVisible: false,
+      activeLatitude: '',
+      activeLongitude: '',
+      location: INITIAL_REGION_HELP
 
       //dateSubmit: '',
       //timeSubmit: '',
@@ -126,6 +138,21 @@ ShowAlert = (value) =>{
  
 }
 
+_toggleMapModal = () => {
+  this.setState({ isMapModalVisible: !this.state.isMapModalVisible });
+};
+
+_hideMapModal = () => { this.setState({ isMapModalVisible: false }) };
+
+handleSwitch = (value) => {
+  if (value === true) {
+    this._toggleMapModal();
+  }
+  else if (value === false) {
+    this.ShowAlert(value);
+  }
+}
+
 async componentDidMount() {
   let storedToken = await AsyncStorage.getItem('authentication_token')
   let storedEmail = await AsyncStorage.getItem('email')
@@ -133,6 +160,16 @@ async componentDidMount() {
       authentication_token: storedToken,
       email: storedEmail
   })
+  if (this.props.tourInfo.latitude !== undefined && this.props.tourInfo.longitude !== undefined) {
+    this.setState({
+      location: {
+        latitude: this.props.tourInfo.latitude,
+        longitude: this.props.tourInfo.longitude,
+        latitudeDelta: 0.00922,
+        longitudeDelta: 0.00421,
+      }
+    })
+  }
 };
 
 componentWillReceiveProps(nextProps) {
@@ -225,6 +262,46 @@ handleLogout = () => {
         </View>
         </Modal>
 
+        <Modal isVisible={this.state.isMapModalVisible}
+        backdropOpacity={0.4}
+        onBackdropPress={() => this.setState({ isMapModalVisible: false }) }
+        supportedOrientations={['portrait', 'landscape']}
+        >
+          <View style={styles.mapWindow}>
+            <Text> Where are you at?</Text>
+            <Text>Move the marker to your location</Text>
+            <MapView
+              style={{
+                height: '80%',
+                width: '80%'
+              }}
+              initialRegion={this.state.location}
+              /*initialRegion={{
+                latitude: this.state.activeLatitude,
+                longitude: this.state.activeLongitude,
+                latitudeDelta: 0.00922,
+                longitudeDelta: 0.00421
+              }}*/
+              onRegionChangeComplete={(loc) => this.setState({ location: loc})}
+            >
+              <MapView.Marker
+              coordinate={this.state.location}
+              //onDragEnd={(e) => this.setState({ location: e.NativeEvent.coordinate })}
+              />
+            </MapView>
+
+            <TouchableOpacity
+            onPress={() => {
+              this.setState({ isMapModalVisible: false })
+            }}
+            >
+              <Text> Submit Location</Text>
+            </TouchableOpacity>
+                    
+
+        </View>
+        </Modal>
+
 
           <View style={styles.headerColumn}>
           
@@ -312,7 +389,8 @@ handleLogout = () => {
 
     
     <Switch
-    onValueChange={(value) => this.ShowAlert(value)} 
+    //onValueChange={(value) => this.ShowAlert(value)}
+    onValueChange={(value) => this.handleSwitch(value)}
     value={this.state.SwitchOnValueHolder}
     style={{height: 30, width: 52, right: 7, position: 'absolute' }}
     />

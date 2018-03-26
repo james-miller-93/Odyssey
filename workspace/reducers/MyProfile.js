@@ -12,7 +12,9 @@ myProfile: {
     firstname: '',
     lastname: '',
     email: '',
-    phone_number: ''
+    phone_number: '',
+    latitude: '',
+    longitude: '',
 },
 };
 
