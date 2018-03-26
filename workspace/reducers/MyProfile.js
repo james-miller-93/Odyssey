@@ -12,7 +12,8 @@ myProfile: {
     firstname: '',
     lastname: '',
     email: '',
-    phone_number: ''
+    phone_number: '',
+    city: '',
 },
 };
 

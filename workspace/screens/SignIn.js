@@ -91,6 +91,7 @@ class SignIn extends Component {
             emailChange={this.handleEmailChange}
             passwordChange={this.handlePassChange}
             role = {this.handleTransitionPress.bind(this)}
+            navigation={this.props.navigation}
             />
 
         </View>

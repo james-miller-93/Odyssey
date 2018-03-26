@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Switch, TouchableOpacity, TouchableWithoutFeedback, Button, View, ScrollView, Platform, ListView, Linking, Image, Text, KeyboardAvoidingView, ImageBackground, AsyncStorage } from 'react-native';
+import { Alert, Switch, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, Button, View, ScrollView, Platform, ListView, Linking, Image, Text, KeyboardAvoidingView, ImageBackground, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, Icon as Icon1} from 'react-native-elements'
 import { Container } from '../components/Container';
@@ -174,6 +174,35 @@ handleLogout = () => {
   //this.props.navigation.navigate('Requests')
 }
 
+openModal= () => {
+
+  if(this.state.isModalVisible) {
+  return (
+  
+  <Modal isVisible={this.state.isModalVisible}
+        backdropOpacity={0.4}
+        onBackdropPress={() => this.setState({ isModalVisible: false }) }
+        supportedOrientations={['portrait', 'landscape']}
+        animationIn={'slideInLeft'}
+          animationOut={'slideOutRight'}
+          //animatedType={false}
+
+        >
+          <View style={styles.settingWindow}>
+                    
+            {this.profileButton()}
+            <View style={styles.border}></View>
+            {this.notificationsButton()}
+            <View style={styles.border}></View>
+            {this.logoutButton()}
+
+        </View>
+        </Modal>
+    
+  )
+}
+
+}
     renderHeader = () => {
 
    /* const {
@@ -187,6 +216,8 @@ handleLogout = () => {
 
       <View >
 
+   
+
         <ImageBackground
           style={[ 
             {
@@ -197,22 +228,35 @@ handleLogout = () => {
           blurRadius={10}
           source={headerImage}
         >
-
-
-      
-         
-        <View style={styles.settingsBox}>
+    
         
-        <TouchableOpacity style={{ height: '100%', width: '100%'}}
-        onPress={this._toggleModal} underlayColor="#FFF">
-            <Icon name="ios-menu" style={styles.settingsIcon} size={45} />
-         </TouchableOpacity>
-        </View>
+      
+        <TouchableOpacity 
+        onPress={this._toggleModal}
+         underlayColor="#FFF"
+         style={{ 
+        position: 'absolute',
+        //alignItems: 'center',
+        height: 80,
+        width: 70,
+      top: 15,
+      
+      left: 10,justifyContent: 'flex-end'}}>
+      <Icon name="ios-menu"  size={45} />
 
-        <Modal isVisible={this.state.isModalVisible}
+         </TouchableOpacity>
+
+        
+      
+             <Modal isVisible={this.state.isModalVisible}
+
         backdropOpacity={0.4}
         onBackdropPress={() => this.setState({ isModalVisible: false }) }
         supportedOrientations={['portrait', 'landscape']}
+        animationIn={'slideInLeft'}
+        animationOut={'slideOutRight'}
+          //animatedType={false}
+
         >
           <View style={styles.settingWindow}>
                     
@@ -224,6 +268,7 @@ handleLogout = () => {
 
         </View>
         </Modal>
+        
 
 
           <View style={styles.headerColumn}>
@@ -244,7 +289,7 @@ handleLogout = () => {
               </View>
               <View style={styles.userCityRow}>
                 <Text style={styles.userCityText}>
-                  {this.props.tourInfo.city}
+                  {this.props.profileInfo.city}
                 </Text>
               </View>
             </View>
@@ -367,11 +412,23 @@ renderTours = (tourName,tourDuration,tourDescription,tourKey) => (
 
 )
 
+
+
+
+
+
   render() {
     return (
       <ScrollView style={styles.scroll}>
+
+
         <View style={styles.profileContainer}>
+
+
+
           <Card containerStyle={styles.cardContainer}>
+
+
             {this.renderHeader()}
             {this.renderTel()}
             {this.renderSeparator()}

@@ -8,6 +8,8 @@ export const REGISTER_SUBMIT = 'REGISTER_SUBMIT';
 export const REGISTER_RESULT = 'REGISTER_RESULT';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
 export const REGISTER_ERROR_CLEAN = 'REGISTER_ERROR_CLEAN';
+export const REGISTER_PHONE = 'REGISTER_PHONE';
+export const REGISTER_CITY = 'REGISTER_CITY';
 
 
 export const changeRegisterFirstNameValue = value => ({
@@ -27,6 +29,16 @@ export const changeRegisterEmailValue = value => ({
 
 export const changeRegisterPasswordValue = value => ({
     type: REGISTER_PASS,
+    value,
+});
+
+export const changeRegisterPhone = value => ({
+    type: REGISTER_PHONE,
+    value,
+});
+
+export const changeRegisterCity = value => ({
+    type: REGISTER_CITY,
     value,
 });
 

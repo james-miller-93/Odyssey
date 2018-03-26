@@ -30,8 +30,18 @@ export default StackNavigator({
         }
     },*/
 
+
+
+    
     Loading: {
         screen: Loading,
+        navigationOptions: {
+            header: () => null
+        }
+    },
+
+    HomeAlternate: {
+        screen: HomeAlternate,
         navigationOptions: {
             header: () => null
         }
@@ -85,19 +95,7 @@ export default StackNavigator({
     },
 
 
-    HomeAlternate: {
-        screen: HomeAlternate,
-        navigationOptions: {
-            header: () => null
-        }
-    },
-
-    UserProfile: {
-        screen: UserProfile,
-        navigationOptions: {
-            header: () => null,
-        }
-    },
+    
 
     MyGuideProfile: {
         screen: MyGuideProfile,
@@ -128,6 +126,10 @@ export default StackNavigator({
     },
     SignIn: {
         screen: SignIn,
+        navigationOptions: {
+            header: () => null,
+        }
+
         
     },
     UserRole: {
@@ -149,6 +151,9 @@ export default StackNavigator({
     
     
     Register: {
+        navigationOptions: {
+            header: () => null,
+        },
         screen: Register
         
     },

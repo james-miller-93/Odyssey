@@ -24,6 +24,16 @@ export default EStyleSheet.create({
         //width: '100%',
         textAlign: 'center',
         margin: 10,
+        color: '$black',
+        fontSize: 16,
+        fontWeight: 'bold',
+        
+    },
+    buttonNewText: {
+        //height: '100%',
+        //width: '100%',
+        textAlign: 'center',
+        margin: 10,
         color: '$white',
         fontSize: 16,
         fontWeight: 'bold',

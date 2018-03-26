@@ -54,11 +54,11 @@ export default class Login extends Component {
     
         <ImageBackground
         style={styles.loginBackground}
-        source={require('../assets/images/appBackground.jpeg')}
+        source={require('../assets/images/newBackground.jpeg')}
         >
      
         <View
-            style={styles.transparentCover}
+            style={styles.OdysseyCover}
             >
         
             <View ><Text style= {styles.odyssey}>Odyssey</Text>

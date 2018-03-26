@@ -175,6 +175,17 @@ class HomeAlternate extends Component {
         )
     }
 
+    homePage(){
+    const { navigate } = this.props.navigation;
+    return (
+        <TouchableOpacity
+        underlayColor="#FFF"
+        onPress={()=> {this.setState({ isModalVisible: false }); navigate('HomeAlternate')}} >
+        <Text style={screenStyles.settingText}>Home</Text> 
+        </TouchableOpacity>
+        )
+    }
+
     notificationsButton() {
         const { navigate } = this.props.navigation;
         return (
@@ -202,7 +213,7 @@ class HomeAlternate extends Component {
 
     render() {
         return (
-            <View>
+            <View style={{height: '100%', width: '100%'}}>
             <View style={styles.container}>
 
                 
@@ -256,14 +267,14 @@ class HomeAlternate extends Component {
 
              
                 
-            
+          
                 
             </View>
 
-            <View style={screenStyles.settingsBox}>
+            <View style={screenStyles.mapSettingsBox}>
         
                 <TouchableOpacity onPress={this._toggleModal} underlayColor="#FFF">
-                        <Icon name="ios-menu" style={screenStyles.settingsIcon} size={45} />
+                        <Icon name="ios-menu" style={screenStyles.mapSettingsIcon} size={45} />
                 </TouchableOpacity>
             </View>
 
@@ -271,10 +282,16 @@ class HomeAlternate extends Component {
             backdropOpacity={0.4}
             onBackdropPress={() => this.setState({ isModalVisible: false }) }
             supportedOrientations={['portrait', 'landscape']}
-            
+            animationIn={'slideInLeft'}
+            animationOut={'slideOutRight'}
             >
-                <View style={screenStyles.settingWindow}>
-                                
+                <View style={screenStyles.newSettingWindow}>
+             
+
+                
+
+                    {this.homePage()}
+                    <View style={screenStyles.border}></View>  
                     {this.profileButton()}
                     <View style={screenStyles.border}></View>
                     {this.notificationsButton()} 
@@ -285,77 +302,9 @@ class HomeAlternate extends Component {
 
             </Modal>
 
-                <View style={{
-                    width: '100%',
-                    height: '8%',
-                    flexDirection: "row",
-                    
-                }}
-                >
-                <View 
-                style={{
-                    height: '100%',
-                    width: '33%',
-                    backgroundColor: '#000000'
-                }}
-                >
-                <TouchableOpacity
-                style={{
-                    height: '100%',
-                    width: '100%',
-                    backgroundColor: '#000000',
-                }}
                 
-                //onPress={this.handleListPress}
-                >
-                    <Text style={{ color: '#ffffff', fontSize: 16 }}>
-                        List View
-                    </Text>
-                </TouchableOpacity>
-                </View>
-                <View 
-                style={{
-                    height: '100%',
-                    width: '34%',
-                    backgroundColor: '#000000'
-                }}
-                >
-                <TouchableOpacity
-                style={{
-                    height: '100%',
-                    width: '100%',
-                    backgroundColor: '#000000',
-                }}
-                //onPress={this.handleMarkerPress}
-                //onPress={this.handleSettingsPress}
-                >
-                    <Text style={{ color: '#ffffff', fontSize: 16 }}>
-                        Settings
-                    </Text>
-                </TouchableOpacity>
-                </View>
-                <View 
-                style={{
-                    height: '100%',
-                    width: '33%',
-                    backgroundColor: '#000000'
-                }}
-                >
-                <TouchableOpacity
-                style={{
-                    height: '100%',
-                    width: '100%',
-                    backgroundColor: '#000000',
-                }}                
-                >
-                    <Text style={{ color: '#ffffff', fontSize: 16 }}>
-                        Menu View
-                    </Text>
-                </TouchableOpacity>
-                </View>
-                </View>
-
-            </View>
+        </View>
+           
             
         );
     };

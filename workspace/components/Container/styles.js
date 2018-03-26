@@ -40,18 +40,33 @@ export default EStyleSheet.create({
         alignItems: 'center'
     },
       SignUpContainer: {
-        flex: 1,
+        height: '100%',
+        width: '100%',
+        flexDirection : 'column',
         justifyContent: 'center',
         alignItems: 'center',
+      
+
         
     },
       title: {
         textAlign: 'center',
         fontSize: 40,
-        margin: 10,
-        top: '15%',
-        color: '$white',
+        margin: 5,
+        color: '$black',
     },
+
+      loginTitle: {
+        textAlign: 'center',
+        fontSize: 40,
+        margin: 5,
+
+        color: '$black',
+        position: 'absolute',
+        top: 65,
+    },
+
+
         userImage: {
         width: 50,
         height: 50,

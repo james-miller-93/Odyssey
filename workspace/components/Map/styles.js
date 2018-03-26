@@ -2,7 +2,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 export default EStyleSheet.create({
     container: {
-        height: '92%',
+        height: '100%',
         width: '100%',
         justifyContent: 'flex-start',
         alignItems: 'center'

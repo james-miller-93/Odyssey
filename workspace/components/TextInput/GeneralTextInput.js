@@ -13,7 +13,7 @@ export default class GeneralTextInput extends Component {
             <TextInput
             style={styles.generalText}
             placeholder={this.props.displayText}
-            placeholderTextColor={'#FFFFFF'}
+            placeholderTextColor={'#000'}
             secureTextEntry={this.props.secure}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit

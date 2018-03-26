@@ -13,7 +13,7 @@ import { connectAlert } from '../components/Alert';
 
 import { changeRegisterFirstNameValue, changeRegisterLastNameValue, changeRegisterEmailValue,
         changeRegisterPasswordValue, changeRegisterPasswordConfirmationValue,
-        pressRegisterSubmit, clearErrorLog} from '../actions/Register';
+        pressRegisterSubmit, clearErrorLog, changeRegisterPhone, changeRegisterCity} from '../actions/Register';
 
 class Register extends Component {
 
@@ -43,6 +43,8 @@ class Register extends Component {
                         email: this.state.email,
                         password: this.state.password,
                         password_confirmation: this.state.passwordConfirmation,
+                        phone_number: this.state.phone_number,
+                        city: this.state.city
                     }
                 })
             });
@@ -103,6 +105,7 @@ class Register extends Component {
         } else if (nextProps.result && nextProps.result !== this.props.result) {
             console.log('-----success------')
             this.props.alertWithType('success','Success','Registration successful')
+            this.props.navigation.navigate('SignIn')
         }
     }
     
@@ -131,6 +134,16 @@ class Register extends Component {
         this.props.dispatch(changeRegisterPasswordConfirmationValue(text))
     };
 
+     handlePhoneChange = (text) => {
+        this.props.dispatch(clearErrorLog())
+        this.props.dispatch(changeRegisterPhone(text))
+    };
+
+     handleLocationChange = (text) => {
+        this.props.dispatch(clearErrorLog())
+        this.props.dispatch(changeRegisterCity(text))
+    };
+
     handleSubmitPress = () => {
         this.props.dispatch(pressRegisterSubmit(this.props.user))
         this.props.dispatch(clearErrorLog())
@@ -156,6 +169,9 @@ class Register extends Component {
             email={this.handleEmailChange}
             password={this.handlePassChange}
             passwordConfirm={this.handlePassConfChange}
+            location={this.handleLocationChange}
+            phone={this.handlePhoneChange}
+            navigation={this.props.navigation}
             handlePress={this.handleSubmitPress}/>
 
         
@@ -166,50 +182,6 @@ class Register extends Component {
 
 
 
-
-
-       /*     <Container>
-                <KeyboardAvoidingView
-                behavior={'padding'}
-                style={{
-                    height: '100%',
-                    width: '100%',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}
-                >
-                <GeneralTextInput
-                    displayText={'Name'}
-                    handleTextChange={(val) => this.setState({name: val})}
-                />
-                <Errors error={this.state.errors}/>
-                <GeneralTextInput
-                    displayText={'Email'}
-                    handleTextChange={(val) => this.setState({email: val})}
-                />
-                <GeneralTextInput
-                    displayText={'Password'}
-                    handleTextChange={(val) => this.setState({password: val})}
-                    secure={true}
-                />
-                <GeneralTextInput
-                    displayText={'Confirm Password'}
-                    handleTextChange={(val) => this.setState({passwordConfirmation: val})}
-                    secure={true}
-                />
-                
-                </KeyboardAvoidingView>
-
-                <ButtonText 
-                    displayText = {'Register'}
-                    onPress={this.handleButtonPress.bind(this)}
-                    />
-
-                
-
-                
-
-            </Container>*/
         );
     };
 };
@@ -220,7 +192,9 @@ const mapStateToProps = (state) => {
         lastname: state.Register.lastname,
         email: state.Register.email,
         password: state.Register.password,
-        password_confirmation: state.Register.passwordConfirmation
+        password_confirmation: state.Register.passwordConfirmation,
+        phone_number: state.Register.phone_number,
+        city: state.Register.city,
     }
     //const name = state.Register.name;
     //const email = state.Register.email;

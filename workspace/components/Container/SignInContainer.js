@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Button, ScrollView, KeyboardAvoidingView} from 'react-native';
 import {ButtonText} from '../Button'
 import { GeneralTextInput } from '../TextInput';
-
+import Icon from 'react-native-vector-icons/Feather';
 import styles from './styles';
 
 export default class SignInContainer extends Component {
@@ -10,10 +10,21 @@ export default class SignInContainer extends Component {
 
     render() {
     	return (
-        <ScrollView contentContainerStyle = {styles.SignUpContainer}>
+
+
+        <View style={styles.SignUpContainer}>
         
-        <Text style={styles.title}>Login</Text>
-    	<View style={styles.SignUpContainer}>
+         <View style={{width: 60, height: 50, top: 25, left:10, position: 'absolute'}}>
+        
+            <TouchableOpacity onPress={()=>{this.props.navigation.navigate('Login')}} underlayColor="#FFF">
+            <Icon name="arrow-left" style={{left: 0, position: 'absolute'}} size={27} />
+            </TouchableOpacity>
+        </View>
+
+      
+        
+        <Text style={styles.loginTitle}>Login</Text>
+   
             
 
                 <GeneralTextInput
@@ -35,7 +46,7 @@ export default class SignInContainer extends Component {
             />
 
     	</View> 
-        </ScrollView>
+  
     )
    }
 }

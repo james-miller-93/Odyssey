@@ -134,6 +134,30 @@ handleNotifications = () => {
   this.props.navigation.navigate('Notifications')
 }
 
+
+homePage(){
+    const { navigate } = this.props.navigation;
+    return (
+        <TouchableOpacity
+        underlayColor="#FFF"
+        onPress={()=> {this.setState({ isModalVisible: false }); navigate('HomeAlternate')}} >
+        <Text style={styles.settingText}>Home</Text> 
+        </TouchableOpacity>
+        )
+    }
+
+    profileButton(){
+    const { navigate } = this.props.navigation;
+    return (
+        <TouchableOpacity
+        underlayColor="#FFF"
+        onPress={()=> {this.setState({ isModalVisible: false }); navigate('MyTouristProfile')}} >
+        <Text style={styles.settingText}>My Profile</Text> 
+        </TouchableOpacity>
+        )
+    }
+
+
     renderHeader = () => {
 
    /* const {
@@ -173,10 +197,15 @@ handleNotifications = () => {
         backdropOpacity={0.4}
         onBackdropPress={() => this.setState({ isModalVisible: false }) }
         supportedOrientations={['portrait', 'landscape']}
+        animationIn={'slideInLeft'}
+        animationOut={'slideOutRight'}
         >
-          <View style={styles.settingWindow}>
-                    
-            <Text style={styles.settingText}>My Profile</Text>
+          <View style={styles.newSettingWindow}>
+             
+
+             {this.homePage()}  
+             <View style={styles.border}></View>     
+            {this.profileButton()}
             <View style={styles.border}></View>
             <Text style={styles.settingText}>Notifications</Text>
             <View style={styles.border}></View>
@@ -205,7 +234,7 @@ handleNotifications = () => {
               </View>
               <View style={styles.userCityRow}>
                 <Text style={styles.userCityText}>
-                  {this.props.tourInfo.city}
+                  {this.props.profileInfo.city}
                 </Text>
               </View>
             </View>

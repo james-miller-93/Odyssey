@@ -12,7 +12,7 @@ export default class UserRoleContainer extends Component {
     	return (
         <ScrollView contentContainerStyle = {styles.SignUpContainer}>
         
-        <Text style={styles.title}>Are You A...</Text>
+        <Text style={[styles.title, {top:140}]}>Are You A...</Text>
     	<View style={styles.SignUpContainer}>
         
            

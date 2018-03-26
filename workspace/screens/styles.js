@@ -52,8 +52,8 @@ slide: {
         height: '100%',
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'flex-start',
-        backgroundColor: '#5D87A8',
+        //justifyContent: 'flex-start',
+        backgroundColor: '#A9A9A930',
     },
     loginKeyboard: {
         height: '80%',
@@ -73,8 +73,17 @@ slide: {
     transparentCover: {
         height: '100%',
         width: '100%',
+        backgroundColor: '#ffc57f30',
+        alignItems: 'center',
+        //opacity: 2,
+    },
+
+    OdysseyCover: {
+        height: '100%',
+        width: '100%',
         backgroundColor: '#A9A9A980',
         alignItems: 'center',
+
     },
         bttnText: {
         //height: '100%',
@@ -162,7 +171,7 @@ slide: {
     textAlign: 'center',
   },
   userImage: {
-    borderColor: '#01C89E',
+    borderColor: '#000',
     borderRadius: 85,
     borderWidth: 2,
     height: 145,
@@ -200,7 +209,7 @@ slide: {
     justifyContent: 'flex-start',
   },
   telIcon: {
-    color: '#01C89E',
+    color: '#000',
     fontSize: 25,
   },
   telNameColumn: {
@@ -246,7 +255,7 @@ slide: {
     marginBottom: 5,
   },
   emailIcon: {
-    color: '#01C89E',
+    color: '#000',
     fontSize: 30,
   },
   emailNameColumn: {
@@ -343,13 +352,31 @@ slide: {
     lineHeight: 22,
   },
   settingsIcon: {
-    marginLeft: 5,
+    //marginLeft: 5,
     color: 'black',
-    left: 0,
-    top: 15,
+    left: 5,
+    //top: 15,
+    position: 'absolute',
+    //justifyContent: 'center',
+    alignSelf: 'center',
+
+    //alignSelf: 'center',
     //position: 'absolute',
 
   },
+  mapSettingsIcon: {
+    top: 0,
+    marginLeft: 5,
+    color: 'black',
+    //left: 0,
+    //top: 15,
+    //position: 'absolute',
+    //justifyContent: 'center',
+    alignSelf: 'center',
+
+
+  },
+
   settingWindow: {
     backgroundColor: '#FFF',
     left: 0,
@@ -362,6 +389,22 @@ slide: {
     width: 100,
     //flex: 1,
     justifyContent: 'center',
+  },
+
+
+  newSettingWindow: {
+    backgroundColor: '#FFF',
+    left: 0,
+    position: 'absolute',
+    alignItems: 'center',
+    flexDirection: 'column',
+    top: 20,
+    borderWidth: 0.5,
+    height: 200,
+    width: 100,
+    //flex: 1,
+    justifyContent: 'center',
+
   },
   settingText: {
     //borderWidth: 2,
@@ -382,12 +425,23 @@ slide: {
   },
   settingsBox: {
     backgroundColor: 'transparent',
-    top: 20,
+    top: 20, 
     position: 'absolute',
     alignItems: 'center',
-    height: 60,
+    height: 80,
     width: 70,
     flexDirection: 'row',
+  
+  },
+  mapSettingsBox: {
+    backgroundColor: 'transparent',
+    top: 8, 
+    position: 'absolute',
+    alignItems: 'center',
+    height: 80,
+    width: 70,
+    flexDirection: 'row',
+  
   },
 
   //BUTTON 

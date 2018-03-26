@@ -54,7 +54,8 @@ class UserRole extends Component {
                     firstname: res.traveler.firstname,
                     lastname: res.traveler.lastname,
                     email: res.traveler.email,
-                    phone_number: res.traveler.phone_number
+                    phone_number: res.traveler.phone_number,
+                    city: res.traveler.city
                 }
                 this.props.dispatch(setMyProfile(myProfileInfo))
                 this.props.dispatch(viewTours(this.state.authentication_token,this.state.email))
