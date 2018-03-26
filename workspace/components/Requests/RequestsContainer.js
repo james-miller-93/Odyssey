@@ -23,7 +23,7 @@ export default class RequestsContainer extends Component {
             <View style={styles.textContainer}>
               <View style={{flexDirection : 'row', top: 25, marginLeft: 2}}>
               <TouchableOpacity underlayColor="#FFF" onPress= {() => {navigate('UserProfile')}}>
-              <Text style={styles.travelerName} > {this.props.travelerName} </Text>
+              <Text style={styles.travelerName} > {this.props.travelerFirstName} {this.props.travelerLastName} </Text>
               </TouchableOpacity>
               <Text style={styles.message}>has sent you a tour request </Text>
 

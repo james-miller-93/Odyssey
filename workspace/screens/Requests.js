@@ -130,7 +130,9 @@ class Requests extends Component {
                             this.props.dispatch(declineActiveReservation(data.id,
                                 this.state.authentication_token,this.state.email))
                         }}
-                        travelerName={''}
+
+                        travelerFirstName={data.tourist_firstname}
+                        travelerLastName={data.tourist_lastname}
                         />
                     )
                 }

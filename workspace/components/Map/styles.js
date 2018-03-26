@@ -7,6 +7,7 @@ export default EStyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center'
     },
+    
     map: {
         position: 'absolute',
         top: 0,

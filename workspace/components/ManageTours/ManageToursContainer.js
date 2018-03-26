@@ -118,6 +118,14 @@ class ManageToursContainer extends Component {
     render() {
     	return (
 
+        <View style={styles.container}>
+        <View style={{width: 60, height: 50, top: 25, left:10, paddingBottom: 40,  position: 'absolute'}}>
+        
+            <TouchableOpacity onPress={()=>{this.props.navigation.navigate('MyGuideProfile')}} underlayColor="#FFF">
+            <Icon3 name="arrow-left" style={{left: 0, position: 'absolute'}} size={27} />
+            </TouchableOpacity>
+        </View>
+
    	<ScrollView style={styles.generalContainer}>
 
    	<View>
@@ -177,6 +185,7 @@ class ManageToursContainer extends Component {
         
 
     </ScrollView>
+    </View>
 
 
 

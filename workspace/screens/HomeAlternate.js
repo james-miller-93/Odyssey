@@ -138,7 +138,10 @@ class HomeAlternate extends Component {
         this.props.navigation.navigate('Settings');
     }
     
+
     handleMarkerPress = () => {
+        console.log("******************************************************here***********************************");
+        console.log(this.state.ID, this.state.tourInfo);
         this.props.dispatch(pressProfileView(this.state.ID,this.state.authentication_token,this.state.email,this.state.tourInfo));
 
         //this.props.navigation.navigate('TourGuide');
@@ -213,7 +216,7 @@ class HomeAlternate extends Component {
 
     render() {
         return (
-            <View style={{height: '100%', width: '100%'}}>
+            <View >
             <View style={styles.container}>
 
                 
@@ -239,7 +242,8 @@ class HomeAlternate extends Component {
                         description={data.title}
                         //image={data.image}
                         //description = title
-                        onPress={() => {this.setState({ 
+                        onPress={() => { 
+                            this.setState({ 
                             ID: data.traveler_id,
                             tourInfo: {
                                 city: data.city,
@@ -248,15 +252,25 @@ class HomeAlternate extends Component {
                                 description: data.description,
                                 tourID: data.id
                             }
-                         })}}
+
+                            
+                         })
+                        }}
+              
+               
+                        onCalloutPress={this.handleMarkerPress}
+                        //onSelect={this.handleMarkerPress}
                         >
                         
                         <MapView.Callout
                         onPress={this.handleMarkerPress}
                         >
                             <CalloutContent
-                            markerTitle={data.traveler_id}
-                            markerDescription={data.title}
+                            //markerTitle={data.traveler_id}
+                            //markerDescription={data.title}
+                            markerTitle={data.title}
+                            handlePress = {this.handleMarkerPress}
+                            markerDescription={'View Profile'}
                             
                             />
                         </MapView.Callout>

@@ -14,6 +14,7 @@ myProfile: {
     email: '',
     phone_number: '',
     city: '',
+    image: '',
 },
 };
 

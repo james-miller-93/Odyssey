@@ -22,7 +22,7 @@ export default class TravelerNotification extends Component {
             />
 
             <TouchableOpacity underlayColor="#FFF" onPress= {() => {navigate('UserProfile')}}>
-            <Text style={styles.tourGuideName} > {this.props.tourGuideName} </Text>
+            <Text style={styles.tourGuideName} > {this.props.tourguideFirstName} {this.props.tourguideLastName} </Text>
             </TouchableOpacity>
             <Text/>
             <Text style={styles.message}>Your request status: {this.props.message}</Text>

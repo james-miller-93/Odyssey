@@ -33,6 +33,7 @@ class CreateTours extends Component {
 		        is_nightlife: false,
 		        is_outdoors: false, 
 		        price: this.props.tourInfo.price,
+		        
             }
          
         }

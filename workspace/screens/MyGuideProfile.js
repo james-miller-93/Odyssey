@@ -174,35 +174,7 @@ handleLogout = () => {
   //this.props.navigation.navigate('Requests')
 }
 
-openModal= () => {
 
-  if(this.state.isModalVisible) {
-  return (
-  
-  <Modal isVisible={this.state.isModalVisible}
-        backdropOpacity={0.4}
-        onBackdropPress={() => this.setState({ isModalVisible: false }) }
-        supportedOrientations={['portrait', 'landscape']}
-        animationIn={'slideInLeft'}
-          animationOut={'slideOutRight'}
-          //animatedType={false}
-
-        >
-          <View style={styles.settingWindow}>
-                    
-            {this.profileButton()}
-            <View style={styles.border}></View>
-            {this.notificationsButton()}
-            <View style={styles.border}></View>
-            {this.logoutButton()}
-
-        </View>
-        </Modal>
-    
-  )
-}
-
-}
     renderHeader = () => {
 
    /* const {
@@ -275,7 +247,7 @@ openModal= () => {
           
             <Image
               style={styles.userImage}
-              source={profilePic}
+              source={{uri: "https:" + this.props.profileInfo.image}}
             />
             <Text style={styles.userNameText}> {this.props.profileInfo.firstname} {this.props.profileInfo.lastname}</Text>
             <View style={styles.userAddressRow}>
@@ -406,7 +378,7 @@ renderTours = (tourName,tourDuration,tourDescription,tourKey) => (
         </View>
         
         <View style={styles.toursContainer}>
-            <Image style={styles.postImage} source={tour1} />
+            <Image style={styles.postImage} source={{uri: "https:" + this.props.profileInfo.image}} />
         </View>
     </View>
 

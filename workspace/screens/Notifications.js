@@ -5,7 +5,7 @@ import { View, Text, KeyboardAvoidingView,
 import { ButtonText, ButtonContainer} from '../components/Button';
 import styles from '../screens/styles';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { TravelerNotification } from '../components/Notification';
+import { TravelerNotification, NoNotifications } from '../components/Notification';
 import Modal from "react-native-modal";
 import { Card } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -33,6 +33,36 @@ class Notifications extends Component {
         <Text style={styles.settingText}>My Profile</Text> 
         </TouchableOpacity>
         )
+    }
+
+    ifIsNotifications(value) {
+
+        if(value && value.length > 0) {
+
+            return (
+                    value.map((data) => {
+                        return (
+                        <TravelerNotification
+                        key={data.id}
+                        navigation = {this.props.navigation}
+                        handleAcceptPress={this.acceptReservation}
+                        handleDeclinePress={this.declineReservation}
+                        tourguideFirstName={data.guide_firstname}
+                        tourguideLastName={data.guide_lastname}
+                        message={data.status}
+                        />
+                    )
+                })
+            )
+
+        }
+        else {
+            console.log("here")
+            return (
+            <NoNotifications/>
+
+            )
+        }
     }
 
     logoutButton() {
@@ -101,22 +131,10 @@ class Notifications extends Component {
 
             </Modal>
         
-          	<View style={{top: 120}}> 
 
-                {this.props.reservations.map((data) => {
-                    
-                    return (
-                        <TravelerNotification
-                        key={data.id}
-                        navigation = {this.props.navigation}
-                        handleAcceptPress={this.acceptReservation}
-                        handleDeclinePress={this.declineReservation}
-                        travelerName={''}
-                        message={data.status}
-                        />
-                    )
-            })}
+          	<View style={{top: 120, width: '100%'}}> 
 
+                {this.ifIsNotifications(this.props.reservations)}
              
            </View>
            

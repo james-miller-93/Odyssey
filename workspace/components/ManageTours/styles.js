@@ -18,6 +18,15 @@ generalContainer: {
 
     },
 
+    container: {
+      height: '100%',
+        width: '100%',
+        flexDirection : 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      
+      },
+
     editPress: {
     	backgroundColor: '#FFF',
     	height: 25,

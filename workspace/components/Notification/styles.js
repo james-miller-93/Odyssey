@@ -18,6 +18,10 @@ export default EStyleSheet.create({
         
     },
 
+    bellIcon: {
+
+        paddingLeft: '18%',
+    },
     notificationContainer: {
         height: 70,
         width: '100%',
@@ -25,6 +29,17 @@ export default EStyleSheet.create({
         alignItems: 'center',
         borderColor: '#000',
         borderWidth: 0.5,
+
+    },
+
+    noNotificationContainer: {
+        top: 50,
+        height: 70,
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderColor: '#000',
+        //borderWidth: 0.5,
 
     },
 
