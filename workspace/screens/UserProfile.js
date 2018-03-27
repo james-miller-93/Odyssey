@@ -101,14 +101,16 @@ dateTimeSetter = (dateTime) => {
   this.setState({ dateTimeSubmit: dateTime })
 }
 
-sendTourRequest = () => {
+sendTourRequest = (tourid) => {
   this.props.dispatch(submitNewReservation(this.state.dateTimeSubmit,
-    this.props.tourInfo.tourID, this.state.authentication_token,this.state.email))
+    tourid, this.state.authentication_token,this.state.email))
   console.log('submitted the following date and time')
   console.log(this.state.dateTimeSubmit)
 }
   
 handleRequestPress = () => {
+  console.log('=========')
+  console.log(this.props.profileInfo.profile_image)
   this.setState({
     requestVisible: !this.state.requestVisible
   });
@@ -170,9 +172,11 @@ handleRequestPress = () => {
             <Image
               style={styles.userImage}
               //source={profilePic}
-              source={{ uri: this.props.traveler.image}}
+              //source={{ uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}
+              source={{ uri: 'https:'+this.props.profileInfo.profile_image}}
+              //source={{ uri: 'https://s3-us-east-2.amazonaws.com/odysseyapi/travelers/images/13/original/4e9ef98191445f897220d86ac8188338.jpg?1521788431'}}
             />
-            <Text style={styles.userNameText}> {this.props.traveler.firstname} {this.props.traveler.lastname}</Text>
+            <Text style={styles.userNameText}> {this.props.profileInfo.firstname} {this.props.profileInfo.lastname}</Text>
             <View style={styles.userAddressRow}>
               <View>
                 <Icon1
@@ -210,7 +214,7 @@ handleRequestPress = () => {
         </View>
         <View style={styles.telRow}>
           <View style={styles.telNumberColumn}>
-            <Text style={styles.telNumberText}> {this.props.traveler.phone_number} </Text>
+            <Text style={styles.telNumberText}> {this.props.profileInfo.phone_number} </Text>
         </View>
         </View>
 
@@ -235,7 +239,7 @@ handleRequestPress = () => {
       </View>
       <View style={styles.emailRow}>
         <View style={styles.emailColumn}>
-          <Text style={styles.emailText}>{this.props.traveler.email}</Text>
+          <Text style={styles.emailText}>{this.props.profileInfo.email}</Text>
         </View>
         </View>
         </View>
@@ -248,7 +252,7 @@ renderSeparator = () => (
   </View>
 )
 
-renderTours = () => ( 
+renderTours = (tourName,tourDuration,tourDescription,tourid) => ( 
 
     <View style={styles.sceneContainer}>
     
@@ -256,11 +260,11 @@ renderTours = () => (
           <View style = {styles.tourTextButton}>
             <View style={styles.tourList}>
                 <View style={styles.postRow}>
-                    <Text>{this.props.tourInfo.name}</Text>
-                    <Text style={styles.date}>{this.props.tourInfo.duration} hours</Text>
+                    <Text>{tourName}</Text>
+                    <Text style={styles.date}>{tourDuration} hours</Text>
                 </View>
                 <View style={styles.wordRow}>
-                    <Text style={styles.wordText}>{this.props.tourInfo.description}</Text>
+                    <Text style={styles.wordText}>{tourDescription}</Text>
                 </View>
                 
             </View>
@@ -291,7 +295,7 @@ renderTours = () => (
         >
         <OneDateTime
         handleConfirmDateTime={this.dateTimeSetter}
-        handleSubmitRequest={this.sendTourRequest}
+        handleSubmitRequest={() => {this.sendTourRequest(tourid)}}
         />
         </HideableView>
         <View style={styles.toursContainer}>
@@ -314,7 +318,14 @@ renderTours = () => (
             {this.renderSeparator()}
             {this.renderEmail()}
             {this.renderSeparator()}
-            {this.renderTours()}
+            {this.props.tourArray.map((data) => {
+              return (
+                <View key={data.id}>
+                  {this.renderTours(data.title,data.duration,data.description,data.id)}
+                </View>
+              )
+            })}
+            
             
           </Card>
         </View>
@@ -331,12 +342,17 @@ const mapStateToProps = (state) => {
     const traveler = state.ViewProfile.result.traveler;
     const tourInfo = state.ViewProfile.tourInfo;
 
+    const tourArray = state.ViewProfile.activeResult.tours;
+    const profileInfo = state.ViewProfile.profileInfo;
+
     const reservationResult = state.Reservation.result;
     const reservationError = state.Reservation.errors
 
     return {
         traveler,
         tourInfo,
+        tourArray,
+        profileInfo,
         reservationResult,
         reservationError
     };

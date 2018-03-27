@@ -13,8 +13,13 @@ myProfile: {
     lastname: '',
     email: '',
     phone_number: '',
+
     city: '',
     image: '',
+
+    latitude: '',
+    longitude: '',
+
 },
 };
 

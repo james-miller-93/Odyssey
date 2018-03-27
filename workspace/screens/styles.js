@@ -392,7 +392,8 @@ slide: {
   },
 
 
-  newSettingWindow: {
+  mapWindow: {
+
     backgroundColor: '#FFF',
     left: 0,
     position: 'absolute',
@@ -402,6 +403,13 @@ slide: {
     borderWidth: 0.5,
     height: 200,
     width: 100,
+    //flex: 1,
+    justifyContent: 'center',
+  },
+  
+  newSettingWindow: {
+    height: '80%',
+    width: '100%',
     //flex: 1,
     justifyContent: 'center',
 

@@ -6,7 +6,8 @@ const initialState = {
 	authentication_token: '',
 	result: '',
 	errors: '',
-	active: '',
+    active: '',
+    location: '',
     id: '',
 
 };
@@ -22,6 +23,7 @@ switch(action.type) {
             email: action.email,
             authentication_token: action.authentication_token,
             active: action.active,
+            location: action.location,
             id: action.id,
         }
     case ACTIVE_SWITCH_ERROR:

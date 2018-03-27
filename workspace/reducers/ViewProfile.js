@@ -1,5 +1,7 @@
 import { VIEW_PROFILE_CHECK, VIEW_PROFILE_ERROR,
-    VIEW_PROFILE_RESULT, VIEW_PROFILE_CLEAR,} from '../actions/ViewProfile';
+    VIEW_PROFILE_RESULT, VIEW_PROFILE_CLEAR,
+    VIEW_ACTIVE_PROFILE_CHECK, VIEW_ACTIVE_PROFILE_ERROR,
+    VIEW_ACTIVE_PROFILE_RESULT} from '../actions/ViewProfile';
 
 const initialState = {
 email: '',
@@ -16,6 +18,19 @@ tourInfo: {
 },
 tourErrors: '',
 tourResult: '',
+profileInfo: {
+    firstname: '',
+    lastname: '',
+    id: '',
+    description: '',
+    distance: '',
+    email: '',
+    phone_number: '',
+    profile_image: '',
+    image: ''
+},
+activeErrors: '',
+activeResult: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -54,7 +69,21 @@ switch(action.type) {
                 tourID: ''
             }
         }
-    
+    case VIEW_ACTIVE_PROFILE_CHECK:
+        return {
+            ...state,
+            profileInfo: action.profileInfo
+        }
+    case VIEW_ACTIVE_PROFILE_ERROR:
+        return {
+            ...state,
+            activeErrors: action.activeErrors
+        }
+    case VIEW_ACTIVE_PROFILE_RESULT:
+        return {
+            ...state,
+            activeResult: action.activeResult
+        }
     default:
         return state;
 }

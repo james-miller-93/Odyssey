@@ -22,6 +22,7 @@ import ManageTours from '../screens/ManageTours';
 import CreateTours from '../screens/CreateTours';
 
 
+
 export default StackNavigator({
     /*Test: {
         screen: Test,
@@ -129,7 +130,14 @@ export default StackNavigator({
         navigationOptions: {
             header: () => null,
         }
+    },
 
+    UserProfile: {
+
+        screen: UserProfile,
+        navigationOptions: {
+            header: () => null,
+        }
         
     },
     UserRole: {
