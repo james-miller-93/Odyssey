@@ -3,7 +3,7 @@ import { View, Text, KeyboardAvoidingView, ImageBackground, Image ,TouchableOpac
 import { ButtonText, ButtonContainer} from '../components/Button';
 import styles from '../screens/styles';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { RequestsContainer } from '../components/Requests';
+import { RequestsContainer, NoRequests} from '../components/Requests';
 import Modal from "react-native-modal";
 import { Card } from 'react-native-elements'
 import { connect } from 'react-redux';
@@ -18,7 +18,8 @@ import { sendLogOutRequest } from '../actions/LogOut';
 class Requests extends Component {
 
 	state = {
-    isModalVisible: false
+    isModalVisible: false,
+    notifications: false
     };
  
     _toggleModal = () =>
@@ -46,11 +47,81 @@ class Requests extends Component {
             )
       }
 
+      ifIsRequests(value) {
+
+
+
+        console.log("------------------------>>>here:", value, value.length)
+        if(value && value.length > 0) {
+            return(
+
+            value.map((data, index) => { 
+                //console.log("ppp:", data.status)
+                if(data.status === 'Waiting') 
+                    console.log("1")
+                    if (data.status !== 'Approved' && data.status !== 'Declined') {
+                        console.log("2")
+
+                    return (
+
+                        <RequestsContainer
+                        key={data.id}
+                        navigation = {this.props.navigation}
+                        handleAcceptPress={() => {
+                            this.props.dispatch(acceptActiveReservation(data.id,
+                                this.state.authentication_token,this.state.email))
+                        }}
+                        handleDeclinePress={() => {
+                            this.props.dispatch(declineActiveReservation(data.id,
+                                this.state.authentication_token,this.state.email))
+                        }}
+
+                        travelerFirstName={data.tourist_firstname}
+                        travelerLastName={data.tourist_lastname}
+                        />
+                    )
+                }
+                else {
+                    console.log("---------------------------here--------------------------")
+                    if(index === value.length) {
+                return (
+
+                    <View key={index}>
+                 
+
+                    <NoRequests/>
+                    </View>
+
+                 )
+                }
+            }
+            })
+            )
+        }
+        else {
+            
+            return (
+            <NoRequests/>
+
+            )
+        }
+    }
+
       handleLogout = () => {
         this.setState({ isModalVisible: false});
         this.props.dispatch( sendLogOutRequest(this.state.authentication_token,this.state.email) )
         //this.props.navigation.navigate('Requests')
       }
+
+     notificationsButton() {
+      return (
+          <TouchableOpacity
+          underlayColor="#FFF"
+           >
+              <Text style={styles.settingText}>Requests</Text> 
+          </TouchableOpacity>
+          )
+    }
 
     async componentDidMount() {
         let storedToken = await AsyncStorage.getItem('authentication_token')
@@ -106,7 +177,7 @@ class Requests extends Component {
                                 
                     {this.profileButton()}
                     <View style={styles.border}></View>
-                    <Text style={styles.settingText}>Notifications</Text> 
+                    {this.notificationsButton()} 
                     <View style={styles.border}></View>
                     {this.logoutButton()}
 
@@ -114,29 +185,11 @@ class Requests extends Component {
 
             </Modal>
         
-          	<View style={{top: 120}}> 
+          	<View style={{width: '100%', top: 120}}> 
 
-            {this.props.reservations.map((data) => { 
-                if(data.status === 'Waiting') if (data.status !== 'Accepted' && data.status !== 'Declined') {
-                    return (
-                        <RequestsContainer
-                        key={data.id}
-                        navigation = {this.props.navigation}
-                        handleAcceptPress={() => {
-                            this.props.dispatch(acceptActiveReservation(data.id,
-                                this.state.authentication_token,this.state.email))
-                        }}
-                        handleDeclinePress={() => {
-                            this.props.dispatch(declineActiveReservation(data.id,
-                                this.state.authentication_token,this.state.email))
-                        }}
+            {this.ifIsRequests(this.props.reservations)}
 
-                        travelerFirstName={data.tourist_firstname}
-                        travelerLastName={data.tourist_lastname}
-                        />
-                    )
-                }
-            })}
+          
 
              
            </View>

@@ -394,22 +394,28 @@ slide: {
 
   mapWindow: {
 
-    backgroundColor: '#FFF',
+   backgroundColor: '#FFF',
     left: 0,
     position: 'absolute',
     alignItems: 'center',
     flexDirection: 'column',
     top: 20,
     borderWidth: 0.5,
-    height: 200,
-    width: 100,
+     height: '80%',
+    width: '100%',
     //flex: 1,
     justifyContent: 'center',
   },
-  
+
   newSettingWindow: {
-    height: '80%',
-    width: '100%',
+    backgroundColor: '#FFF',
+    height: 200,
+    width: 100,
+     left: 0,
+    position: 'absolute',
+    alignItems: 'center',
+    flexDirection: 'column',
+    top: 20,
     //flex: 1,
     justifyContent: 'center',
 

@@ -17,7 +17,7 @@ export default class SignUpContainer extends Component {
         
          <View style={{width: 60, height: 50, top: 25, left:10, position: 'absolute'}}>
         
-            <TouchableOpacity onPress={()=>{this.props.navigation.navigate('Login')}} underlayColor="#FFF">
+            <TouchableOpacity  onPress={()=>{this.props.navigation.navigate('Login')}} underlayColor="#FFF">
             <Icon name="arrow-left" style={{left: 0, position: 'absolute'}} size={27} />
             </TouchableOpacity>
         </View>

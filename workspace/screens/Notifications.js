@@ -76,6 +76,31 @@ class Notifications extends Component {
             )
       }
 
+      homePage(){
+    const { navigate } = this.props.navigation;
+    return (
+        <TouchableOpacity
+        underlayColor="#FFF"
+        onPress={()=> {this.setState({ isModalVisible: false }); navigate('HomeAlternate')}} 
+        >
+        <Text style={styles.settingText}>Home</Text> 
+        </TouchableOpacity>
+        )
+    }
+
+    notificationsButton() {
+        //const { navigate } = this.props.navigation;
+        return (
+            <TouchableOpacity
+            underlayColor="#FFF"
+            //onPress={this.handleNotifications}
+             >
+                <Text style={styles.settingText}>Notifications</Text> 
+            </TouchableOpacity>
+            )
+      }
+
+
       async componentDidMount() {
         let storedToken = await AsyncStorage.getItem('authentication_token')
         let storedEmail = await AsyncStorage.getItem('email')
@@ -104,7 +129,7 @@ class Notifications extends Component {
 
         return (
     
-    	<View style={styles.notification}>
+    	<View >
         
         	<View style={styles.settingsBox}>
         
@@ -117,13 +142,17 @@ class Notifications extends Component {
             backdropOpacity={0.4}
             onBackdropPress={() => this.setState({ isModalVisible: false }) }
             supportedOrientations={['portrait', 'landscape']}
+            animationIn={'slideInLeft'}
+            animationOut={'slideOutRight'}
             //animation='none'
             >
-                <View style={styles.settingWindow}>
-                                
+                <View style={styles.newSettingWindow}>
+                           
+                    {this.homePage()}
+                    <View style={styles.border}></View>       
                     {this.profileButton()}
                     <View style={styles.border}></View>
-                    <Text style={styles.settingText}>Notifications</Text> 
+                    {this.notificationsButton()} 
                     <View style={styles.border}></View>
                     {this.logoutButton()} 
 

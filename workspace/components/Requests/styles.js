@@ -28,6 +28,23 @@ export default EStyleSheet.create({
 
     },
 
+
+    bellIcon: {
+
+        paddingLeft: '18%',
+    },
+
+    noRequestsContainer: {
+        top: 50,
+        height: 70,
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderColor: '#000',
+        //borderWidth: 0.5,
+
+    },
+
      userImage: {
     
     //borderColor: '#01C89E',

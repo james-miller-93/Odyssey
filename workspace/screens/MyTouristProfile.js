@@ -113,7 +113,7 @@ componentWillReceiveProps(nextProps) {
       this.props.alertWithType('error','Error',nextProps.reservationError);
   } else if(nextProps.reservationResult && nextProps.reservationResult !== this.props.reservationResult) {
       console.log(nextProps.reservationResult);
-      this.props.navigation.navigate('Requests')
+      this.props.navigation.navigate('Notifications')
   } else if (nextProps.logoutError && nextProps.logoutError !== this.props.logoutError) {
     this.props.alertWithType('error','Error',nextProps.logoutError);
   } else if(nextProps.logoutResult && nextProps.logoutResult !== this.props.logoutResult) {
@@ -128,11 +128,13 @@ handleRequestPress = () => {
   });
 };
 
-handleNotifications = () => {
-  this.props.dispatch(checkActiveReservationTourist(this.props.profileID,
-    this.state.authentication_token,this.state.email))
-  this.props.navigation.navigate('Notifications')
-}
+  handleNotifications = () => {
+        this.setState({ isModalVisible: false })
+        this.props.dispatch(checkActiveReservationTourist(this.props.profileID,
+          this.state.authentication_token,this.state.email))
+        //this.props.navigation.navigate('Requests')
+      }
+
 
 
 homePage(){
@@ -147,15 +149,27 @@ homePage(){
     }
 
     profileButton(){
-    const { navigate } = this.props.navigation;
+    //const { navigate } = this.props.navigation;
     return (
         <TouchableOpacity
         underlayColor="#FFF"
-        onPress={()=> {this.setState({ isModalVisible: false }); navigate('MyTouristProfile')}} >
+        //onPress={()=> {this.setState({ isModalVisible: false }); navigate('MyTouristProfile')}} 
+        >
         <Text style={styles.settingText}>My Profile</Text> 
         </TouchableOpacity>
         )
     }
+
+     notificationsButton() {
+        const { navigate } = this.props.navigation;
+        return (
+            <TouchableOpacity
+            underlayColor="#FFF"
+            onPress={this.handleNotifications} >
+                <Text style={styles.settingText}>Notifications</Text> 
+            </TouchableOpacity>
+            )
+      }
 
 
     renderHeader = () => {
@@ -207,7 +221,7 @@ homePage(){
              <View style={styles.border}></View>     
             {this.profileButton()}
             <View style={styles.border}></View>
-            <Text style={styles.settingText}>Notifications</Text>
+            {this.notificationsButton()} 
             <View style={styles.border}></View>
             {this.logoutButton()}
              

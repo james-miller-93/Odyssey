@@ -5,7 +5,7 @@ import { GeneralTextInput } from '../TextInput';
 //import ImageHeader from 'react-native-image-header';
 import styles from './styles';
 //import {PropTypes} from 'react';
-
+import Icon3 from 'react-native-vector-icons/Feather';
 const headerImage = require('./orangeHeader.jpg');
 const profilePic = require('./profilePic.png');
 
@@ -20,6 +20,13 @@ export default class UserProfileContainer extends Component {
       
  
         <View style={styles.foregroundContainer}>
+        <View style={{width: 60, height: 50, top: 25, left:10, position: 'absolute'}}>
+        
+            <TouchableOpacity onPress={()=>{this.props.navigation.navigate('HomeAlternate')}} underlayColor="#FFF">
+            <Icon name="arrow-left" style={{left: 0, position: 'absolute'}} size={27} />
+            </TouchableOpacity>
+        </View>
+
           <Image
             source={profilePic}
             style={styles.userImage}

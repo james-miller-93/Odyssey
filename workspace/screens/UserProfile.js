@@ -10,7 +10,7 @@ import styles from '../screens/styles';
 import { UserProfileContainer } from '../components/Container';
 import { connectAlert } from '../components/Alert';
 import { TimeDate, OneDateTime } from '../components/TimeDate';
-
+import Icon2 from 'react-native-vector-icons/Feather';
 
 import HideableView from 'react-native-hideable-view';
 import { Calendar } from 'react-native-calendars';
@@ -143,29 +143,13 @@ handleRequestPress = () => {
 
       
          
-        <View style={styles.settingsBox}>
+      
+        <View style={{width: 60, height: 50, top: 25, left:10, position: 'absolute'}}>
         
-        <TouchableOpacity onPress={this._toggleModal} underlayColor="#FFF">
-            <Icon name="ios-menu" style={styles.settingsIcon} size={45} />
-         </TouchableOpacity>
+            <TouchableOpacity onPress={()=>{this.props.navigation.navigate('HomeAlternate')}} underlayColor="#FFF">
+            <Icon2 name="arrow-left" style={{left: 0, position: 'absolute'}} size={27} />
+            </TouchableOpacity>
         </View>
-
-        <Modal isVisible={this.state.isModalVisible}
-        backdropOpacity={0.4}
-        onBackdropPress={() => this.setState({ isModalVisible: false }) }
-        supportedOrientations={['portrait', 'landscape']}
-        >
-          <View style={styles.settingWindow}>
-                    
-            {this.profileButton()}
-            <View style={styles.border}></View>
-            <Text style={styles.settingText}>Notifications</Text> 
-            <View style={styles.border}></View>
-            <Text style={styles.settingText}>Logout</Text> 
-
-        </View>
-        </Modal>
-
 
           <View style={styles.headerColumn}>
           

@@ -204,11 +204,12 @@ class HomeAlternate extends Component {
     }
 
     homePage(){
-    const { navigate } = this.props.navigation;
+    //const { navigate } = this.props.navigation;
     return (
         <TouchableOpacity
         underlayColor="#FFF"
-        onPress={()=> {this.setState({ isModalVisible: false }); navigate('HomeAlternate')}} >
+        //onPress={()=> {this.setState({ isModalVisible: false }); navigate('HomeAlternate')}} 
+        >
         <Text style={screenStyles.settingText}>Home</Text> 
         </TouchableOpacity>
         )

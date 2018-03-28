@@ -31,20 +31,30 @@ export default StackNavigator({
         }
     },*/
 
-
-
+  
     
     Loading: {
         screen: Loading,
         navigationOptions: {
-            header: () => null
+            header: () => null,
+            gesturesEnabled: false
         }
     },
 
     HomeAlternate: {
         screen: HomeAlternate,
         navigationOptions: {
-            header: () => null
+            header: () => null,
+            gesturesEnabled: false
+
+        }
+    },
+      UserRole: {
+        screen: UserRole,
+        navigationOptions: {
+            header: () => null,
+            gesturesEnabled: false
+
         }
     },
 
@@ -52,29 +62,23 @@ export default StackNavigator({
         screen: CreateTours,
         navigationOptions: {
             header: () => null,
+            gesturesEnabled: false
         }
     },
-
-    MyGuideProfile: {
-        screen: MyGuideProfile,
-        navigationOptions: {
-            header: () => null,
-        }
-    },
-
   
-
   
     ManageTours: {
         screen: ManageTours,
         navigationOptions: {
             header: () => null,
+            gesturesEnabled: false
         }
     },
     UpdateAccount: {
         screen: UpdateAccount,
         navigationOptions: {
             header: () => null,
+            gesturesEnabled: false
         }
     },
 
@@ -83,7 +87,8 @@ export default StackNavigator({
     Requests: {
         screen: Requests,
         navigationOptions: {
-            header: () => null
+            header: () => null,
+            gesturesEnabled: false
         }
 
     },
@@ -91,7 +96,8 @@ export default StackNavigator({
     Notifications: {
         screen: Notifications,
         navigationOptions: {
-            header: () => null
+            header: () => null,
+            gesturesEnabled: false
         }
     },
 
@@ -102,6 +108,7 @@ export default StackNavigator({
         screen: MyGuideProfile,
         navigationOptions: {
             header: () => null,
+            gesturesEnabled: false,
         }
     },
 
@@ -109,6 +116,7 @@ export default StackNavigator({
         screen: MyTouristProfile,
         navigationOptions: {
             header: () => null,
+            gesturesEnabled: false,
         }
     },
    
@@ -117,18 +125,21 @@ export default StackNavigator({
         screen: Login,
         navigationOptions: {
             header: () => null,
+            gesturesEnabled: false
         },
     },   
     Profile: {
         screen: Profile,
         navigationOptions: {
             header: () => null,
+            gesturesEnabled: false
         }
     },
     SignIn: {
         screen: SignIn,
         navigationOptions: {
             header: () => null,
+            gesturesEnabled: false
         }
     },
 
@@ -137,6 +148,7 @@ export default StackNavigator({
         screen: UserProfile,
         navigationOptions: {
             header: () => null,
+            gesturesEnabled: false
         }
         
     },
@@ -144,6 +156,7 @@ export default StackNavigator({
         screen: UserRole,
         navigationOptions: {
             header: () => null,
+            gesturesEnabled: false,
         }
     },
     
@@ -161,6 +174,7 @@ export default StackNavigator({
     Register: {
         navigationOptions: {
             header: () => null,
+            gesturesEnabled: false
         },
         screen: Register
         

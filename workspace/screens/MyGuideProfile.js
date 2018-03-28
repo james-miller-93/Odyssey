@@ -57,11 +57,12 @@ class MyGuideProfile extends Component {
     };
 
     profileButton(){
-    const { navigate } = this.props.navigation;
+    //const { navigate } = this.props.navigation;
     return (
         <TouchableOpacity
         underlayColor="#FFF"
-        onPress={()=> {this.setState({ isModalVisible: false }); navigate('UserProfile')}} >
+        //onPress={()=> {this.setState({ isModalVisible: false }); navigate('UserProfile')}} 
+        >
             <Text style={styles.settingText}>My Profile</Text> 
         </TouchableOpacity>
         )
@@ -73,7 +74,7 @@ class MyGuideProfile extends Component {
           <TouchableOpacity
           underlayColor="#FFF"
           onPress={this.handleNotifications} >
-              <Text style={styles.settingText}>Notifications</Text> 
+              <Text style={styles.settingText}>Requests</Text> 
           </TouchableOpacity>
           )
     }
@@ -167,11 +168,11 @@ async componentDidMount() {
       authentication_token: storedToken,
       email: storedEmail
   })
-  if (this.props.tourInfo.latitude !== undefined && this.props.tourInfo.longitude !== undefined) {
+  if (this.props.profileInfo.latitude !== undefined && this.props.profileInfo.longitude !== undefined) {
     this.setState({
       location: {
-        latitude: this.props.tourInfo.latitude,
-        longitude: this.props.tourInfo.longitude,
+        latitude: this.props.profileInfo.latitude,
+        longitude: this.props.profileInfo.longitude,
         latitudeDelta: 0.00922,
         longitudeDelta: 0.00421,
       }

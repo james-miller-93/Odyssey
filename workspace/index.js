@@ -22,7 +22,8 @@ EStyleSheet.build({
 export default () => (
     <Provider store={store}>
         <AlertProvider>
-            <Navigator />
+            <Navigator 
+        />
         </AlertProvider>
     </Provider>
 );
