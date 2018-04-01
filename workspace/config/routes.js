@@ -1,4 +1,4 @@
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator , DrawerNavigator} from 'react-navigation';
 
 import Filter from '../screens/Filter';
 import Home from '../screens/Home';
@@ -23,21 +23,15 @@ import CreateTours from '../screens/CreateTours';
 
 
 
-export default StackNavigator({
-    /*Test: {
-        screen: Test,
-        navigationOptions: {
-            header: () => null,
-        }
-    },*/
+export default DrawerNavigator({
 
-  
     
     Loading: {
         screen: Loading,
         navigationOptions: {
             header: () => null,
-            gesturesEnabled: false
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
         }
     },
 
@@ -45,7 +39,8 @@ export default StackNavigator({
         screen: HomeAlternate,
         navigationOptions: {
             header: () => null,
-            gesturesEnabled: false
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
 
         }
     },
@@ -53,7 +48,8 @@ export default StackNavigator({
         screen: UserRole,
         navigationOptions: {
             header: () => null,
-            gesturesEnabled: false
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
 
         }
     },
@@ -62,7 +58,8 @@ export default StackNavigator({
         screen: CreateTours,
         navigationOptions: {
             header: () => null,
-            gesturesEnabled: false
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
         }
     },
   
@@ -71,14 +68,16 @@ export default StackNavigator({
         screen: ManageTours,
         navigationOptions: {
             header: () => null,
-            gesturesEnabled: false
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
         }
     },
     UpdateAccount: {
         screen: UpdateAccount,
         navigationOptions: {
             header: () => null,
-            gesturesEnabled: false
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
         }
     },
 
@@ -88,7 +87,8 @@ export default StackNavigator({
         screen: Requests,
         navigationOptions: {
             header: () => null,
-            gesturesEnabled: false
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
         }
 
     },
@@ -97,7 +97,8 @@ export default StackNavigator({
         screen: Notifications,
         navigationOptions: {
             header: () => null,
-            gesturesEnabled: false
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
         }
     },
 
@@ -109,6 +110,7 @@ export default StackNavigator({
         navigationOptions: {
             header: () => null,
             gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
         }
     },
 
@@ -117,6 +119,7 @@ export default StackNavigator({
         navigationOptions: {
             header: () => null,
             gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
         }
     },
    
@@ -125,21 +128,24 @@ export default StackNavigator({
         screen: Login,
         navigationOptions: {
             header: () => null,
-            gesturesEnabled: false
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
         },
     },   
     Profile: {
         screen: Profile,
         navigationOptions: {
             header: () => null,
-            gesturesEnabled: false
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
         }
     },
     SignIn: {
         screen: SignIn,
         navigationOptions: {
             header: () => null,
-            gesturesEnabled: false
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
         }
     },
 
@@ -148,7 +154,8 @@ export default StackNavigator({
         screen: UserProfile,
         navigationOptions: {
             header: () => null,
-            gesturesEnabled: false
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
         }
         
     },
@@ -157,6 +164,7 @@ export default StackNavigator({
         navigationOptions: {
             header: () => null,
             gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
         }
     },
     
@@ -167,6 +175,7 @@ export default StackNavigator({
         screen: Home,
         navigationOptions: {
             header: () => null,
+            drawerLockMode: 'locked-closed'
         },
     },
     
@@ -174,7 +183,8 @@ export default StackNavigator({
     Register: {
         navigationOptions: {
             header: () => null,
-            gesturesEnabled: false
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
         },
         screen: Register
         

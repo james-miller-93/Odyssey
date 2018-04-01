@@ -21,9 +21,11 @@ class Notifications extends Component {
     isModalVisible: false
     };
  
+    //updates state for visibility of modal
     _toggleModal = () =>
     this.setState({ isModalVisible: !this.state.isModalVisible });
 
+    //functions handle what happens if button on the menu modal are clicked
     profileButton(){
     const { navigate } = this.props.navigation;
     return (
@@ -76,7 +78,7 @@ class Notifications extends Component {
             )
       }
 
-      homePage(){
+    homePage(){
     const { navigate } = this.props.navigation;
     return (
         <TouchableOpacity
@@ -89,17 +91,16 @@ class Notifications extends Component {
     }
 
     notificationsButton() {
-        //const { navigate } = this.props.navigation;
+      
         return (
             <TouchableOpacity
             underlayColor="#FFF"
-            //onPress={this.handleNotifications}
+  
              >
                 <Text style={styles.settingText}>Notifications</Text> 
             </TouchableOpacity>
             )
       }
-
 
       async componentDidMount() {
         let storedToken = await AsyncStorage.getItem('authentication_token')
@@ -110,6 +111,7 @@ class Notifications extends Component {
         })
       };
 
+      //checking if object received from backend is error or a valid result
       componentWillReceiveProps(nextProps) {
         if (nextProps.logoutError && nextProps.logoutError !== this.props.logoutError) {
           this.props.alertWithType('error','Error',nextProps.logoutError);
@@ -120,9 +122,8 @@ class Notifications extends Component {
       }
 
     handleLogout = () => {
-        this.setState({ isModalVisible: false});
         this.props.dispatch( sendLogOutRequest(this.state.authentication_token,this.state.email) )
-        //this.props.navigation.navigate('Requests')
+     
       }
 
    render() {
@@ -177,6 +178,7 @@ class Notifications extends Component {
 
 };
 
+//maps states in reducers to props in the screen
 const mapStateToProps = (state) => {
     const reservations = state.ActiveReservation.result.reservation;
     

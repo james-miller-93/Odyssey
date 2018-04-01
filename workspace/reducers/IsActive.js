@@ -19,7 +19,6 @@ switch(action.type) {
     case UPDATE_ACTIVE_SWITCH:
         return {
             ...state,
-            //maybe without the email/token
             email: action.email,
             authentication_token: action.authentication_token,
             active: action.active,

@@ -17,17 +17,17 @@ export default class Map extends Component {
             <MapView.Callout tooltip>
             <View style={styles.calloutContainer}>
             <Text style={styles.calloutText}>
-                $15
-                </Text>
-                <Text style={styles.calloutText}>
-                    {this.props.markerTitle}
-                </Text>
-                <Text style={styles.calloutText}>
-                    {this.props.markerDescription}
-                </Text>
-                </View>
-                </MapView.Callout>
-        );
+            $15
+            </Text>
+            <Text style={styles.calloutText}>
+            {this.props.markerTitle}
+            </Text>
+            <Text style={styles.calloutText}>
+            {this.props.markerDescription}
+            </Text>
+            </View>
+            </MapView.Callout>
+            );
     };
 
     render() {
@@ -48,12 +48,12 @@ export default class Map extends Component {
             onPress={this.handlePress}
             />
             </MapView>
-                <TextInput
-                    style={style.searchbar}
-                    placeholder={'Search'}
-                    />
-                    
+            <TextInput
+            style={style.searchbar}
+            placeholder={'Search'}
+            />
+            
             </View>
-        );
+            );
     };
 };

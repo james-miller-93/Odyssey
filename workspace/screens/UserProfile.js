@@ -32,17 +32,22 @@ const tour2 = require('../assets/images/tour2.jpeg');
   
 
 class UserProfile extends Component {
-//export default class UserProfile extends Component {
+
     state = {
     isModalVisible: false
 
     };
+
+    //updating the state for the dateTme
+    dateTimeSetter = (dateTime) => {
+    this.setState({ dateTimeSubmit: dateTime })
+    }
  
+    //updates the state for the menu modal
     _toggleModal = () =>
     this.setState({ isModalVisible: !this.state.isModalVisible });
 
-    _hideModal = () => { this.setState({ isModalVisible: false }) };
-
+    //updating the store and navigating to the different pages 
     handleSignUpPress = () => {
         this.props.navigation.navigate('Register');
     };
@@ -57,51 +62,7 @@ class UserProfile extends Component {
         </TouchableOpacity>
         )
     }
-
-
-constructor(props) {
-  super(props)
-  this.state = {
-      requestVisible: false,
-      dateTimeSubmit: '',
-      authentication_token: '',
-      email: ''
-      //dateSubmit: '',
-      //timeSubmit: '',
-  };
-};
-
-async componentDidMount() {
-  let storedToken = await AsyncStorage.getItem('authentication_token')
-  let storedEmail = await AsyncStorage.getItem('email')
-  this.setState( {
-      authentication_token: storedToken,
-      email: storedEmail
-  })
-};
-
-componentWillReceiveProps(nextProps) {
-  if (nextProps.reservationError && nextProps.reservationError !== this.props.reservationError) {
-      this.props.alertWithType('error','Error',nextProps.reservationError);
-  } else if(nextProps.reservationResult && nextProps.reservationResult !== this.props.reservationResult) {
-      console.log(nextProps.reservationResult);
-      this.props.alertWithType('success','Success','Your Request Has Been Sent');
-  }
-}
-
-/*timeSetter = (time) => {
-  this.setState({ timeSubmit: time })
-}
-
-dateSetter = (date) => {
-  this.setState({ dateSubmit: date })
-}*/
-
-dateTimeSetter = (dateTime) => {
-  this.setState({ dateTimeSubmit: dateTime })
-}
-
-sendTourRequest = (tourid) => {
+    sendTourRequest = (tourid) => {
   this.props.dispatch(submitNewReservation(this.state.dateTimeSubmit,
     tourid, this.state.authentication_token,this.state.email))
   console.log('submitted the following date and time')
@@ -116,15 +77,39 @@ handleRequestPress = () => {
   });
 };
 
+//initializes the state to empty strings
+constructor(props) {
+  super(props)
+  this.state = {
+      requestVisible: false,
+      dateTimeSubmit: '',
+      authentication_token: '',
+      email: ''
+  };
+};
+
+async componentDidMount() {
+  let storedToken = await AsyncStorage.getItem('authentication_token')
+  let storedEmail = await AsyncStorage.getItem('email')
+  this.setState( {
+      authentication_token: storedToken,
+      email: storedEmail
+  })
+};
+
+//check if object is an error or a valid result
+componentWillReceiveProps(nextProps) {
+  if (nextProps.reservationError && nextProps.reservationError !== this.props.reservationError) {
+      this.props.alertWithType('error','Error',nextProps.reservationError);
+  } else if(nextProps.reservationResult && nextProps.reservationResult !== this.props.reservationResult) {
+      console.log(nextProps.reservationResult);
+      this.props.alertWithType('success','Success','Your Request Has Been Sent');
+  }
+}
+
+//renders the header of the page
     renderHeader = () => {
 
-   /* const {
-      avatar,
-      avatarBackground,
-      name,
-      address: { city, country },
-    } = this.props*/
- 
     return (
 
       <View >
@@ -140,10 +125,6 @@ handleRequestPress = () => {
           source={headerImage}
         >
 
-
-      
-         
-      
         <View style={{width: 60, height: 50, top: 25, left:10, position: 'absolute'}}>
         
             <TouchableOpacity onPress={()=>{this.props.navigation.navigate('HomeAlternate')}} underlayColor="#FFF">
@@ -155,10 +136,8 @@ handleRequestPress = () => {
           
             <Image
               style={styles.userImage}
-              //source={profilePic}
-              //source={{ uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}
               source={{ uri: 'https:'+this.props.profileInfo.profile_image}}
-              //source={{ uri: 'https://s3-us-east-2.amazonaws.com/odysseyapi/travelers/images/13/original/4e9ef98191445f897220d86ac8188338.jpg?1521788431'}}
+             
             />
             <Text style={styles.userNameText}> {this.props.profileInfo.firstname} {this.props.profileInfo.lastname}</Text>
             <View style={styles.userAddressRow}>
@@ -167,7 +146,7 @@ handleRequestPress = () => {
                   name="place"
                   underlayColor="transparent"
                   iconStyle={styles.placeIcon}
-                  //onPress={this.onPressPlace}
+                 
                 />
               </View>
               <View style={styles.userCityRow}>
@@ -182,6 +161,7 @@ handleRequestPress = () => {
     )
   }
 
+//renders the tel box info
   renderTel = () => {
     return (
        
@@ -192,7 +172,7 @@ handleRequestPress = () => {
               name="call"
               underlayColor="transparent"
               iconStyle={styles.telIcon}
-              //onPress={() => onPressTel(number)}
+       
             />
        
         </View>
@@ -207,7 +187,7 @@ handleRequestPress = () => {
     }
 
 
-
+//renders the email box info
   renderEmail = () => (
 
       <View style={styles.innerEmailContainer}>
@@ -217,7 +197,7 @@ handleRequestPress = () => {
             name="email"
             underlayColor="transparent"
             iconStyle={styles.emailIcon}
-            //onPress={() => onPressEmail()}
+         
           />
      
       </View>
@@ -229,6 +209,7 @@ handleRequestPress = () => {
         </View>
   )
 
+//renders a border between different views
 renderSeparator = () => (
   <View style={styles.container}>
     <View style={styles.separatorOffset} />
@@ -236,6 +217,7 @@ renderSeparator = () => (
   </View>
 )
 
+//renders the tours of that tour guide on the page
 renderTours = (tourName,tourDuration,tourDescription,tourid) => ( 
 
     <View style={styles.sceneContainer}>
@@ -289,9 +271,7 @@ renderTours = (tourName,tourDuration,tourDescription,tourid) => (
 
 )
 
-
-
-
+// renders the different parts of the page
   render() {
     return (
       <ScrollView style={styles.scroll}>
@@ -319,8 +299,7 @@ renderTours = (tourName,tourDuration,tourDescription,tourid) => (
 }
         
 
-
-
+//maps the states in the reducers to the props in this page
 const mapStateToProps = (state) => {
     
     const traveler = state.ViewProfile.result.traveler;

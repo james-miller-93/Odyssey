@@ -9,28 +9,25 @@ export default class CalloutContent extends Component {
     render() {
         return (
 
-
             <View>
-                <Text>
-                    {this.props.markerTitle}
-                </Text>
+            <Text>
+            {this.props.markerTitle}
+            </Text>
 
+            <View style= {styles.calloutButton}>
 
-                <View style= {styles.calloutButton}>
-               
-                <TouchableOpacity
-                style={styles.generalButton}
-                onPress={this.props.handlePress}
+            <TouchableOpacity
+            style={styles.generalButton}
+            onPress={this.props.handlePress}
+            >
 
-                >
-
-                <View >
-                    <Text style={styles.buttonText}> {this.props.markerDescription} </Text>
-                </View>
+            <View >
+            <Text style={styles.buttonText}> {this.props.markerDescription} </Text>
+            </View>
             </TouchableOpacity>
             </View>
-                
+
             </View>
-        )
+            )
     }
 }

@@ -60,18 +60,6 @@ const mapStateToProps = (state) => {
     const errors = state.LogOut.errors;
     const result = state.LogOut.result;
 
-
-    /*const authentication_token = state.InitialLogin.authentication_token;
-    const email = state.InitialLogin.email;
-
-    if (authentication_token === '') {
-        authentication_token = state.Login.authentication_token;
-    }
-
-    if (email === '') {
-        email = state.Login.email;
-    }*/
-
     return {
         errors,
         result

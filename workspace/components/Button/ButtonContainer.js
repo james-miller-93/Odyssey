@@ -15,12 +15,6 @@ export default class ButtonContainer extends Component {
             <OdysseyButtonText displayText = {"Login"} bgColor = {{ backgroundColor: '#F9A602'}} 
             handlePress={this.props.login} />
             
-
-            {/*<View >
-                    <Text style={styles.buttonText}>————— or —————</Text>
-            </View>
-
-            <ButtonText displayText = {"Continue with Facebook"} bgColor = {{ backgroundColor: '#4682B4'}} />*/}
             
     	</View> 
     )

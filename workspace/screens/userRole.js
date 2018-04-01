@@ -2,21 +2,19 @@ import React, { Component } from 'react';
 import { View, Text, KeyboardAvoidingView, 
     ImageBackground, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
-
 import { Container , UserRoleContainer, SignUpContainer} from '../components/Container';
 import { GeneralTextInput } from '../components/TextInput';
 import { ButtonText } from '../components/Button';
 import { Errors } from '../components/Errors';
 import { connectAlert } from '../components/Alert';
-
 import styles from '../screens/styles';
-
 import { pressMyProfile, setMyProfile } from '../actions/MyProfile';
 import { pressProfileView, clearViewProfile } from '../actions/ViewProfile'
 import { viewTours } from '../actions/ViewTours';
 
 class UserRole extends Component {
 
+//initializes the state params to empty strings
     constructor(props) {
         super(props);
         this.state = {
@@ -37,6 +35,8 @@ class UserRole extends Component {
         this.props.dispatch(pressMyProfile(this.state.authentication_token,this.state.email))
     };
 
+
+    //gets the information from the backend and updates the store if successful and checks if an error was received
     componentWillReceiveProps(nextProps) {
         if (nextProps.myProfileError && nextProps.myProfileError !== this.props.myProfileError) {
             this.props.alertWithType('error','Error',nextProps.myProfileError);
@@ -65,7 +65,6 @@ class UserRole extends Component {
                 }
                 this.props.dispatch(setMyProfile(myProfileInfo))
                 this.props.dispatch(viewTours(this.state.authentication_token,this.state.email))
-                //this.props.dispatch(clearViewProfile())
             }
         } else if(nextProps.viewToursError && nextProps.viewToursError !== this.props.viewToursError) {
             this.props.alertWithType('error','Error',nextProps.viewToursError)
@@ -82,17 +81,16 @@ class UserRole extends Component {
         }
     }
 
+    //updates the states and store
     onTravelerPress = () => {
         this.setState({ mode: 'traveler', rolePage: true})
         this.props.dispatch(pressMyProfile(this.state.authentication_token,this.state.email))
-        //this.props.navigation.navigate('HomeAlternate');
+       
     }
 
     onLocalPress = () => {
         this.setState({ mode: 'local', rolePage: true})
         this.props.dispatch(pressMyProfile(this.state.authentication_token,this.state.email))
-        
-        //this.props.navigation.navigate('MyGuideProfile');
     }
 
     render() {
@@ -123,6 +121,7 @@ class UserRole extends Component {
     };
 };
 
+//maps the states in the reducers to the props in this screen
 const mapStateToProps = (state) => {
 
     const myProfileError = state.MyProfile.errors;

@@ -44,24 +44,24 @@ const INITIAL_REGION_HELP = {
   
 
 class MyGuideProfile extends Component {
-//export default class UserProfile extends Component {
-     
+
+   
+   //updates the state for the menu modal  
     _toggleModal = () => {
       this.setState({ isModalVisible: !this.state.isModalVisible });
     };
-
-    _hideModal = () => { this.setState({ isModalVisible: false }) };
 
     handleSignUpPress = () => {
         this.props.navigation.navigate('Register');
     };
 
+    //updates the menu window when press
     profileButton(){
-    //const { navigate } = this.props.navigation;
+  
     return (
         <TouchableOpacity
         underlayColor="#FFF"
-        //onPress={()=> {this.setState({ isModalVisible: false }); navigate('UserProfile')}} 
+        
         >
             <Text style={styles.settingText}>My Profile</Text> 
         </TouchableOpacity>
@@ -90,9 +90,7 @@ class MyGuideProfile extends Component {
           )
     }
 
-
-
-
+//initializing states 
 constructor(props) {
   super(props)
   this.state = {
@@ -105,34 +103,24 @@ constructor(props) {
       activeLatitude: '',
       activeLongitude: '',
       location: INITIAL_REGION_HELP
-
-      //dateSubmit: '',
-      //timeSubmit: '',
   };
 };
 
+//shows an alert if switch value is true
 ShowAlert = (value) =>{
   this.setState({
- 
+
     SwitchOnValueHolder: value
 
   })
   
   if(value === true)
-  {
- 
-    //Perform any task here which you want to execute on Switch ON event.
-    //Alert.alert("You are now active!");
-    //TODO: need to add a dispatch and change the is_active value to true
-    //dispatch(nameOfFunc(this.state.authentication_token,this.state.email,value))
-    //this.setState({ isMapModalVisible: false });
-
-  }
+  { }
   else{
  
     //Perform any task here which you want to execute on Switch OFF event.
     Alert.alert("You are no longer active.");
-    //TODO: need to add a dispatch and change the is_active value to false
+
   }
   console.log('================action sent=================')
   console.log(this.state.location)
@@ -141,16 +129,19 @@ ShowAlert = (value) =>{
     console.log(this.state.location)
 }
 
+//shows the modal map if switch is on
 _toggleMapModal = () => {
   this.setState({ isMapModalVisible: !this.state.isMapModalVisible });
 };
 
 _hideMapModal = () => { this.setState({ isMapModalVisible: false }) };
 
+//shows the map modal or an alert depending on the switch value
 handleSwitch = (value) => {
   this.setState({
  
     SwitchOnValueHolder: value
+
   })
 
   if (value === true) {
@@ -161,6 +152,7 @@ handleSwitch = (value) => {
   }
 }
 
+//waits on info from backend
 async componentDidMount() {
   let storedToken = await AsyncStorage.getItem('authentication_token')
   let storedEmail = await AsyncStorage.getItem('email')
@@ -180,6 +172,7 @@ async componentDidMount() {
   }
 };
 
+//checks if object received from backend is an error or valid result
 componentWillReceiveProps(nextProps) {
   if (nextProps.reservationError && nextProps.reservationError !== this.props.reservationError) {
       this.props.alertWithType('error','Error',nextProps.reservationError);
@@ -206,35 +199,23 @@ handleRequestPress = () => {
   });
 };
 
+//updates the notification info from store 
 handleNotifications = () => {
-  this.setState({ isModalVisible: false});
   this.props.dispatch(checkActiveReservationTourGuide(this.props.profileID,
     this.state.authentication_token,this.state.email))
-  //this.props.navigation.navigate('Requests')
 }
 
+//updates logout status
 handleLogout = () => {
-  this.setState({ isModalVisible: false});
   this.props.dispatch( sendLogOutRequest(this.state.authentication_token,this.state.email) )
-  //this.props.navigation.navigate('Requests')
 }
 
-
+//renders the header
     renderHeader = () => {
 
-   /* const {
-      avatar,
-      avatarBackground,
-      name,
-      address: { city, country },
-    } = this.props*/
- 
     return (
 
       <View >
-
-   
-
         <ImageBackground
           style={[ 
             {
@@ -252,27 +233,24 @@ handleLogout = () => {
         onPress={this._toggleModal}
          underlayColor="#FFF"
          style={{ 
-        position: 'absolute',
-        //alignItems: 'center',
+        position: 'absolute',      
         height: 80,
         width: 70,
-      top: 15,
-      
-      left: 10,justifyContent: 'flex-end'}}>
+        top: 15,
+        left: 10,justifyContent: 'flex-end'}}>
       <Icon name="ios-menu"  size={45} />
 
          </TouchableOpacity>
 
         
       
-             <Modal isVisible={this.state.isModalVisible}
+        <Modal isVisible={this.state.isModalVisible}
 
         backdropOpacity={0.4}
         onBackdropPress={() => this.setState({ isModalVisible: false }) }
         supportedOrientations={['portrait', 'landscape']}
         animationIn={'slideInLeft'}
         animationOut={'slideOutRight'}
-          //animatedType={false}
 
         >
           <View style={styles.settingWindow}>
@@ -289,7 +267,7 @@ handleLogout = () => {
 
         <Modal isVisible={this.state.isMapModalVisible}
         backdropOpacity={0.4}
-        onBackdropPress={() => this.setState({ isMapModalVisible: false }) }
+        onBackdropPress={() => this.setState({ isMapModalVisible: false, SwitchOnValueHolder: false}) }
         supportedOrientations={['portrait', 'landscape']}
         >
           <View style={styles.mapWindow}>
@@ -301,17 +279,11 @@ handleLogout = () => {
                 width: '80%'
               }}
               initialRegion={this.state.location}
-              /*initialRegion={{
-                latitude: this.state.activeLatitude,
-                longitude: this.state.activeLongitude,
-                latitudeDelta: 0.00922,
-                longitudeDelta: 0.00421
-              }}*/
               onRegionChangeComplete={(loc) => this.setState({ location: loc})}
             >
               <MapView.Marker
               coordinate={this.state.location}
-              //onDragEnd={(e) => this.setState({ location: e.NativeEvent.coordinate })}
+              
               />
             </MapView>
 
@@ -321,11 +293,6 @@ handleLogout = () => {
               this.props.dispatch(isActiveUpdate(this.state.authentication_token,this.state.email,true,this.state.location,this.props.profileID))
               this.props.alertWithType('success','Success','You are now active.');
               
-              
-              
-              
-              //Alert.alert("You are now active.");
-              //this.ShowAlert(true);
             }}
             >
               <Text> Submit Location</Text>
@@ -349,7 +316,7 @@ handleLogout = () => {
                   name="place"
                   underlayColor="transparent"
                   iconStyle={styles.placeIcon}
-                  //onPress={this.onPressPlace}
+          
                 />
               </View>
               <View style={styles.userCityRow}>
@@ -364,6 +331,8 @@ handleLogout = () => {
     )
   }
 
+
+//renders the tell info box
   renderTel = () => {
     return (
        
@@ -374,7 +343,6 @@ handleLogout = () => {
               name="call"
               underlayColor="transparent"
               iconStyle={styles.telIcon}
-              //onPress={() => onPressTel(number)}
             />
        
         </View>
@@ -388,8 +356,7 @@ handleLogout = () => {
         )
     }
 
-
-
+//renders the email info box
   renderEmail = () => (
 
     <View>
@@ -400,7 +367,6 @@ handleLogout = () => {
             name="email"
             underlayColor="transparent"
             iconStyle={styles.emailIcon}
-            //onPress={() => onPressEmail()}
           />
      
       </View>
@@ -414,6 +380,7 @@ handleLogout = () => {
   </View>
   )
 
+  //renders the switch 
   renderSwitch = () => (
 
     <View style={{ height: 100, width: '100%'}}>
@@ -422,7 +389,6 @@ handleLogout = () => {
 
     
     <Switch
-    //onValueChange={(value) => this.ShowAlert(value)}
     onValueChange={(value) => this.handleSwitch(value)}
     value={this.state.SwitchOnValueHolder}
     style={{height: 30, width: 52, right: 7, position: 'absolute' }}
@@ -443,6 +409,7 @@ handleLogout = () => {
 
   )
 
+//renders a border/separator between views
 renderSeparator = () => (
   <View style={styles.container}>
     <View style={styles.separatorOffset} />
@@ -450,6 +417,7 @@ renderSeparator = () => (
   </View>
 )
 
+//renders the tours on the page
 renderTours = (tourName,tourDuration,tourDescription,tourKey) => ( 
 
     <View style={{top:20}}>
@@ -478,11 +446,7 @@ renderTours = (tourName,tourDuration,tourDescription,tourKey) => (
 
 )
 
-
-
-
-
-
+//renders the entire profile page
   render() {
     return (
       <ScrollView style={styles.scroll}>
@@ -518,7 +482,7 @@ renderTours = (tourName,tourDuration,tourDescription,tourKey) => (
         
 
 
-
+//maps states in reducers to props in the screen
 const mapStateToProps = (state) => {
     
     const profileInfo = state.MyProfile.myProfile;

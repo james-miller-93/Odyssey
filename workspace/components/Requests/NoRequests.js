@@ -15,10 +15,10 @@ export default class NoRequests extends Component {
     
     		<View style={styles.noRequestsContainer}>
 
-            <Icon name="bell" style={styles.bellIcon} size={45} />
-            <Text> You have no requests yet. </Text> 
-        </View>
+	            <Icon name="bell" style={styles.bellIcon} size={45} />
+	            <Text> You have no requests yet. </Text> 
+        	</View>
          
-    )
-   }
+    	)
+    }
 }

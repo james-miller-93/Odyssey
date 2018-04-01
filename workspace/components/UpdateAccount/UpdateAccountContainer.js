@@ -13,53 +13,48 @@ export default class UpdateAccountContainer extends Component {
 
 
     render() {
-      //const { navigate } = this.props.navigation;
+       
     	return (
-        <View>
-        <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity
-                          style={styles.generalSave}
-                          //onPress={this.props.handleDeclinePress}
+            <View>
+            <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity
+            style={styles.generalSave}
+            
 
-                          >
-          <Icon1 name="close" style={styles.closeIcon} size={32} 
-          onPress={()=> {this.props.navigation.navigate('UserProfile');}}/>
-          </TouchableOpacity>
-          <View style= {styles.saveContainer}>
-                         
-                          <TouchableOpacity
-                          style={styles.generalSave}
-                          //onPress={this.props.handleDeclinePress}
+            >
+            <Icon1 name="close" style={styles.closeIcon} size={32} 
+            onPress={()=> {this.props.navigation.navigate('UserProfile');}}/>
+            </TouchableOpacity>
+            <View style= {styles.saveContainer}>
+            
+            <TouchableOpacity
+            style={styles.generalSave}
+            >
 
-                          >
-
-                          <View >
-                              <Text style={styles.saveText}>Save</Text>
-                          </View>
-                          
-                          </TouchableOpacity>
-        </View>
-        </View>
- 
-    		<ScrollView style={styles.generalContainer}>
- 
+            <View >
+            <Text style={styles.saveText}>Save</Text>
+            </View>
+            
+            </TouchableOpacity>
+            </View>
+            </View>
+            
+            <ScrollView style={styles.generalContainer}>
+            
             <View style={styles.imageContainer}>
             <ImageBackground
-              style={styles.userImage}
-              source={profilePic}
-              //source={{ uri: this.props.traveler.image}}
+            style={styles.userImage}
+            source={profilePic}
             >
             <View style={styles.editContainer}>
-             <TouchableOpacity
-                          //style={styles.generalSave}
-                          //onPress={this.props.handleDeclinePress}
+            <TouchableOpacity
 
-                          >
-          <Icon2 name="edit" style={styles.editIcon} size={32} />
-          </TouchableOpacity>
+            >
+            <Icon2 name="edit" style={styles.editIcon} size={32} />
+            </TouchableOpacity>
 
-           </View> 
-           </ImageBackground>
+            </View> 
+            </ImageBackground>
             </View>
 
             <View style={styles.personalInfoContainer}>
@@ -70,8 +65,8 @@ export default class UpdateAccountContainer extends Component {
             
 
             <View style={{flexDirection: 'row'}}>
-           
-           <View style={{flexDirection: 'column'}}>
+            
+            <View style={{flexDirection: 'column'}}>
             <Text style={styles.subtitle}>
             Name
             </Text>
@@ -81,33 +76,31 @@ export default class UpdateAccountContainer extends Component {
             <Text style={styles.subtitle}>
             Phone
             </Text>
-          
-          </View>
-          
-          <View style={{flexDirection: 'column'}}>
+            
+            </View>
+            
+            <View style={{flexDirection: 'column'}}>
             <View style={styles.textInputContainer}>
             <TextInput
             style={styles.generalTextInput}
             placeholder={this.props.oldValue}
-            placeholderTextColor={'#FFFFFF'}
-            //secureTextEntry={this.props.secure}
+            placeholderTextColor={'#FFFFFF'} 
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
             </View>
-                
-          
-          
+            
+            
+            
             <View style={styles.textInputContainer}>
             <TextInput
             style={styles.generalTextInput}
             placeholder={this.props.oldValue}
             placeholderTextColor={'#FFFFFF'}
-            //secureTextEntry={this.props.secure}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
-      
+            
             </View>
 
             <View style={styles.textInputContainer}>
@@ -115,26 +108,25 @@ export default class UpdateAccountContainer extends Component {
             style={styles.generalTextInput}
             placeholder={this.props.oldValue}
             placeholderTextColor={'#FFFFFF'}
-            //secureTextEntry={this.props.secure}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
-      
+            
             </View>
 
-        </View>
+            </View>
 
-        </View>
+            </View>
 
-        <View style={styles.personalInfoContainer}>
+            <View style={styles.personalInfoContainer}>
             <Text style={styles.personalInfo}>
             Optional Information
             </Text>
             </View>
 
-        <View style={{flexDirection: 'row'}}>
-           
-           <View style={{flexDirection: 'column'}}>
+            <View style={{flexDirection: 'row'}}>
+            
+            <View style={{flexDirection: 'column'}}>
             <Text style={styles.subtitle}>
             Location
             </Text>
@@ -144,29 +136,27 @@ export default class UpdateAccountContainer extends Component {
             <Text style={styles.subtitle}>
             Gender
             </Text>
-          
-          </View>
-          
-          <View style={{flexDirection: 'column'}}>
+            
+            </View>
+            
+            <View style={{flexDirection: 'column'}}>
             <View style={styles.textInputContainer}>
             <TextInput
             style={[styles.generalTextInput , {width: 275}]}
             placeholder={this.props.oldValue}
             placeholderTextColor={'#FFFFFF'}
-            //secureTextEntry={this.props.secure}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
             </View>
-                
-          
-          
+            
+            
+            
             <View style={[styles.textInputContainer, {flexDirection: 'row'} ]}>
             <TextInput
             style={[styles.generalTextInput , {width: 70}]}
             placeholder='MM'
             placeholderTextColor={'#000'}
-            //secureTextEntry={this.props.secure}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
@@ -175,7 +165,6 @@ export default class UpdateAccountContainer extends Component {
             style={[styles.generalTextInput , {width: 70}]}
             placeholder='DD'
             placeholderTextColor={'#000'}
-            //secureTextEntry={this.props.secure}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
@@ -184,7 +173,6 @@ export default class UpdateAccountContainer extends Component {
             style={[styles.generalTextInput , {width: 100}]}
             placeholder="YYYY"
             placeholderTextColor={'#000'}
-            //secureTextEntry={this.props.secure}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
@@ -195,18 +183,17 @@ export default class UpdateAccountContainer extends Component {
             style={[styles.generalTextInput , {width: 275}]}
             placeholder={this.props.oldValue}
             placeholderTextColor={'#FFFFFF'}
-            //secureTextEntry={this.props.secure}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
-      
+            
             </View>
 
-        </View>
+            </View>
 
-        </View>
+            </View>
 
-        <View style={styles.personalInfoContainer}>
+            <View style={styles.personalInfoContainer}>
             <Text style={styles.personalInfo}>
             Change Password
             </Text>
@@ -214,8 +201,8 @@ export default class UpdateAccountContainer extends Component {
             
 
             <View style={{flexDirection: 'row'}}>
-           
-           <View style={{flexDirection: 'column'}}>
+            
+            <View style={{flexDirection: 'column'}}>
             <Text style={styles.subtitle}>
             Current
             </Text>
@@ -225,33 +212,31 @@ export default class UpdateAccountContainer extends Component {
             <Text style={styles.subtitle}>
             Confirm
             </Text>
-          
-          </View>
-          
-          <View style={{flexDirection: 'column'}}>
+            
+            </View>
+            
+            <View style={{flexDirection: 'column'}}>
             <View style={styles.textInputContainer}>
             <TextInput
             style={[styles.generalTextInput , {width: 280}]}
             placeholder={this.props.oldValue}
             placeholderTextColor={'#FFFFFF'}
-            //secureTextEntry={this.props.secure}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
             </View>
-                
-          
-          
+            
+            
+            
             <View style={styles.textInputContainer}>
             <TextInput
             style={[styles.generalTextInput , {width: 280}]}
             placeholder={this.props.oldValue}
             placeholderTextColor={'#FFFFFF'}
-            //secureTextEntry={this.props.secure}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
-      
+            
             </View>
 
             <View style={styles.textInputContainer}>
@@ -259,69 +244,67 @@ export default class UpdateAccountContainer extends Component {
             style={[styles.generalTextInput , {width: 280}]}
             placeholder={this.props.oldValue}
             placeholderTextColor={'#FFFFFF'}
-            //secureTextEntry={this.props.secure}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
-      
+            
             </View>
 
-        </View>
+            </View>
 
-        </View>
-        <View style={styles.personalInfoContainer}>
+            </View>
+            <View style={styles.personalInfoContainer}>
             <Text style={styles.personalInfo}>
             Edit Bio
             </Text>
             </View>
 
-        <View style={{flexDirection: 'row'}}>
-           
-           <View style={{flexDirection: 'column'}}>
+            <View style={{flexDirection: 'row'}}>
+            
+            <View style={{flexDirection: 'column'}}>
             <Text style={styles.subtitle}>
             About
             </Text>
             
-          
-          </View>
-          
-          <View style={{flexDirection: 'column'}}>
+            
+            </View>
+            
+            <View style={{flexDirection: 'column'}}>
             <View style={styles.textInputContainer}>
             <TextInput
             style={[styles.generalTextInput, {height: 100}]}
             placeholder={this.props.oldValue}
             placeholderTextColor={'#FFFFFF'}
-            //secureTextEntry={this.props.secure}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
             </View>      
             
 
-        </View>
+            </View>
 
-        </View>
+            </View>
 
-         <View style= {[styles.button, {marginTop: 45}]}>
-                         
-                          <TouchableOpacity
-                          style={[styles.generalButton, {borderColor: '#e50000'}]}
-                          //onPress={this.props.handleDeclinePress}
+            <View style= {[styles.button, {marginTop: 45}]}>
+            
+            <TouchableOpacity
+            style={[styles.generalButton, {borderColor: '#e50000'}]}
+            
 
-                          >
+            >
 
-                          <View >
-                              <Text style={[styles.buttonText, {color: '#e50000'}]}> Delete Account </Text>
-                          </View>
-                          
-                          </TouchableOpacity>
-        </View>
+            <View >
+            <Text style={[styles.buttonText, {color: '#e50000'}]}> Delete Account </Text>
+            </View>
+            
+            </TouchableOpacity>
+            </View>
 
 
-        <View style={{padding:100}}/>
-        </ScrollView>
-        </View>
-      );
+            <View style={{padding:100}}/>
+            </ScrollView>
+            </View>
+            );
 
-    };
+};
 };

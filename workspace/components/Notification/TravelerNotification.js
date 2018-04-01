@@ -9,12 +9,10 @@ const profilePic = require('../Container/profilePic.png');
 
 export default class TravelerNotification extends Component {
 
-
     render() {
       const { navigate } = this.props.navigation;
     	return (
 
-    
     		<View style={styles.notificationContainer}>
             <Image
               style={styles.userImage}
@@ -22,12 +20,12 @@ export default class TravelerNotification extends Component {
             />
 
             <TouchableOpacity underlayColor="#FFF" onPress= {() => {navigate('UserProfile')}}>
-            <Text style={styles.tourGuideName} > {this.props.tourguideFirstName} {this.props.tourguideLastName} </Text>
+              <Text style={styles.tourGuideName} > {this.props.tourguideFirstName} {this.props.tourguideLastName} </Text>
             </TouchableOpacity>
-            <Text/>
-            <Text style={styles.message}>Your request status: {this.props.message}</Text>
+              <Text/>
+              <Text style={styles.message}>Your request status: {this.props.message}</Text>
         </View>
          
-    )
+      )
    }
 }

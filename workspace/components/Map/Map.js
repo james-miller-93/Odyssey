@@ -13,10 +13,6 @@ export default class Map extends Component {
         super(props);
     };
 
-    /*handlePress = (marker) => {
-        this[marker].showCallout();
-    };*/
-
     render() {
         return (
             <View style={styles.container}>
@@ -27,7 +23,7 @@ export default class Map extends Component {
             >
             
             <MapView.Marker
-            //onPress={this.marker.showCallout}
+            
             coordinate={this.props.markerCoordinate1}
             title={this.props.markerTitle1}
             description={this.props.markerDescription1}
@@ -36,14 +32,9 @@ export default class Map extends Component {
             
             >
             <MapView.Callout >
-                <CalloutContent
-                markerTitle={"Michael Dimick"}/>
-            {/*<CustomCallout
-            markerTitle={this.props.markerTitle1}
-            markerRating={this.props.markerRating1}
-            markerRatingImg={this.props.markerRatingImg1}
-            markerDistance={this.props.markerDistance1}
-            />*/}
+            <CalloutContent
+            markerTitle={"Michael Dimick"}/>
+            
             </MapView.Callout>
             </MapView.Marker>
             <MapView.Marker
@@ -69,6 +60,6 @@ export default class Map extends Component {
             {this.props.child2}
 
             </View>
-        );
+            );
     };
 };

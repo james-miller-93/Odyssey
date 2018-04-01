@@ -5,23 +5,14 @@ export default EStyleSheet.create({
         width: '100%',
         height: '100%',
         marginTop: 20,
-        //borderWidth: 2,
-
-        //alignItems: 'center',
-        //backgroundColor: '$secondaryColor',
-        //borderRadius: 20,
         flexDirection: 'row',
-        //position: 'absolute',
-
-
-        //bottom: 30
-        
     },
 
     bellIcon: {
 
         paddingLeft: '18%',
     },
+
     notificationContainer: {
         height: 70,
         width: '100%',
@@ -39,35 +30,26 @@ export default EStyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderColor: '#000',
-        //borderWidth: 0.5,
-
     },
 
-     userImage: {
+    userImage: {
     
-    //borderColor: '#01C89E',
-    //borderRadius: 85,
-    //borderWidth: 2,
-    height: 60,
-    //marginBottom: 0,
-    width: 60,
+        height: 60,
+        width: 60,
   },
 
     tourGuideName: {
-    //paddingTop: 10,
-    color: '#000',
-    fontSize: 14,
-    fontWeight: 'bold',
-    //paddingBottom: 8,
-    textAlign: 'center',
+
+        color: '#000',
+        fontSize: 14,
+        fontWeight: 'bold',
+        textAlign: 'center',
   },
 
    message: {
-    //paddingTop: 10,
+
     color: '#000',
     fontSize: 14,
-    //fontWeight: 'bold',
-    //paddingBottom: 8,
     textAlign: 'center',
   },
   

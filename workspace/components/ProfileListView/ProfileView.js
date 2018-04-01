@@ -19,7 +19,7 @@ export default class ProfileView extends Component {
                     >
                         <Image 
                         source={this.props.profileImage}
-                        //source={require('../assets/images/profile2.png')}
+                       
                         style={styles.barImage}
                         />
                     </View>
@@ -35,7 +35,7 @@ export default class ProfileView extends Component {
                         <Image
                         style={styles.ratingImage}
                         source={this.props.ratingImage}
-                        //source={require('../assets/images/5star.png')}
+                       
                         />
                         <View
                         style={styles.stickerContainer}
@@ -43,12 +43,12 @@ export default class ProfileView extends Component {
                             <Image
                             style={styles.stickerImage}
                             source={this.props.stickerImage1}
-                            //source={require('../assets/images/stickers/carSticker.png')}
+                           
                             />
                             <Image
                             style={styles.stickerImage}
                             source={this.props.stickerImage2}
-                            //source={require('../assets/images/stickers/mapSticker.png')}
+                            
                             />
                         </View>
                         <Text

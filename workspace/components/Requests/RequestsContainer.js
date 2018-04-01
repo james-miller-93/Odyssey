@@ -58,10 +58,10 @@ export default class RequestsContainer extends Component {
                           </TouchableOpacity>
                       </View>
 
-            </View>
+              </View>
             </View>
         </View>
          
-    )
+      )
    }
 }

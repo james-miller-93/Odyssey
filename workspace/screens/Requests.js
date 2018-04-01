@@ -50,18 +50,19 @@ class Requests extends Component {
       ifIsRequests(value) {
 
 
-
+        var check = false;
         console.log("------------------------>>>here:", value, value.length)
         if(value && value.length > 0) {
             return(
 
             value.map((data, index) => { 
                 //console.log("ppp:", data.status)
-                if(data.status === 'Waiting') 
-                    console.log("1")
+                if(data.status === 'Waiting') {
+                    
                     if (data.status !== 'Approved' && data.status !== 'Declined') {
-                        console.log("2")
-
+                       
+                        check = true;
+                        
                     return (
 
                         <RequestsContainer
@@ -81,9 +82,11 @@ class Requests extends Component {
                         />
                     )
                 }
+            }
                 else {
-                    console.log("---------------------------here--------------------------")
-                    if(index === value.length) {
+                   
+                    console.log("---------------------------here--------------------------", index)
+                    if((index+1) === value.length && !check) {
                 return (
 
                     <View key={index}>
@@ -108,7 +111,7 @@ class Requests extends Component {
     }
 
       handleLogout = () => {
-        this.setState({ isModalVisible: false});
+        //this.setState({ isModalVisible: false});
         this.props.dispatch( sendLogOutRequest(this.state.authentication_token,this.state.email) )
         //this.props.navigation.navigate('Requests')
       }
@@ -171,6 +174,8 @@ class Requests extends Component {
             backdropOpacity={0.4}
             onBackdropPress={() => this.setState({ isModalVisible: false }) }
             supportedOrientations={['portrait', 'landscape']}
+            animationIn={'slideInLeft'}
+            animationOut={'slideOutRight'}
             //animation='none'
             >
                 <View style={styles.settingWindow}>

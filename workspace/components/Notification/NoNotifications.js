@@ -13,12 +13,11 @@ export default class NoNotification extends Component {
     render() {
     	return (
     
-    		<View style={styles.noNotificationContainer}>
-
-            <Icon name="bell" style={styles.bellIcon} size={45} />
-            <Text> You have no notifications yet. </Text> 
-        </View>
+	    	<View style={styles.noNotificationContainer}>
+	            <Icon name="bell" style={styles.bellIcon} size={45} />
+	            <Text> You have no notifications yet. </Text> 
+	        </View>
          
-    )
-   }
+    	)
+   	}
 }

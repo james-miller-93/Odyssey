@@ -25,10 +25,8 @@ export default EStyleSheet.create({
 
     },
     buttonText: {
-        //height: '100%',
-        //width: '100%',
+      
         textAlign: 'center',
-        //margin: 10,
         color: '$black',
         fontSize: 14,
         fontWeight: 'bold',

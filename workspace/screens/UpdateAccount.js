@@ -17,13 +17,9 @@ export default class UpdateAccount extends Component {
   	render() {
         return (
 
- 
-
        <View
-            style={styles.generalContainer}
-           
+            style={styles.generalContainer}         
         >
-
 
             <UpdateAccountContainer navigation={this.props.navigation} />
 

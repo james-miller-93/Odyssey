@@ -14,6 +14,8 @@ import {viewTours} from '../actions/ViewTours';
 
 class CreateTours extends Component {
 
+
+	//Intializing the state and props
     constructor(props) {
         super(props);
         this.state = {
@@ -39,15 +41,16 @@ class CreateTours extends Component {
         }
     }
 
+    //handle when submit button is pressed, could be an edit submit or create tour
     handleSubmitPress = () => {
 		if (this.props.tourMode === 'create') {
         	this.props.dispatch(createTourSubmit(this.state.authentication_token,this.state.email,this.state.tourInfo))
-		//this.props.dispatch(clearErrorLog())
 		} else if (this.props.tourMode === 'edit') {
 			this.props.dispatch(editTourSubmit(this.state.authentication_token,this.state.email,this.state.tourInfo))
 		}
     };
 
+    //waiting on email and token from backend
      async componentDidMount() {
         let storedToken = await AsyncStorage.getItem('authentication_token')
         let storedEmail = await AsyncStorage.getItem('email')
@@ -57,7 +60,7 @@ class CreateTours extends Component {
         })
       };
 
-    
+    //checking if object received from backend is a valid result or error
       componentWillReceiveProps(nextProps) {
   	if (nextProps.errors && nextProps.errors !== this.props.errors) {
       this.props.alertWithType('error','Error',nextProps.errors);
@@ -77,6 +80,7 @@ class CreateTours extends Component {
         }
 	}
 
+	//updating the state depending on the text changed
 	newName = (text) => {
 		const newState = {
 			...this.state.tourInfo,
@@ -217,29 +221,20 @@ class CreateTours extends Component {
            
         >
 
-
             <CreateTourContainer navigation={this.props.navigation} 
             handleSavePress = {this.handleSubmitPress}
             name= {this.newName}
             oldName = {this.props.tourInfo.title}
-
             location= {this.newLocation}
-         
-
-            oldLocation = {this.props.tourInfo.city}
-            
+            oldLocation = {this.props.tourInfo.city} 
             description = {this.newDescription}
             oldDescription = {this.props.tourInfo.description}
             maxPeople = {this.NewMaxPeople}
-
             oldMaxPeople = {this.props.tourInfo.max_persons.toString()}
-           // languages = {(text) => {this.setState({ tourInfo: {languages: text} })}} 
-           // oldLanguages = {this.props.tourInfo.languages}
           	duration = {this.newDuration}
             oldDuration = {this.props.tourInfo.duration.toString()}
             price = {this.newPrice}
             oldPrice = {this.props.tourInfo.price.toString()}
-            //oldNightLife??
             nightLifePress = {this.NewNightLife}
             foodPress = {this.NewFood}
             daytripPress ={this.NewDaytrip}
@@ -256,7 +251,7 @@ class CreateTours extends Component {
 	};
 };
 
-
+//a function that maps the states in the reducers to the props in screens
 const mapStateToProps = (state) => {
    
 	const tourInfo = state.CreateTours.tourInfo;

@@ -76,6 +76,7 @@ const TEMP_MARKER_DATA_ARRAY = [TEMP_MARKER_DATA1,TEMP_MARKER_DATA2,TEMP_MARKER_
 
 class HomeAlternate extends Component {
 
+    //initializing the state params to empty strings
     constructor(props) {
         super(props);
         this.state = {
@@ -106,6 +107,7 @@ class HomeAlternate extends Component {
         this.handleMarkerPress = this.handleMarkerPress.bind(this);
     };
 
+    //waiting on token and email to be received
     async componentDidMount() {
         let storedToken = await AsyncStorage.getItem('authentication_token')
         let storedEmail = await AsyncStorage.getItem('email')
@@ -118,41 +120,34 @@ class HomeAlternate extends Component {
         }
     };
 
+    //checking if the object received back from backend is a valid result or error
     componentWillReceiveProps(nextProps) {
-        /*if (nextProps.profileError && nextProps.profileError !== this.props.profileError) {
-            this.props.alertWithType('error','Error',nextProps.profileError);
-        } else if(nextProps.profileResult && nextProps.profileResult !== this.props.profileResult) {
-            this.props.navigation.navigate('UserProfile');
-            //this.props.navigation.pop('HomeAlternate');
-        }*/
+
         if (nextProps.activeProfileError && nextProps.activeProfileError !== this.props.activeProfileError) {
             this.props.alertWithType('error','Error',nextProps.activeProfileError);
         } else if(nextProps.activeProfileResult && nextProps.activeProfileResult !== this.props.activeProfileResult) {
             this.props.navigation.navigate('UserProfile');
-            //this.props.navigation.pop('HomeAlternate');
         } else if (nextProps.reservationError && nextProps.reservationError !== this.props.reservationError) {
             this.props.alertWithType('error','Error',nextProps.reservationError);
         } else if(nextProps.reservationResult && nextProps.reservationResult !== this.props.reservationResult) {
-            //console.log(nextProps.reservationResult);
             this.props.navigation.navigate('Notifications')
         } else if (nextProps.logoutError && nextProps.logoutError !== this.props.logoutError) {
             this.props.alertWithType('error','Error',nextProps.logoutError);
-          } else if(nextProps.logoutResult && nextProps.logoutResult !== this.props.logoutResult) {
+        } else if(nextProps.logoutResult && nextProps.logoutResult !== this.props.logoutResult) {
             console.log(nextProps.logoutResult);
             this.props.navigation.navigate('Login')
-          } else if (nextProps.tourArray && nextProps.tourArray !== this.props.tourArray) {
+        } else if (nextProps.tourArray && nextProps.tourArray !== this.props.tourArray) {
               this.setState({ tourArray: nextProps.tourArray})
-          }
+        }
     }
 
     
-
     handleRegionChange = (location) => {
-        //console.log("---------tour array--------")
-        //console.log(this.props.tourArray)
+
         this.props.dispatch(changeTourLocationValue(location))
     };
 
+    //navigating to different pages
     handleListPress = () => {
         this.props.navigation.navigate('Profile');
     }
@@ -161,37 +156,36 @@ class HomeAlternate extends Component {
         this.props.navigation.navigate('Settings');
     }
     
-
+    //updating the profile info in the saga store before viewing a profile
     handleMarkerPress = () => {
 
-        console.log("******************************************************************************************")
         this.props.dispatch(pressActiveProfileView(this.state.profileInfo,this.state.authentication_token,this.state.email));
-
-
-        //this.props.dispatch(pressProfileView(this.state.ID,this.state.authentication_token,this.state.email,this.state.tourInfo));
-        //this.props.navigation.navigate('TourGuide');
     };
 
+    //updating the notification messages in the saga store
     handleNotifications = () => {
-        this.setState({ isModalVisible: false })
+    
         this.props.dispatch(checkActiveReservationTourist(this.props.profileID,
           this.state.authentication_token,this.state.email))
-        //this.props.navigation.navigate('Requests')
+   
       }
 
+      //updating the user's logout status
       handleLogout = () => {
-        this.setState({ isModalVisible: false});
+  
         this.props.dispatch( sendLogOutRequest(this.state.authentication_token,this.state.email) )
-        //this.props.navigation.navigate('Requests')
+
       }
 
     state = {
     isModalVisible: false
     };
  
+    //handling the modal's visibility in the screen
     _toggleModal = () =>
     this.setState({ isModalVisible: !this.state.isModalVisible });
 
+    //navigating to the different pages when pressing different buttons in the menu modal
     profileButton(){
     const { navigate } = this.props.navigation;
     return (
@@ -204,11 +198,10 @@ class HomeAlternate extends Component {
     }
 
     homePage(){
-    //const { navigate } = this.props.navigation;
+   
     return (
         <TouchableOpacity
         underlayColor="#FFF"
-        //onPress={()=> {this.setState({ isModalVisible: false }); navigate('HomeAlternate')}} 
         >
         <Text style={screenStyles.settingText}>Home</Text> 
         </TouchableOpacity>
@@ -264,12 +257,8 @@ class HomeAlternate extends Component {
                             latitudeDelta: 0.00922,
                             longitudeDelta: 0.00421
                         }}
-                        //onCalloutPress={this.state.pressable ? this.handleMarkerPress(data.traveler_id): null}
-                        description={data.firstname + ' ' + data.lastname}
-                        //image={require('../assets/images/blankAvatar.png')}
-                        //image={ data.profile_image}
-                        //image={data.image}
 
+                        description={data.firstname + ' ' + data.lastname}
                        
                         onPress={() => {this.setState({
                             profileInfo: {
@@ -289,13 +278,10 @@ class HomeAlternate extends Component {
                         >
                         
                         <MapView.Callout
-                        //onPress={this.handleMarkerPress}
+                       
                         >
                             <CalloutContent
-                            //markerTitle={data.traveler_id}
-
-                            //markerDescription={data.title}
-                           
+                       
                             handlePress = {this.handleMarkerPress}
                             markerDescription={'View Profile'}
 
@@ -354,6 +340,7 @@ class HomeAlternate extends Component {
     };
 };
 
+//a function that maps states in reducers to props in screens
 const mapStateToProps = (state) => {
     const mapLocation = state.TourList.location;
     const tourArray = state.TourList.result.travelers;

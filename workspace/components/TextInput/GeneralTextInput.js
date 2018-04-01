@@ -10,14 +10,14 @@ export default class GeneralTextInput extends Component {
         return (
             <View style={styles.generalContainer}>
           
-            <TextInput
-            style={styles.generalText}
-            placeholder={this.props.displayText}
-            placeholderTextColor={'#000'}
-            secureTextEntry={this.props.secure}
-            onChangeText={this.props.handleTextChange}
-            adjustsFontSizeToFit
-            />
+                <TextInput
+                style={styles.generalText}
+                placeholder={this.props.displayText}
+                placeholderTextColor={'#000'}
+                secureTextEntry={this.props.secure}
+                onChangeText={this.props.handleTextChange}
+                adjustsFontSizeToFit
+                />
            
             </View>
         )

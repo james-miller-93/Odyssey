@@ -8,8 +8,6 @@ export default class OdysseyButtonText extends Component {
     
 
     render() {
-     
-
 
         return (
             <View style= {([styles.button,  this.props.bgColor ])}>

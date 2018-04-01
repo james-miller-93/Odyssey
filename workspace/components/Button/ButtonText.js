@@ -9,8 +9,6 @@ export default class ButtonText extends Component {
 
     render() {
      
-
-
         return (
             <View style= {([styles.button,  this.props.bgColor ])}>
                

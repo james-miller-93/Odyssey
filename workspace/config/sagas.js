@@ -225,7 +225,6 @@ const getActiveProfile = action => fetch('http://odyssey-api-demo.herokuapp.com/
 });
 
 
-//should it be + {traveler_id} ?
 const updateAvailibility = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/travelers/'+action.id, {
     method: 'PATCH',
      headers: {
@@ -258,19 +257,12 @@ const deleteTours = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/to
 function* tryInitialLogin(action) {
 
     try {
-        //let authentication_token = action.authentication_token;
-        
-        //let email = action.email;
 
-        //console.log("-----------")
-        //console.log(authentication_token)
-        //console.log(email)
-        //console.log("--------------")
 
         const response = yield call(postInitialLogin, action);
         
         const result = yield response.json();
-        //yield put({ type: LOGIN_RESULT, response})
+        
 
         if (result.error) {
             
@@ -318,11 +310,7 @@ function* tryLoginUser(action) {
     try {
         let traveler = action.user;
         let email = traveler.email;
-        //console.log(email)
-        let password = traveler.password;
-        //console.log(password)
-        
-        
+        let password = traveler.password;        
 
         const response = yield call(postLogin, traveler);
         const result = yield response.json();
@@ -336,7 +324,7 @@ function* tryLoginUser(action) {
         if (result.error) {
             yield put({ type: LOGIN_ERROR, errors: result.error });
         } else {
-            //console.log(result.authentication_token)
+           
             yield put({ type: LOGIN_RESULT, result: result, authentication_token: result.authentication_token})
         }
     } catch (e) {
@@ -349,17 +337,9 @@ function* tryLoginUser(action) {
 
 function* tryTourList(action) {
     try {
-        //console.log("----------action-------")
-        //console.log(action)
+
         let location = action.value;
-        //console.log("------location-----")
-        //console.log(location)
-        //let latitude = location.latitude;
-        //console.log("----latitude-------")
-        //console.log(latitude)
-        //let longitude = location.longitude;
-        //console.log("-----longitude---")
-        //console.log(longitude)
+        
 
         const response = yield call(getTourList, location);
         const result = yield response.json();
@@ -377,19 +357,11 @@ function* tryTourList(action) {
 function* tryLogOutUser(action) {
 
     try {
-        //let authentication_token = action.authentication_token;
-        
-        //let email = action.email;
 
-        //console.log("-----------")
-        //console.log(authentication_token)
-        //console.log(email)
-        //console.log("--------------")
 
         const response = yield call(deleteLogOut, action);
         
         const result = yield response.json();
-        //yield put({ type: LOGIN_RESULT, response})
 
         if (result.error) {
             
@@ -407,21 +379,13 @@ function* tryViewProfile(action) {
 
 
     try {
-        //let authentication_token = action.authentication_token;
-        
-        //let email = action.email;
-
-        //console.log("-----------")
-        //console.log(authentication_token)
-        //console.log(email)
-        //console.log("--------------")
-
+       
         const response = yield call(getProfile, action);
         console.log('-----------response profile-----');
         console.log('------------------------');
         console.log(response);
         const result = yield response.json();
-        //yield put({ type: LOGIN_RESULT, response})
+        
 
         if (result.error) {
             
@@ -437,17 +401,10 @@ function* tryViewProfile(action) {
 
 function* tryCreateReservation(action) {
     try {
-        //let authentication_token = action.authentication_token;
-        //let email = action.email;
-        //console.log("-----------")
-        //console.log(authentication_token)
-        //console.log(email)
-        //console.log("--------------")
+       
 
         const response = yield call(postReservation, action);
-        console.log('-----------response profile-----');
-        console.log('------------------------');
-        console.log(response);
+        
         const result = yield response.json();
         //yield put({ type: LOGIN_RESULT, response})
 
@@ -468,7 +425,7 @@ function* tryActiveReservationTourist(action) {
         const response = yield call(getReservationTourist, action);
         
         const result = yield response.json();
-        //yield put({ type: LOGIN_RESULT, response})
+       
 
         if (result.error) {
             
@@ -487,7 +444,7 @@ function* tryActiveReservationTourGuide(action) {
         const response = yield call(getReservationTourGuide, action);
         
         const result = yield response.json();
-        //yield put({ type: LOGIN_RESULT, response})
+  
 
         if (result.error) {
             

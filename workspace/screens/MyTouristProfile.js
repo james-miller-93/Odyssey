@@ -10,20 +10,15 @@ import styles from '../screens/styles';
 import { UserProfileContainer } from '../components/Container';
 import { connectAlert } from '../components/Alert';
 import { TimeDate, OneDateTime } from '../components/TimeDate';
-
-
 import HideableView from 'react-native-hideable-view';
 import { Calendar } from 'react-native-calendars';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
-
 import Modal from "react-native-modal";
-
 import { changeLoginEmailValue, changeLoginPasswordValue,
         pressLoginSubmit, checkInitialLogin,
          cleanLoginErrorLog } from '../actions/Login';
 import { sendLogOutRequest } from '../actions/LogOut';
-
 import { submitNewReservation } from '../actions/Reservation';
 import { checkActiveReservationTourGuide, checkActiveReservationTourist } from '../actions/ActiveReservation';
 
@@ -32,37 +27,41 @@ const profilePic = require('../components/Container/profilePic.png');
 const tour1 = require('../assets/images/tour1.jpeg');
 const tour2 = require('../assets/images/tour2.jpeg');
   
-
+//the profile page for tourists
 class MyTouristProfile extends Component {
-//export default class UserProfile extends Component {
      
+    //controls the modal visibility 
     _toggleModal = () => {
       this.setState({ isModalVisible: !this.state.isModalVisible });
     };
 
-    _hideModal = () => { this.setState({ isModalVisible: false }) };
-
+    //navigates to sign up page
     handleSignUpPress = () => {
         this.props.navigation.navigate('Register');
     };
 
+    //updates the logout status 
     handleLogout = () => {
-      this.setState({ isModalVisible: false});
+      
       this.props.dispatch( sendLogOutRequest(this.state.authentication_token,this.state.email) )
-      //this.props.navigation.navigate('Requests')
+   
     }
-/*
-    profileButton(){
-    const { navigate } = this.props.navigation;
-    return (
-        <TouchableOpacity
-        underlayColor="#FFF"
-        onPress={()=> {this.setState({ isModalVisible: false }); navigate('UserProfile')}} >
-            <Text style={styles.settingText}>My Profile</Text> 
-        </TouchableOpacity>
-        )
-    }
-*/
+    handleRequestPress = () => {
+      
+      this.setState({
+      requestVisible: !this.state.requestVisible
+      });
+    };
+
+    handleNotifications = () => {
+
+        this.props.dispatch(checkActiveReservationTourist(this.props.profileID,
+        this.state.authentication_token,this.state.email))
+    
+      }
+
+
+    //shows the different buttons in the menu modal
     logoutButton() {
       const { navigate } = this.props.navigation;
       return (
@@ -85,59 +84,7 @@ class MyTouristProfile extends Component {
           )
       }
 
-
-constructor(props) {
-  super(props)
-  this.state = {
-      requestVisible: false,
-      dateTimeSubmit: '',
-      authentication_token: '',
-      email: '',
-      isModalVisible: false
-      //dateSubmit: '',
-      //timeSubmit: '',
-  };
-};
-
-async componentDidMount() {
-  let storedToken = await AsyncStorage.getItem('authentication_token')
-  let storedEmail = await AsyncStorage.getItem('email')
-  this.setState( {
-      authentication_token: storedToken,
-      email: storedEmail
-  })
-};
-
-componentWillReceiveProps(nextProps) {
-  if (nextProps.reservationError && nextProps.reservationError !== this.props.reservationError) {
-      this.props.alertWithType('error','Error',nextProps.reservationError);
-  } else if(nextProps.reservationResult && nextProps.reservationResult !== this.props.reservationResult) {
-      console.log(nextProps.reservationResult);
-      this.props.navigation.navigate('Notifications')
-  } else if (nextProps.logoutError && nextProps.logoutError !== this.props.logoutError) {
-    this.props.alertWithType('error','Error',nextProps.logoutError);
-  } else if(nextProps.logoutResult && nextProps.logoutResult !== this.props.logoutResult) {
-    console.log(nextProps.logoutResult);
-    this.props.navigation.navigate('Login')
-  }
-}
-  
-handleRequestPress = () => {
-  this.setState({
-    requestVisible: !this.state.requestVisible
-  });
-};
-
-  handleNotifications = () => {
-        this.setState({ isModalVisible: false })
-        this.props.dispatch(checkActiveReservationTourist(this.props.profileID,
-          this.state.authentication_token,this.state.email))
-        //this.props.navigation.navigate('Requests')
-      }
-
-
-
-homePage(){
+    homePage(){
     const { navigate } = this.props.navigation;
     return (
         <TouchableOpacity
@@ -149,11 +96,11 @@ homePage(){
     }
 
     profileButton(){
-    //const { navigate } = this.props.navigation;
+
     return (
         <TouchableOpacity
         underlayColor="#FFF"
-        //onPress={()=> {this.setState({ isModalVisible: false }); navigate('MyTouristProfile')}} 
+        
         >
         <Text style={styles.settingText}>My Profile</Text> 
         </TouchableOpacity>
@@ -171,16 +118,47 @@ homePage(){
             )
       }
 
+//initializes the states 
+constructor(props) {
+  super(props)
+  this.state = {
+      requestVisible: false,
+      dateTimeSubmit: '',
+      authentication_token: '',
+      email: '',
+      isModalVisible: false
 
+  };
+};
+
+async componentDidMount() {
+  let storedToken = await AsyncStorage.getItem('authentication_token')
+  let storedEmail = await AsyncStorage.getItem('email')
+  this.setState( {
+      authentication_token: storedToken,
+      email: storedEmail
+  })
+};
+
+//checks if object received from backend is an error or a valid result
+componentWillReceiveProps(nextProps) {
+  if (nextProps.reservationError && nextProps.reservationError !== this.props.reservationError) {
+      this.props.alertWithType('error','Error',nextProps.reservationError);
+  } else if(nextProps.reservationResult && nextProps.reservationResult !== this.props.reservationResult) {
+      console.log(nextProps.reservationResult);
+      this.props.navigation.navigate('Notifications')
+  } else if (nextProps.logoutError && nextProps.logoutError !== this.props.logoutError) {
+    this.props.alertWithType('error','Error',nextProps.logoutError);
+  } else if(nextProps.logoutResult && nextProps.logoutResult !== this.props.logoutResult) {
+    console.log(nextProps.logoutResult);
+    this.props.navigation.navigate('Login')
+  }
+}
+
+
+//renders the header of the page
     renderHeader = () => {
 
-   /* const {
-      avatar,
-      avatarBackground,
-      name,
-      address: { city, country },
-    } = this.props*/
- 
     return (
 
       <View >
@@ -243,7 +221,7 @@ homePage(){
                   name="place"
                   underlayColor="transparent"
                   iconStyle={styles.placeIcon}
-                  //onPress={this.onPressPlace}
+  
                 />
               </View>
               <View style={styles.userCityRow}>
@@ -258,6 +236,7 @@ homePage(){
     )
   }
 
+//renders the tel box info
   renderTel = () => {
     return (
        
@@ -268,7 +247,7 @@ homePage(){
               name="call"
               underlayColor="transparent"
               iconStyle={styles.telIcon}
-              //onPress={() => onPressTel(number)}
+      
             />
        
         </View>
@@ -283,7 +262,7 @@ homePage(){
     }
 
 
-
+//renders the email box info
   renderEmail = () => (
 
       <View style={styles.innerEmailContainer}>
@@ -293,7 +272,7 @@ homePage(){
             name="email"
             underlayColor="transparent"
             iconStyle={styles.emailIcon}
-            //onPress={() => onPressEmail()}
+  
           />
      
       </View>
@@ -305,6 +284,7 @@ homePage(){
         </View>
   )
 
+//renders a separator 
 renderSeparator = () => (
   <View style={styles.container}>
     <View style={styles.separatorOffset} />
@@ -312,33 +292,7 @@ renderSeparator = () => (
   </View>
 )
 
-renderTours = () => ( 
-
-    <View style={styles.sceneContainer}>
-    
-        <View style={styles.eachTourContainer}>
-          <View style = {styles.tourTextButton}>
-            <View style={styles.tourList}>
-                <View style={styles.postRow}>
-                    <Text>{this.props.tourInfo.name}</Text>
-                    <Text style={styles.date}>{this.props.tourInfo.duration} hours</Text>
-                </View>
-                <View style={styles.wordRow}>
-                    <Text style={styles.wordText}>{this.props.tourInfo.description}</Text>
-                </View>
-                
-            </View>
-            
-          </View>
-        </View>
-        
-        <View style={styles.toursContainer}>
-            <Image style={styles.postImage} source={tour1} />
-        </View>
-    </View>
-
-)
-
+//renders the different components of the page
   render() {
     return (
       <ScrollView style={styles.scroll}>
@@ -358,8 +312,7 @@ renderTours = () => (
 }
         
 
-
-
+//maps states in reducers to props in the screen
 const mapStateToProps = (state) => {
     
     const profileInfo = state.MyProfile.myProfile;

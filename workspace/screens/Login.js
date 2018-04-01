@@ -12,7 +12,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class Login extends Component {
 
-        handleSignUpPress = () => {
+    //navigates to pages depending on button press
+    handleSignUpPress = () => {
         this.props.navigation.navigate('Register');
     };
 
@@ -20,8 +21,9 @@ export default class Login extends Component {
         this.props.navigation.navigate('SignIn');
     };
 
-    state = { isReady: false,}
+    state = { isReady: false }
 
+    //loads the customized font 
     componentWillMount() {
 
     (async() => {
@@ -46,11 +48,7 @@ export default class Login extends Component {
 
     } 
 
-   
-
-
-
-        return (
+    return (
     
         <ImageBackground
         style={styles.loginBackground}
@@ -61,19 +59,14 @@ export default class Login extends Component {
             style={styles.OdysseyCover}
             >
         
-            <View ><Text style= {styles.odyssey}>Odyssey</Text>
-            
+            <View >
+                <Text style= {styles.odyssey}>Odyssey</Text>
             </View> 
+
             <ButtonContainer 
             signUp = {this.handleSignUpPress.bind(this)} 
             login = {this.handleLoginPress.bind(this)} /> 
-
-                
-                
-              
-               
-
-           
+       
         </View>
         </ImageBackground>
 
@@ -81,44 +74,5 @@ export default class Login extends Component {
     
         );
     };
-
-/*
-    const Errors = (props) => {
-        return (
-            <View>
-                {props.errors.map((error,))}
-            </View>
-        )
-    }
-*/
 };
 
-/*
-<ButtonText 
-            displayText = {'Not registered?'}
-            onPress={this.handleRegisterPress.bind(this)}
-        />
-
-copied
-<KeyboardAvoidingView 
-        behavior={'padding'}
-        style={styles.loginKeyboard}
-        >
-        <View
-        style={styles.loginTopPadding}
-        />
-        <GeneralTextInput
-            displayText={'Username'}
-            handleTextChange={(val) => this.setState({username: val})}
-        />
-        <View
-        style={styles.loginTextPadding}
-        />
-        <GeneralTextInput
-            displayText={'Password'}
-            handleTextChange={(val) => this.setState({password: val})}
-            secure={true}
-        />
-        
-        </KeyboardAvoidingView> 
-        */
