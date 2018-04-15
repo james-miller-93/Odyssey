@@ -124,7 +124,7 @@ slide: {
     paddingTop: 30,
   },
   headerBackgroundImage: {
-    paddingBottom: 20,
+    paddingBottom: 40,
     paddingTop: 35,
     //resizeMode: 'cover',
     flex: 1,
@@ -138,7 +138,7 @@ slide: {
       ios: {
         alignItems: 'center',
         elevation: 1,
-        marginTop: -1,
+        marginTop: 20,
       },
       android: {
         alignItems: 'center',
@@ -147,7 +147,8 @@ slide: {
   },
   placeIcon: {
     color: 'white',
-    fontSize: 22,
+    fontSize: 20,
+    marginRight: 3,
   },
   scroll: {
     backgroundColor: '#FFF',
@@ -171,12 +172,12 @@ slide: {
     textAlign: 'center',
   },
   userImage: {
-    borderColor: '#000',
-    borderRadius: 85,
-    borderWidth: 2,
-    height: 145,
-    marginBottom: 15,
-    width: 145,
+    borderColor: '#FFF',
+    borderRadius: 76,
+    borderWidth: 6,
+    height: 155,
+    marginBottom: 30,
+    width: 155,
   },
   userNameText: {
     color: '#FFF',
@@ -497,7 +498,100 @@ slide: {
 
         //bottom: 30
         
-  }
+  },
+
+  //PROFILE 
+
+  profileEditBox: {
+
+    backgroundColor: 'transparent',
+    top: 28, 
+    position: 'absolute',
+    alignItems: 'center',
+    height: 80,
+    width: 70,
+    right: 12,
+    //flexDirection: 'row',
+
+  },
+
+  proEditIcon: {
+
+    //color: 'black',
+    //right: 5,
+    //top: 15,
+    position: 'absolute',
+    //justifyContent: 'center',
+    alignSelf: 'center',
+
+  },
+
+  //ABOUT
+
+    aboutBox: {
+      //backgroundColor: 'transparent',
+      borderRadius: 4,
+      padding: 10,
+      shadowColor: '#000000',
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowRadius: 3,
+      shadowOpacity: 0.7,
+      backgroundColor: '#FFFFFF',
+      width: '100%',
+      height: '100%',
+
+      //borderWidth: 1,
+  },
+
+    aboutContainer: {
+      flex: 1,
+      top: 20,
+      //justifyContent: 'center',
+      //alignItems: 'center',
+      left:12,
+      height: 150,
+      width: 350,
+      position: 'absolute',
+      //alignSelf: 'center'
+      //backgroundColor: '#e4e4e4'
+  },
+
+
+  questionsContainer: {
+
+     flex: 1,
+      top: 40,
+      //justifyContent: 'center',
+      //alignItems: 'center',
+      left:12,
+      height: 320,
+      width: 350,
+      position: 'absolute',
+
+
+  },
+
+    titleText: {
+
+      fontSize: 16,
+      fontWeight: '400',
+      color: '#939393',
+      marginBottom: 7,
+
+    },
+
+    infoText: {
+      fontSize: 13,
+      color: '#000',
+    },
+
+    languageIcon: {
+    marginRight: 8,
+    
+  },
 
 });
 

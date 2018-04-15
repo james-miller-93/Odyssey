@@ -257,7 +257,7 @@ const mapStateToProps = (state) => {
 	const tourInfo = state.CreateTours.tourInfo;
 	const errors = state.CreateTours.errors;
     const result = state.CreateTours.result;
-     const viewToursError = state.ViewTours.errors;
+    const viewToursError = state.ViewTours.errors;
 	const viewToursResult = state.ViewTours.result;
 	const tourMode = state.CreateTours.mode;
 

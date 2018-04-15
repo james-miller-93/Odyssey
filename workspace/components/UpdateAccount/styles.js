@@ -170,7 +170,7 @@ editIcon: {
     position: 'absolute',
     alignSelf: 'center',
     margin: 2,
-
+},
 
     editContainer: {
         backgroundColor: '#000',

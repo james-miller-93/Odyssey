@@ -14,8 +14,9 @@ import { ACTIVE_RESERVATION_CHECK_TOUR_GUIDE, ACTIVE_RESERVATION_CHECK_TOURIST,
 import { MY_PROFILE_CHECK, MY_PROFILE_ERROR, MY_PROFILE_RESULT } from '../actions/MyProfile';
 import { CREATE_TOUR_SUBMIT, CREATE_TOUR_ERROR, CREATE_TOUR_RESULT, EDIT_TOUR_SUBMIT } from '../actions/CreateTours';
 import { UPDATE_ACTIVE_SWITCH, ACTIVE_SWITCH_ERROR, ACTIVE_SWITCH_RESULT} from '../actions/IsActive';
-
+import { SUBMIT_PAYMENT, PAYMENT_ERROR, PAYMENT_RESULT} from '../actions/Payments';
 import { VIEW_TOURS_CHECK, VIEW_TOURS_RESULT, VIEW_TOURS_ERROR, VIEW_TOURS_DELETE, VIEW_TOURS_DELETE_ERROR, VIEW_TOURS_DELETE_RESULT } from '../actions/ViewTours';
+import {UPDATE_ACCOUNT_SUBMIT, UPDATE_ACCOUNT_ERROR, UPDATE_ACCOUNT_RESULT, UPDATE_ACCOUNT} from '../actions/UpdateAccount';
 
 const postInitialLogin = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/sessions', {
     method: 'GET',
@@ -251,6 +252,42 @@ const deleteTours = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/to
         'X-Traveler-Email': action.email,
     },
     body: ''
+});
+
+
+const postPayment = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/travelers/'+action.id, {
+    method: 'PATCH',
+     headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Traveler-Token': action.authentication_token,
+        'X-Traveler-Email': action.email,
+    },
+    body: JSON.stringify({
+    "traveler": {
+        'active': action.active,
+        'latitude': action.location.latitude,
+        'longitude': action.location.longitude,
+        }
+    })
+});
+
+const updateAccount = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/travelers/'+action.id, {
+    method: 'PATCH',
+     headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Traveler-Token': action.authentication_token,
+        'X-Traveler-Email': action.email,
+    },
+    body: JSON.stringify({
+    "traveler": {
+        'description': action.userInfo.description,
+        'city': action.userInfo.city,
+        'phone_number': action.userInfo.phone_number
+
+        }
+    })
 });
 
 
@@ -652,6 +689,53 @@ function* tryDeleteTours(action) {
     }
 }
 
+function* tryPayment(action) {
+
+    try {
+        console.log('===========ACTION===============')
+        console.log(action)
+        const response = yield call(postPayment, action);
+      
+        const result = yield response.json();
+
+   
+         if (result.error) {
+            
+
+            yield put({ type: PAYMENT_ERROR, errors: result.error});
+        } else {
+            
+            yield put({ type: PAYMENT_RESULT, result: result});
+        }
+    } catch(e) {
+            yield put({ type: PAYMENT_ERROR, errors: e.message});
+    }
+}
+function* tryUpdateAcc(action) {
+
+    try {
+        
+        const response = yield call(updateAccount, action);
+        
+        //console.log(action.userInfo)
+        console.log('=========response=======')
+        console.log("lololololololololoololollolololoo"+response)
+        const result = yield response.json();
+
+        if (result.error) {
+            
+
+            yield put({ type: UPDATE_ACCOUNT_ERROR, errors: result.error});
+        } else {
+            
+            yield put({ type: UPDATE_ACCOUNT_RESULT, result: result});
+        }
+    } catch(e) {
+            yield put({ type: UPDATE_ACCOUNT_ERROR, errors: e.message});
+    }
+}
+
+
 export default function* rootSaga() {
     yield takeEvery(INITIAL_LOGIN_CHECK, tryInitialLogin)
     yield takeEvery(REGISTER_SUBMIT, tryRegisterUser)
@@ -671,5 +755,7 @@ export default function* rootSaga() {
     yield takeEvery(VIEW_ACTIVE_PROFILE_CHECK, tryViewActiveProfile)
     yield takeEvery(UPDATE_ACTIVE_SWITCH, tryIsActive)
     yield takeEvery(VIEW_TOURS_DELETE, tryDeleteTours)
+    yield takeEvery(SUBMIT_PAYMENT, tryPayment)
+    yield takeEvery(UPDATE_ACCOUNT_SUBMIT, tryUpdateAcc)
 
 }

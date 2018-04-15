@@ -3,10 +3,8 @@ import { StackNavigator , DrawerNavigator} from 'react-navigation';
 import Filter from '../screens/Filter';
 import Home from '../screens/Home';
 import Login from '../screens/Login';
-import Profile from '../screens/Profile';
 import Register from '../screens/Register';
 import Settings from '../screens/Settings';
-import TourGuide from '../screens/TourGuide';
 import SignIn from '../screens/SignIn';
 import UserRole from '../screens/UserRole';
 import Loading from '../screens/Loading';
@@ -20,13 +18,25 @@ import MyTouristProfile from '../screens/MyTouristProfile';
 import UpdateAccount from '../screens/UpdateAccount';
 import ManageTours from '../screens/ManageTours';
 import CreateTours from '../screens/CreateTours';
+import Payments from '../screens/Payments';
+import TourPage from '../screens/TourPage';
 
 
 
 export default DrawerNavigator({
 
-    
-    Loading: {
+
+
+    TourPage: {
+        screen: TourPage,
+        navigationOptions: {
+            header: () => null,
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
+        }
+    },
+
+Loading: {
         screen: Loading,
         navigationOptions: {
             header: () => null,
@@ -34,6 +44,24 @@ export default DrawerNavigator({
             drawerLockMode: 'locked-closed'
         }
     },
+
+
+
+    
+
+    
+    
+
+     Payments: {
+        screen: Payments,
+        navigationOptions: {
+            header: () => null,
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
+        }
+    },
+    
+   
 
     HomeAlternate: {
         screen: HomeAlternate,
@@ -132,14 +160,7 @@ export default DrawerNavigator({
             drawerLockMode: 'locked-closed'
         },
     },   
-    Profile: {
-        screen: Profile,
-        navigationOptions: {
-            header: () => null,
-            gesturesEnabled: false,
-            drawerLockMode: 'locked-closed'
-        }
-    },
+
     SignIn: {
         screen: SignIn,
         navigationOptions: {
@@ -192,10 +213,5 @@ export default DrawerNavigator({
     Settings: {
         screen: Settings,
     },
-    TourGuide: {
-        screen: TourGuide,
-        navigationOptions: {
-            header: () => null,
-        },
-    }
+    
 });

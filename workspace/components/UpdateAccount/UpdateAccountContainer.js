@@ -23,12 +23,13 @@ export default class UpdateAccountContainer extends Component {
 
             >
             <Icon1 name="close" style={styles.closeIcon} size={32} 
-            onPress={()=> {this.props.navigation.navigate('UserProfile');}}/>
+            onPress={()=> {this.props.navigation.navigate('MyTouristProfile');}}/>
             </TouchableOpacity>
             <View style= {styles.saveContainer}>
             
             <TouchableOpacity
             style={styles.generalSave}
+            onPress={this.props.handleSavePress}
             >
 
             <View >
@@ -84,7 +85,7 @@ export default class UpdateAccountContainer extends Component {
             <TextInput
             style={styles.generalTextInput}
             placeholder={this.props.oldValue}
-            placeholderTextColor={'#FFFFFF'} 
+            placeholderTextColor={'#000'} 
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
@@ -96,7 +97,7 @@ export default class UpdateAccountContainer extends Component {
             <TextInput
             style={styles.generalTextInput}
             placeholder={this.props.oldValue}
-            placeholderTextColor={'#FFFFFF'}
+            placeholderTextColor={'#000'}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
@@ -106,9 +107,9 @@ export default class UpdateAccountContainer extends Component {
             <View style={styles.textInputContainer}>
             <TextInput
             style={styles.generalTextInput}
-            placeholder={this.props.oldValue}
-            placeholderTextColor={'#FFFFFF'}
-            onChangeText={this.props.handleTextChange}
+            placeholder={this.props.oldPhone}
+            placeholderTextColor={'#000'}
+            onChangeText={this.props.phone}
             adjustsFontSizeToFit
             />
             
@@ -143,9 +144,9 @@ export default class UpdateAccountContainer extends Component {
             <View style={styles.textInputContainer}>
             <TextInput
             style={[styles.generalTextInput , {width: 275}]}
-            placeholder={this.props.oldValue}
-            placeholderTextColor={'#FFFFFF'}
-            onChangeText={this.props.handleTextChange}
+            placeholder={this.props.oldLocation}
+            placeholderTextColor={'#000'}
+            onChangeText={this.props.location}
             adjustsFontSizeToFit
             />
             </View>
@@ -182,7 +183,7 @@ export default class UpdateAccountContainer extends Component {
             <TextInput
             style={[styles.generalTextInput , {width: 275}]}
             placeholder={this.props.oldValue}
-            placeholderTextColor={'#FFFFFF'}
+            placeholderTextColor={'#000'}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
@@ -220,7 +221,7 @@ export default class UpdateAccountContainer extends Component {
             <TextInput
             style={[styles.generalTextInput , {width: 280}]}
             placeholder={this.props.oldValue}
-            placeholderTextColor={'#FFFFFF'}
+            placeholderTextColor={'#000'}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
@@ -232,7 +233,7 @@ export default class UpdateAccountContainer extends Component {
             <TextInput
             style={[styles.generalTextInput , {width: 280}]}
             placeholder={this.props.oldValue}
-            placeholderTextColor={'#FFFFFF'}
+            placeholderTextColor={'#000'}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
@@ -243,7 +244,7 @@ export default class UpdateAccountContainer extends Component {
             <TextInput
             style={[styles.generalTextInput , {width: 280}]}
             placeholder={this.props.oldValue}
-            placeholderTextColor={'#FFFFFF'}
+            placeholderTextColor={'#000'}
             onChangeText={this.props.handleTextChange}
             adjustsFontSizeToFit
             />
@@ -273,9 +274,9 @@ export default class UpdateAccountContainer extends Component {
             <View style={styles.textInputContainer}>
             <TextInput
             style={[styles.generalTextInput, {height: 100}]}
-            placeholder={this.props.oldValue}
-            placeholderTextColor={'#FFFFFF'}
-            onChangeText={this.props.handleTextChange}
+            placeholder={this.props.oldDescription}
+            placeholderTextColor={'#000'}
+            onChangeText={this.props.description}
             adjustsFontSizeToFit
             />
             </View>      

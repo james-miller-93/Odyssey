@@ -14,10 +14,13 @@ import HideableView from 'react-native-hideable-view';
 import { Calendar } from 'react-native-calendars';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon7 from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/SimpleLineIcons';
 import Icon3 from 'react-native-vector-icons/Entypo';
 import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon5 from 'react-native-vector-icons/MaterialIcons';
+import Icon6 from 'react-native-vector-icons/Feather';
+
 import Modal from "react-native-modal";
 import { changeLoginEmailValue, changeLoginPasswordValue,
         pressLoginSubmit, checkInitialLogin,
@@ -39,7 +42,7 @@ const tour2 = require('../assets/images/tour2.jpeg');
 const image = require('../assets/images/blankimage.jpeg');
   
 //the profile page for tourists
-class MyTouristProfile extends Component {
+class TourPage extends Component {
      
     //controls the modal visibility 
     _toggleModal = () => {
@@ -199,7 +202,7 @@ componentWillReceiveProps(nextProps) {
 
 
 
-        {/*<ImageBackground
+        <ImageBackground
           style={[ 
             {
               width: 400,
@@ -207,25 +210,17 @@ componentWillReceiveProps(nextProps) {
             },
             styles.headerBackgroundImage]}
           blurRadius={10}
-          source={headerImage}
-        >#C67171
-        */}
+          source={tour1}
+        >
+        
 
-        <LinearGradient colors={[ '#C67171', '#fb9481', '#EE9572', '#FF9955', '#EE7942']} start={[0, 0]}
-            end={[1, 1]} style={[ 
-            {
-              width: 400,
-              height: 340,
-            },
-            styles.headerBackgroundImage]}>
-
-      
+        
          
         <View style={styles.settingsBox}>
         
         <TouchableOpacity style={{ height: '100%', width: '100%'}}
         onPress={this._toggleModal} underlayColor="#FFF">
-            <Icon name="ios-menu" style={styles.settingsIcon} size={45} />
+            <Icon6 name="arrow-left" style={styles.settingsIcon} size={33} />
          </TouchableOpacity>
         </View>
 
@@ -238,59 +233,15 @@ componentWillReceiveProps(nextProps) {
         </View>
         
 
-        <Modal isVisible={this.state.isModalVisible}
-        backdropOpacity={0.4}
-        onBackdropPress={() => this.setState({ isModalVisible: false }) }
-        supportedOrientations={['portrait', 'landscape']}
-        animationIn={'slideInLeft'}
-        animationOut={'slideOutRight'}
-        >
-          <View style={styles.newSettingWindow}>
-             
-
-            {this.homePage()}  
-            <View style={styles.border}></View>     
-            {this.profileButton()}
-            <View style={styles.border}></View>
-            {this.notificationsButton()} 
-            <View style={styles.border}></View>
-            {this.logoutButton()}
-             
-
-        </View>
-        </Modal>
+        
 
           
 
 
 
-          <View style={styles.headerColumn}>
           
-            <Image
-              style={styles.userImage}
-              source={profilePic}
-            />
-            <Text style={styles.userNameText}> {this.props.profileInfo.firstname} {this.props.profileInfo.lastname}</Text>
-            <View style={styles.userAddressRow}>
-              <View>
-                <Icon1
-                  name="place"
-                  underlayColor="transparent"
-                  iconStyle={styles.placeIcon}
-  
-                />
-              </View>
-              <View style={styles.userCityRow}>
-                <Text style={styles.userCityText}>
-                  {this.props.profileInfo.city}
-                </Text>
-              </View>
-            </View>
-          </View>
-
-        </LinearGradient>
          
-        {/*</ImageBackground>*/}
+        </ImageBackground>
       </View>
     )
   }
@@ -321,22 +272,27 @@ componentWillReceiveProps(nextProps) {
 
 
 //renders the email box info
-  renderEmail = () => (
+  renderTourTitle = () => (
 
       <View style={styles.innerEmailContainer}>
-      <View style={styles.iconRow2}>
-        
-          <Icon1
-            name="email"
-            underlayColor="transparent"
-            iconStyle={styles.emailIcon}
-  
-          />
-     
-      </View>
+    
       <View style={styles.emailRow}>
-        <View style={styles.emailColumn}>
-          <Text style={styles.emailText}>{this.props.profileInfo.email}</Text>
+        <View style={{left:12}}>
+          <Text style={{fontSize: 22, fontWeight: 'bold'}}>TOUR TITLE</Text>
+        </View>
+        </View>
+        </View>
+  )
+
+
+  //renders the email box info
+  renderTourLocation = () => (
+
+      <View style={styles.innerEmailContainer}>
+    
+      <View style={styles.emailRow}>
+        <View style={{left:12}}>
+          <Text style={{fontSize: 18}}>TOUR LOCATION</Text>
         </View>
         </View>
         </View>
@@ -354,67 +310,15 @@ renderSeparator = () => (
 
 renderAbout = () => (
 
- <View style={{width: 400, height: 250, 
+ <View style={{width: 400, height: 200, 
               backgroundColor: '#e4e4e4'}}>
   <View style={styles.aboutContainer}>
   <View style={styles.aboutBox}>
    
     <Text style={styles.titleText}>
-      ABOUT
+      Description 
     </Text>
-    <View style={{flexDirection : 'row'}}>
-    <View style={styles.languageIcon}>
-     <Icon3
-            name="language"
-            underlayColor="transparent"
-            size= {18}
-  
-    />
-    </View>
-    <Text style={styles.infoText}>
-      Japanese, Chinese, English
-    </Text>
-    </View>
-      <View style={{flexDirection : 'row'}}>
-        <View style={styles.languageIcon}>
-         <Icon3
-                name="suitcase"
-                underlayColor="transparent"
-                size= {18}
-      
-        />
-        </View>
-        <Text style={styles.infoText}>
-          Student
-        </Text>
-        </View>
-        <View style={{flexDirection : 'row'}}>
-      <View style={styles.languageIcon}>
-     <Icon4
-            name="gender-transgender"
-            underlayColor="transparent"
-            size= {18}
-  
-    />
-    </View>
-    <Text style={styles.infoText}>
-      Female
-    </Text>
-    </View>
-
-    <View style={{flexDirection : 'row'}}>
-    <View style={styles.languageIcon}>
-     <Icon5
-            name="description"
-            underlayColor="transparent"
-            size= {18}
-  
-    />
-    </View>
-    <Text style={styles.infoText}>
-      {this.props.profileInfo.description}
-    </Text>
-    </View>
+    
 
     </View>
     </View>
@@ -422,6 +326,99 @@ renderAbout = () => (
 
   )
   
+
+
+  renderTickers = () => (
+
+  <View style={{width: 400, height: 75, 
+              backgroundColor: '#e4e4e4'}}>
+
+        <View style={{flexDirection: 'row', top: 20, position: 'absolute', left: 15, width: 350, height: 70}}>
+
+                <View style={{flexDirection: 'column', height: 70, width: 65 }} >
+
+                  <View style={{left: 15, bottom:3}}>
+                      <Icon6
+                            name="sun"
+                            underlayColor="transparent"
+                            iconStyle={styles.telIcon}
+                            size={25}
+                    
+                          />   
+                  </View>
+                  
+                    <Text> Daytrip </Text>
+                  
+                </View>
+                <View style={{flexDirection: 'column', height: 70, width: 65 }} >
+
+                  <View style={{left: 15, bottom:3}}>
+                      <Icon3
+                            name="beamed-note"
+                            underlayColor="transparent"
+                            iconStyle={styles.telIcon}
+                            size={22}
+                    
+                          />   
+                  </View>
+                  
+                    <Text> Nightlife </Text>
+                  
+                </View>
+
+                <View style={{flexDirection: 'column', height: 70, width: 65 }} >
+
+                  <View style={{left: 18, bottom:3}}>
+                      <Icon
+                            name="ios-football"
+                            underlayColor="transparent"
+                            iconStyle={styles.telIcon}
+                            size={22}
+                    
+                          />   
+                  </View>
+                  
+                    <Text style={{left:2}}> Outdoors </Text>
+                  
+                </View>
+
+                <View style={{flexDirection: 'column', height: 70, width: 65, top:2, left: 5}} >
+
+                  <View style={{left: 15, bottom:3}}>
+                      <Icon7
+                            name="institution"
+                            underlayColor="transparent"
+                            iconStyle={styles.telIcon}
+                            size={21}
+                    
+                          />   
+                  </View>
+                  
+                    <Text> Museum </Text>
+                  
+                </View>
+
+                 <View style={{flexDirection: 'column', height: 70, width: 65, top: -1}} >
+
+                  <View style={{left: 15}}>
+                      <Icon4
+                            name="food-fork-drink"
+                            underlayColor="transparent"
+                            iconStyle={styles.telIcon}
+                            size={23}
+                    
+                          />   
+                  </View>
+                  
+                    <Text style={{left:7}}> Food </Text>
+                  
+                </View>
+                
+        </View>
+  
+  </View>
+
+)
 
 renderCarousel = () => {
  const data = [
@@ -444,7 +441,7 @@ return (
 
   <CarouselContainer
   isTourCarousel = {false}
-  title = {"PICTURES"}
+  title = {"TOUR GALLERY"}
   data = {data}
    />
 
@@ -491,18 +488,48 @@ renderTourCarousel = () => {
 renderQuestions = () => (
 
 
-       <View style={{width: 400, height: 400, 
-              backgroundColor: '#EE9572'}}>
-  <View style={styles.questionsContainer}>
+       <View style={{width: 400, height: 300, 
+              backgroundColor: '#FFB07590'}}>
+  <View style={[styles.questionsContainer, {height: 220}]}>
   <View style={styles.aboutBox}>
    
     <Text style={styles.titleText}>
-      What do you love to drink most?
+      More Information
     </Text>
    
-    <Text style={styles.infoText}>
-      Beer
-    </Text>
+         <View style={{flexDirection:'row', top: 15}}>
+          <Text style={{fontWeight: 'bold', marginRight: 10, marginBottom: 15, fontSize: 14}}>
+            Languages
+          </Text>
+          <Text>
+          Japanese
+          </Text>
+        </View>
+        <View style={{flexDirection:'row', top: 15}}>
+          <Text style={{fontWeight: 'bold', marginRight: 10, marginBottom: 15, fontSize: 14}}>
+            Number of People
+          </Text>
+          <Text>
+          10
+          </Text>
+        </View>
+        <View style={{flexDirection:'row', top: 15}}>
+          <Text style={{fontWeight: 'bold', marginRight: 10, marginBottom: 15, fontSize: 14}}>
+            Tour Duration
+          </Text>
+          <Text>
+          2 hours
+          </Text>
+        </View>
+        <View style={{flexDirection:'row', top: 15}}>
+          <Text style={{fontWeight: 'bold', marginRight: 10, marginBottom: 15, fontSize: 14}}>
+            Price
+          </Text>
+          <Text>
+          $100
+          </Text>
+        </View>
+
 
     </View>
     </View>
@@ -511,6 +538,8 @@ renderQuestions = () => (
 
 
   )
+
+
 
 
 
@@ -523,17 +552,16 @@ renderQuestions = () => (
         <View style={styles.profileContainer}>
           <Card containerStyle={styles.cardContainer}>
             {this.renderHeader()}
-            {this.renderTel()}
-            {this.renderSeparator()}
-            {this.renderEmail()}
-            {this.renderSeparator()}  
+            {this.renderTourTitle()}
+            {this.renderSeparator()} 
+            {this.renderTourLocation()}
+            {this.renderSeparator()} 
+            {this.renderTickers()}
             {this.renderAbout()}
             {this.renderCarousel()}
             {this.renderQuestions()}
-            {this.renderTourCarousel()}
-         
-           
-            
+
+                  
           </Card>
         </View>
       </ScrollView>
@@ -577,6 +605,6 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps)(connectAlert(MyTouristProfile));
+export default connect(mapStateToProps)(connectAlert(TourPage));
 
 //export default connect(mapStateToProps)(connectAlert(SignIn));

@@ -12,7 +12,8 @@ import MyProfile from './MyProfile';
 import CreateTours from './CreateTours';
 import ViewTours from './ViewTours';
 import IsActive from './IsActive';
-
+import Payments from './Payments';
+import UpdateAccount from './UpdateAccount';
 
 export default combineReducers({
     Register,
@@ -27,4 +28,6 @@ export default combineReducers({
     CreateTours,
     ViewTours,
     IsActive,
+    Payments,
+    UpdateAccount,
 });

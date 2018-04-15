@@ -16,7 +16,7 @@ myProfile: {
 
     city: '',
     image: '',
-
+    description: '',
     latitude: '',
     longitude: '',
 
