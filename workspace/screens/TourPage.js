@@ -34,7 +34,7 @@ import { LinearGradient } from 'expo';
 //import Carousel from 'react-native-snap-carousel';
 import { CarouselContainer } from '../components/Carousel'
 import {updateAccount} from '../actions/UpdateAccount'
-
+import {editTours, tourMode} from '../actions/CreateTours';
 const headerImage = require('../assets/images/LoginCover.jpg');
 const profilePic = require('../components/Container/profilePic.png');
 const tour1 = require('../assets/images/tour1.jpeg');
@@ -75,18 +75,32 @@ class TourPage extends Component {
       }
     renderOldInfo = (data) => {
 
+    this.props.dispatch(tourMode('edit'))
+
+   
     //this.props.dispatch(tourMode('edit'))
 
     console.log("here");
 
-    const userInfo = {
+    const tourInfo = {
 
       city: data.city,
+      title: data.title,
+      duration: data.duration,
       description: data.description,
-      phone_number: data.phone_number,
+      tourID: data.id,
+      max_persons: data.max_persons,
+      is_daytrip: data.is_daytrip,
+      is_foodie: data.is_foodie,
+      is_landmarks: data.is_landmarks,
+      is_museums: data.is_museums,
+      is_nightlife: data.is_nightlife,
+      is_outdoors: data.is_outdoors, 
+      price: data.price,
     }   
 
-    this.props.dispatch(updateAccount(userInfo))
+    this.props.dispatch(editTours(tourInfo));
+    this.props.navigation.navigate('CreateTours');
 
   }
 
@@ -209,7 +223,7 @@ componentWillReceiveProps(nextProps) {
               height: 280,
             },
             styles.headerBackgroundImage]}
-          blurRadius={10}
+          blurRadius={3}
           source={tour1}
         >
         
@@ -219,18 +233,12 @@ componentWillReceiveProps(nextProps) {
         <View style={styles.settingsBox}>
         
         <TouchableOpacity style={{ height: '100%', width: '100%'}}
-        onPress={this._toggleModal} underlayColor="#FFF">
+        onPress={() => {this.props.navigation.navigate('MyGuideProfile')}} underlayColor="#FFF">
             <Icon6 name="arrow-left" style={styles.settingsIcon} size={33} />
          </TouchableOpacity>
         </View>
 
-        <View style={styles.profileEditBox}>
-        <TouchableOpacity style={{ height: '100%', width: '100%'}}
-        underlayColor="#FFF" 
-        onPress={()=> {this.renderOldInfo(this.props.profileInfo)}}>
-            <Icon4 name="dots-vertical" style={styles.proEditIcon} size={32} />
-         </TouchableOpacity>
-        </View>
+        
         
 
         
@@ -246,28 +254,6 @@ componentWillReceiveProps(nextProps) {
     )
   }
 
-//renders the tel box info
-  renderTel = () => (
-       
-            <View style={styles.innerTelContainer}>
-            <View style={styles.iconRow}>
-      
-            <Icon1
-              name="call"
-              underlayColor="transparent"
-              iconStyle={styles.telIcon}
-      
-            />
-       
-        </View>
-        <View style={styles.telRow}>
-          <View style={styles.telNumberColumn}>
-            <Text style={styles.telNumberText}> {this.props.profileInfo.phone_number} </Text>
-        </View>
-        </View>
-
-        </View>
-        )
     
 
 
@@ -278,7 +264,7 @@ componentWillReceiveProps(nextProps) {
     
       <View style={styles.emailRow}>
         <View style={{left:12}}>
-          <Text style={{fontSize: 22, fontWeight: 'bold'}}>TOUR TITLE</Text>
+          <Text style={{fontSize: 22, fontWeight: 'bold'}}>{this.props.currentTour.title}</Text>
         </View>
         </View>
         </View>
@@ -292,7 +278,7 @@ componentWillReceiveProps(nextProps) {
     
       <View style={styles.emailRow}>
         <View style={{left:12}}>
-          <Text style={{fontSize: 18}}>TOUR LOCATION</Text>
+          <Text style={{fontSize: 18}}>{this.props.currentTour.city}</Text>
         </View>
         </View>
         </View>
@@ -316,7 +302,7 @@ renderAbout = () => (
   <View style={styles.aboutBox}>
    
     <Text style={styles.titleText}>
-      Description 
+      {this.props.currentTour.description} 
     </Text>
     
 
@@ -411,6 +397,8 @@ renderAbout = () => (
                   </View>
                   
                     <Text style={{left:7}}> Food </Text>
+
+
                   
                 </View>
                 
@@ -502,7 +490,7 @@ renderQuestions = () => (
             Languages
           </Text>
           <Text>
-          Japanese
+          {this.props.currentTour.language} 
           </Text>
         </View>
         <View style={{flexDirection:'row', top: 15}}>
@@ -510,7 +498,7 @@ renderQuestions = () => (
             Number of People
           </Text>
           <Text>
-          10
+          {this.props.currentTour.max_persons} 
           </Text>
         </View>
         <View style={{flexDirection:'row', top: 15}}>
@@ -518,7 +506,7 @@ renderQuestions = () => (
             Tour Duration
           </Text>
           <Text>
-          2 hours
+          {this.props.currentTour.duration} 
           </Text>
         </View>
         <View style={{flexDirection:'row', top: 15}}>
@@ -526,7 +514,7 @@ renderQuestions = () => (
             Price
           </Text>
           <Text>
-          $100
+          ${this.props.currentTour.price} 
           </Text>
         </View>
 
@@ -587,6 +575,7 @@ const mapStateToProps = (state) => {
     const authentication_token = state.UpdateAccount.authentication_token;
     const email = state.UpdateAccount.email;
     const userInfo = state.UpdateAccount.userInfo;
+    const currentTour = state.TourPage.currentTour;
 
 
     return {
@@ -600,7 +589,8 @@ const mapStateToProps = (state) => {
         reservationResult,
         reservationError,
         logoutError,
-        logoutResult
+        logoutResult,
+        currentTour,
     };
 };
 

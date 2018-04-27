@@ -22,7 +22,7 @@ import Modal from "react-native-modal";
 import { changeLoginEmailValue, changeLoginPasswordValue,
         pressLoginSubmit, checkInitialLogin,
          cleanLoginErrorLog } from '../actions/Login';
-
+import {LinearGradient} from 'expo';
 import { submitNewReservation } from '../actions/Reservation'
 
 const headerImage = require('../assets/images/LoginCover.jpg');
@@ -114,16 +114,13 @@ componentWillReceiveProps(nextProps) {
 
       <View >
 
-        <ImageBackground
-          style={[ 
+        <LinearGradient colors={[ '#C67171', '#fb9481', '#EE9572', '#FF9955', '#EE7942']} start={[0, 0]}
+            end={[1, 1]} style={[ 
             {
               width: 400,
-              height: 280,
+              height: 340,
             },
-            styles.headerBackgroundImage]}
-          blurRadius={10}
-          source={headerImage}
-        >
+            styles.headerBackgroundImage]}>
 
         <View style={{width: 60, height: 50, top: 25, left:10, position: 'absolute'}}>
         
@@ -156,7 +153,7 @@ componentWillReceiveProps(nextProps) {
               </View>
             </View>
           </View>
-        </ImageBackground>
+        </LinearGradient>
       </View>
     )
   }
@@ -239,23 +236,32 @@ renderTours = (tourName,tourDuration,tourDescription,tourid) => (
         </View>
         <View
         style={{
-          backgroundColor: '#F9A602',
-          width: '100%'
+          backgroundColor: '#000',
+          width: '100%',
+          height: 45,
+          alignItems: 'center'
         }}
         >
-              <ButtonText
-              displayText = {"Request Tour"}
-              bgColor = {{ backgroundColor: '#F9A602'}}
-              handlePress={this.handleRequestPress}
-              />
+        <TouchableOpacity
+                
+                onPress={this.handleRequestPress}
+
+                >
+
+                <View >
+                    <Text style={{fontSize: 18, color: '#FFF', top:8}}> Request Tour </Text>
+                </View>
+                
+                </TouchableOpacity>
+              
         </View>
         <HideableView
         visible = {this.state.requestVisible}
         removeWhenHidden={true}
         style={{
-          height: 200,
+          height: 130,
           width: '100%',
-          justifyContent: 'center',
+          //justifyContent: 'center',
           alignItems: 'center'
         }}
         >

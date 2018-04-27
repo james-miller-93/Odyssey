@@ -8,7 +8,9 @@ import styles from './styles';
 //import { colors, sliderWidth, itemWidth} from './styles';
 import {  ENTRIES2 } from './staticInfo';
 import { scrollInterpolators, animatedStyles } from './animation';
-
+import {getCurrentTour} from '../../actions/TourPage';
+import { connectAlert } from '../Alert';
+import { connect } from 'react-redux';
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
 const ENTRIES1 = [
@@ -49,7 +51,7 @@ const itemWidth = slideWidth + itemHorizontalMargin * 2;
 
 const entryBorderRadius = 8;
 
-export default class CarouselContainer extends Component {
+class CarouselContainer extends Component {
 
     constructor (props) {
         super(props);
@@ -60,8 +62,10 @@ export default class CarouselContainer extends Component {
         };
     }
 
+    
+
     _renderItem ({item, index}) {
-        return <SliderEntry data={item} even={(index + 1) % 2 === 0} isTourCarousel= {false}/>;
+        return <SliderEntry  data={item} even={(index + 1) % 2 === 0} isTourCarousel= {false}/>;
     }
 
     _renderItemWithParallax ({item, index}, parallaxProps) {
@@ -74,8 +78,19 @@ export default class CarouselContainer extends Component {
             />
         );
     }
-	_renderTourItem ({item, index}) {
-        return <SliderEntry data={item} even={(index + 1) % 2 === 0} isTourCarousel= {true}/>;
+    getTour = (data) => {
+      
+      
+      
+    }
+
+	_renderTourItem = ({item, index}) => {
+
+       // console.log("---------------------",this.props.tours);
+       //this.props.dispatch(getCurrentTour(item));
+       //this.props.getTour(item.info)
+
+        return <SliderEntry  data={item} even={(index + 1) % 2 === 0} isTourCarousel= {true}/>;
     }
 
     _renderLightItem ({item, index}) {
@@ -85,6 +100,8 @@ export default class CarouselContainer extends Component {
     _renderDarkItem ({item, index}) {
         return <SliderEntry data={item} even={true} />;
     }
+
+  
 
     mainExample (number, title) {
         const { slider1ActiveSlide } = this.state;
@@ -155,12 +172,14 @@ export default class CarouselContainer extends Component {
         );
     }
 
-    layoutExample (number, title, type, isTourCarousel, headline, entries) {
+    layoutExample (number, title, type, isTourCarousel, headline, entries, location) {
         const isTinder = type === 'tinder';
+       // const tryThis = this.props.dispatch(getCurrentTour(entries[0]))
         return (
             <View style={[styles.exampleContainer, isTinder ? styles.exampleContainerDark : styles.exampleContainerLight]}>
-                <Text style={[styles.bigTitle, isTinder ? {} : styles.titleDark]}>USER's {headline}</Text>
-                <Text style={[styles.bigSubtitle, isTinder ? {} : styles.titleDark]}>SMTH SMTH</Text>
+                <Text style={[styles.bigTitle, isTinder ? {} : styles.titleDark]}>MY {headline}</Text>
+                <Text style={[styles.bigSubtitle, isTinder ? {} : styles.titleDark]}>{location}</Text>
+              
                 <Carousel
                   data={entries}
                   renderItem={isTourCarousel ? this._renderTourItem : this._renderItem}
@@ -213,7 +232,7 @@ export default class CarouselContainer extends Component {
         //const example1 = this.mainExample(1, 'Default layout | Loop | Autoplay | Parallax | Scale | Opacity | Pagination with tappable dots');
         //const example2 = this.momentumExample(2, 'Momentum | Left-aligned | Active animation');
 
-        const example3 = this.layoutExample(3, '"Stack of cards" layout | Loop', 'stack', this.state.isTourCarousel, this.state.title, this.props.data);
+        const example3 = this.layoutExample(3, '"Stack of cards" layout | Loop', 'stack', this.state.isTourCarousel, this.state.title, this.props.data, this.props.location);
        
         //const example4 = this.layoutExample(4, '"Tinder-like" layout | Loop', 'tinder');
         //const example5 = this.customExample(5, 'Custom animation 1', 1, this._renderItem);
@@ -236,7 +255,7 @@ export default class CarouselContainer extends Component {
                       scrollEventThrottle={200}
                       directionalLockEnabled={true}
                     >
-                      
+                       
                         { example3 }
                         
                     </ScrollView>
@@ -246,4 +265,8 @@ export default class CarouselContainer extends Component {
     
        
     }
+
 }
+
+
+ export default connect()(connectAlert(CarouselContainer));

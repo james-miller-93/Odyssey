@@ -28,12 +28,12 @@ class CreateTours extends Component {
 			    description: this.props.tourInfo.description,
 			    tourID: this.props.tourInfo.tourID,
 			 	max_persons: this.props.tourInfo.max_persons,
-			 	is_daytrip: false,
-		        is_foodie: false,
-		        is_landmarks: false,
-		        is_museums: false,
-		        is_nightlife: false,
-		        is_outdoors: false, 
+			 	is_daytrip: this.props.tourInfo.is_daytrip,
+		        is_foodie: this.props.tourInfo.is_foodie,
+		        is_landmarks: this.props.tourInfo.is_landmarks,
+		        is_museums: this.props.tourInfo.is_museums,
+		        is_nightlife: this.props.tourInfo.is_nightlife,
+		        is_outdoors: this.props.tourInfo.is_outdoors, 
 		        price: this.props.tourInfo.price,
 		        
             }
@@ -236,6 +236,12 @@ class CreateTours extends Component {
             price = {this.newPrice}
             oldPrice = {this.props.tourInfo.price.toString()}
             nightLifePress = {this.NewNightLife}
+           	museumsChecked = {this.state.is_museums}
+           	foodChecked = {this.state.is_foodie}
+           	nightLifeChecked = {this.state.is_nightlife}
+           	outdoorsChecked = {this.state.is_outdoors}
+           	landmarksChecked = {this.state.is_landmarks}
+           	daytripChecked = {this.state.is_daytrip}
             foodPress = {this.NewFood}
             daytripPress ={this.NewDaytrip}
             museumsPress = {this.NewMuseums}

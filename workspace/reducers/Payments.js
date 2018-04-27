@@ -7,6 +7,7 @@ const initialState = {
     result: '',
 	errors: '',
     token: '',
+    id: '',
 	
 
 };
@@ -20,7 +21,8 @@ switch(action.type) {
             ...state,
             email: action.email,
             authentication_token: action.authentication_token,
-            token: action.token
+            token: action.token,
+            id: action.id
         }
     case PAYMENT_ERROR:
         return {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, KeyboardAvoidingView, ImageBackground, TextInput,AsyncStorage, Dimensions, Image, TouchableOpacity} from 'react-native';
+import { View, Text, KeyboardAvoidingView, ImageBackground, TextInput,AsyncStorage, Dimensions, Alert, Image, TouchableOpacity} from 'react-native';
 import { connect } from 'react-redux';
 import { GeneralTextInput } from '../components/TextInput';
 import { ButtonText } from '../components/Button';
@@ -105,6 +105,7 @@ class Payments extends Component {
 		      addressCountry: 'Test Country',
 		      addressZip: '55555',
     		},
+         
   		}
 
 };
@@ -126,6 +127,7 @@ class Payments extends Component {
       this.props.alertWithType('error','Error',nextProps.errors);
   	} else if(nextProps.result && nextProps.result !== this.props.result) {
       console.log(nextProps.result);
+      Alert.alert("You have successfully added your card info.");
 
   	}
 
@@ -136,7 +138,7 @@ class Payments extends Component {
     submitPayment ()  {
     
       //this.setState({ loading: true, token: null, error: null })
-     const apiKey = 'pk_test_dzoQhcoz1gZQt1s9rYvkTAwx';
+     const apiKey = 'pk_test_6qmukC7WmQ4FIbeiihbYVz8m';
 	 const client = new Stripe(apiKey);
 
 	 const card = {
@@ -150,9 +152,9 @@ class Payments extends Component {
      // const token = await stripe.createTokenWithCard(this.state.params)
       //this.setState({ loading: false, error: undefined, token })
      client.createToken(card).then((token) => {
-      console.log(token);
-      this.setState({ loading: false, error: undefined, token });
-      this.props.dispatch(submitPaymentInfo(this.state.authentication_token,this.state.email,this.state.token))
+      console.log("------------------------------",token);
+      this.setState({ loading: false, error: undefined, token: token.id });
+      this.props.dispatch(submitPaymentInfo(this.state.authentication_token,this.state.email,this.state.token,this.props.id))
 
     }).catch((error) => {
       //this.setState({ loading: false, error })
@@ -283,10 +285,12 @@ const mapStateToProps = (state) => {
 	const token = state.Payments.token;
 	const errors = state.Payments.errors;
     const result = state.Payments.result;
+    const id = state.ViewProfile.profileID;
    
 
     return {
 
+        id,
         token,
         errors,
         result,

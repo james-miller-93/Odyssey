@@ -23,7 +23,7 @@ export default class UpdateAccountContainer extends Component {
 
             >
             <Icon1 name="close" style={styles.closeIcon} size={32} 
-            onPress={()=> {this.props.navigation.navigate('MyTouristProfile');}}/>
+            onPress={()=> {this.props.navigation.goBack('B');}}/>
             </TouchableOpacity>
             <View style= {styles.saveContainer}>
             
@@ -284,6 +284,20 @@ export default class UpdateAccountContainer extends Component {
 
             </View>
 
+            </View>
+
+            <View style= {[styles.button, {marginTop: 45}]}>
+            
+            <TouchableOpacity
+            style={[styles.generalButton, {borderColor: '#000'}]}
+            onPress = {() => {this.props.navigation.navigate('ManageTours');}}
+            >
+
+            <View >
+            <Text style={[styles.buttonText, {color: '#000'}]}> Manage Your Tours </Text>
+            </View>
+            
+            </TouchableOpacity>
             </View>
 
             <View style= {[styles.button, {marginTop: 45}]}>

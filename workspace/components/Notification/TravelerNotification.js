@@ -19,7 +19,7 @@ export default class TravelerNotification extends Component {
               source={profilePic}
             />
 
-            <TouchableOpacity underlayColor="#FFF" onPress= {() => {navigate('UserProfile')}}>
+            <TouchableOpacity underlayColor="#FFF" >
               <Text style={styles.tourGuideName} > {this.props.tourguideFirstName} {this.props.tourguideLastName} </Text>
             </TouchableOpacity>
               <Text/>

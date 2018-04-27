@@ -11,6 +11,7 @@ import styles from '../screens/styles';
 import { pressMyProfile, setMyProfile } from '../actions/MyProfile';
 import { pressProfileView, clearViewProfile } from '../actions/ViewProfile'
 import { viewTours } from '../actions/ViewTours';
+import { LinearGradient } from 'expo';
 
 class UserRole extends Component {
 
@@ -96,14 +97,16 @@ class UserRole extends Component {
     render() {
         return (
 
-        <ImageBackground
-            style={styles.loginBackground}
-            source={require('../assets/images/LoginCover.jpg')}
-        >
+        <LinearGradient colors={[ '#C67171', '#fb9481', '#EE9572', '#FF9955', '#EE7942']} start={[0, 0]}
+            end={[1, 1]} style={[ 
+            {
+              width: 400,
+              height: 340,
+            },
+            styles.headerBackgroundImage]}>
+
      
-        <View
-            style={styles.transparentCover}
-        >
+        <View>
 
             <UserRoleContainer
             handleTravelerPress={this.onTravelerPress}
@@ -112,7 +115,7 @@ class UserRole extends Component {
 
         </View>
 
-        </ImageBackground>
+        </LinearGradient>
 
 
 

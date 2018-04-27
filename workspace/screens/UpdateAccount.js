@@ -23,20 +23,20 @@ class UpdateAccount extends Component {
             email: "",
             userInfo: {
             	city: this.props.userInfo.city,
-			    description: this.props.userInfo.description,
-			   	phone_number: this.props.userInfo.phone_number,
-		        
+    			    description: this.props.userInfo.description,
+    			   	phone_number: this.props.userInfo.phone_number,
+    		        
             },
             profileInfo: {
             	firstname: this.props.profileInfo.firstname,
-			    lastname: this.props.profileInfo.lastname,
-			    email: this.props.profileInfo.email,
-			    phone_number: this.props.profileInfo.phone_number,
-			    city: this.props.profileInfo.city,
-			    image: this.props.profileInfo.image,
-			    description: this.props.profileInfo.description,
-			    latitude: this.props.profileInfo.latitude,
-			    longitude: this.props.profileInfo.longitude,
+    			    lastname: this.props.profileInfo.lastname,
+    			    email: this.props.profileInfo.email,
+    			    phone_number: this.props.profileInfo.phone_number,
+    			    city: this.props.profileInfo.city,
+    			    image: this.props.profileInfo.image,
+    			    description: this.props.profileInfo.description,
+    			    latitude: this.props.profileInfo.latitude,
+    			    longitude: this.props.profileInfo.longitude,
 			}
       
         }

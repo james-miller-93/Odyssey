@@ -9,6 +9,7 @@ import { Errors } from '../components/Errors';
 import styles from '../screens/styles';
 import { SignUpContainer} from '../components/Container';
 import { connectAlert } from '../components/Alert';
+import { LinearGradient } from 'expo';
 //import Swiper from 'react-native-swiper';
 
 import { changeRegisterFirstNameValue, changeRegisterLastNameValue, changeRegisterEmailValue,
@@ -154,13 +155,16 @@ class Register extends Component {
     render() {
         return (
 
-        <ImageBackground
-            style={styles.loginBackground}
-            source={require('../assets/images/LoginCover.jpg')}
-        >
+        <LinearGradient colors={[ '#C67171', '#fb9481', '#EE9572', '#FF9955', '#EE7942']} start={[0, 0]}
+            end={[1, 1]} style={[ 
+            {
+              width: 400,
+              height: 340,
+            },
+            styles.headerBackgroundImage]}>
      
         <View
-            style={styles.transparentCover}
+            
             >
 
             <SignUpContainer
@@ -178,7 +182,7 @@ class Register extends Component {
 
         </View>
 
-        </ImageBackground>
+        </LinearGradient>
 
 
 

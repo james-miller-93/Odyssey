@@ -25,6 +25,24 @@ import TourPage from '../screens/TourPage';
 
 export default DrawerNavigator({
 
+    Loading: {
+        screen: Loading,
+        navigationOptions: {
+            header: () => null,
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
+        }
+    },
+
+
+    Payments: {
+        screen: Payments,
+        navigationOptions: {
+            header: () => null,
+            gesturesEnabled: false,
+            drawerLockMode: 'locked-closed'
+        }
+    },
 
 
     TourPage: {
@@ -36,32 +54,6 @@ export default DrawerNavigator({
         }
     },
 
-Loading: {
-        screen: Loading,
-        navigationOptions: {
-            header: () => null,
-            gesturesEnabled: false,
-            drawerLockMode: 'locked-closed'
-        }
-    },
-
-
-
-    
-
-    
-    
-
-     Payments: {
-        screen: Payments,
-        navigationOptions: {
-            header: () => null,
-            gesturesEnabled: false,
-            drawerLockMode: 'locked-closed'
-        }
-    },
-    
-   
 
     HomeAlternate: {
         screen: HomeAlternate,

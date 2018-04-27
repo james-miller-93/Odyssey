@@ -43,19 +43,19 @@ export default class OneDateTime extends Component {
             <View>
             <View
             style={{
-                height: 80,
+                height: 50,
                 width: '100%',
                 flexDirection: 'row',
-                top: 40,
+                top: 10,
                 justifyContent: 'center',
             }}
             >
                 <View
                 style={{
-                    height: 40,
-                    width: '50%',
-                    borderRadius: 20,
-                    backgroundColor: '#5D87A8'
+                    height: 45,
+                    width: '100%',
+                    //borderRadius: 10,
+                    backgroundColor: '#000'
                 }}
                 >
                 <TouchableOpacity
@@ -92,21 +92,28 @@ export default class OneDateTime extends Component {
             visible={this.state.isVisible}
             removeWhenHidden={false}
             style={{
-                height: 120,
+               height: 60,
                 width: '100%',
-                alignItems: 'center',                
-                justifyContent: 'center',
+               
             }}
             >
-            <View>
+            <View style={{
+               height: 50,
+                width: '100%',
+                flexDirection: 'row',
+                top: 15,
+                justifyContent: 'center',
+            }}>
+            <View style={{
+                    height: 45,
+                    width: '100%',
+                    
+                    backgroundColor: '#000'
+                }}>
+
                 <TouchableOpacity
                 onPress={this.props.handleSubmitRequest}
-                style={{
-                    height: 40,
-                    width: '50%',
-                    borderRadius: 20,
-                    backgroundColor: '#5D87A8'
-                }}
+                style={{width:'100%',height: '100%'}}
                 >
                     <Text
                     style={{
@@ -120,6 +127,7 @@ export default class OneDateTime extends Component {
                         Submit Request
                     </Text>
                 </TouchableOpacity>
+                </View>
                 </View>
             </HideableView>
             </View>

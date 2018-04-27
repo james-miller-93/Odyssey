@@ -174,7 +174,7 @@ export default class CreateTourContainer extends Component {
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
               checkedColor='black'
-              checked={this.state.nightLifeChecked}
+              checked={this.props.nightLifeChecked}
               onPress={()=> { this.setState({ nightLifeChecked: !this.state.nightLifeChecked }); this.props.nightLifePress()}}
             />
             <CheckBox
@@ -184,7 +184,7 @@ export default class CreateTourContainer extends Component {
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
               checkedColor='black'
-              checked={this.state.foodChecked}
+              checked={this.props.foodChecked}
               onPress={()=> { this.setState({ foodChecked: !this.state.foodChecked }); this.props.foodPress()}}
             />
             	
@@ -197,7 +197,7 @@ export default class CreateTourContainer extends Component {
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
               checkedColor='black'
-              checked={this.state.museumsChecked}
+              checked={this.props.museumsChecked}
               onPress={()=> { this.setState({ museumsChecked: !this.state.museumsChecked }); this.props.museumsPress()}}
             />
             <CheckBox
@@ -207,7 +207,7 @@ export default class CreateTourContainer extends Component {
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
               checkedColor='black'
-              checked={this.state.outdoorsChecked}
+              checked={this.props.outdoorsChecked}
               onPress={()=> { this.setState({ outdoorsChecked: !this.state.outdoorsChecked }); this.props.outdoorsPress()}}
             />
 
@@ -221,7 +221,7 @@ export default class CreateTourContainer extends Component {
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
               checkedColor='black'
-              checked={this.state.landmarksChecked}
+              checked={this.props.landmarksChecked}
               onPress={()=> { this.setState({ landmarksChecked: !this.state.landmarksChecked }); this.props.landmarksPress()}}
               /> 
                  <CheckBox
@@ -231,7 +231,7 @@ export default class CreateTourContainer extends Component {
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
               checkedColor='black'
-              checked={this.state.daytripChecked}
+              checked={this.props.daytripChecked}
               onPress={()=> { this.setState({ daytripChecked: !this.state.daytripChecked }); this.props.daytripPress()}}
             />
              </View>

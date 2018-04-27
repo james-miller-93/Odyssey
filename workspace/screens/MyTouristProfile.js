@@ -443,6 +443,7 @@ return (
 
 
   <CarouselContainer
+  navigation = {this.props.navigation}
   isTourCarousel = {false}
   title = {"PICTURES"}
   data = {data}
@@ -482,6 +483,7 @@ renderTourCarousel = () => {
 
   return (
   <CarouselContainer
+  navigation = {this.props.navigation}
   isTourCarousel = {true} 
   title = {"TOURS"}
   data = {entries}/>
@@ -529,11 +531,7 @@ renderQuestions = () => (
             {this.renderSeparator()}  
             {this.renderAbout()}
             {this.renderCarousel()}
-            {this.renderQuestions()}
-            {this.renderTourCarousel()}
          
-           
-            
           </Card>
         </View>
       </ScrollView>

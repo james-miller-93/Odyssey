@@ -14,6 +14,8 @@ import ViewTours from './ViewTours';
 import IsActive from './IsActive';
 import Payments from './Payments';
 import UpdateAccount from './UpdateAccount';
+import TourPage from './TourPage';
+
 
 export default combineReducers({
     Register,
@@ -30,4 +32,5 @@ export default combineReducers({
     IsActive,
     Payments,
     UpdateAccount,
+    TourPage,
 });

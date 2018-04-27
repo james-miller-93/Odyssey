@@ -255,8 +255,8 @@ const deleteTours = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/to
 });
 
 
-const postPayment = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/travelers/'+action.id, {
-    method: 'PATCH',
+const postPayment = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/payments', {
+    method: 'POST',
      headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -264,11 +264,8 @@ const postPayment = action => fetch('http://odyssey-api-demo.herokuapp.com/v1/tr
         'X-Traveler-Email': action.email,
     },
     body: JSON.stringify({
-    "traveler": {
-        'active': action.active,
-        'latitude': action.location.latitude,
-        'longitude': action.location.longitude,
-        }
+        'id': action.id,
+        'stripe_token': action.token,
     })
 });
 
@@ -591,7 +588,7 @@ function* tryDeclineRequest(action) {
         console.log('------response-----------------')
         console.log(response)
 
-        const result = yield respones.json();
+        const result = yield response.json();
 
         if (result.error) {
 

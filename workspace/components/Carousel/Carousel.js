@@ -3,8 +3,12 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { ParallaxImage, Carousel} from 'react-native-snap-carousel';
 import styles from './styles';
+import { connectAlert} from '../Alert';
+import { connect } from 'react-redux';
+import { getCurrentTour } from '../../actions/TourPage';
+import { withNavigation } from 'react-navigation';
 
-export default class SliderEntry extends Component {
+class SliderEntry extends Component {
 
     static propTypes = {
         data: PropTypes.object.isRequired,
@@ -63,19 +67,20 @@ tourInfo = (isTourCarousel,subtitle, even,title) => {
 	}
 
 }
-
-
+  
 
     render () {
-        const { data: { title, subtitle }, even , isTourCarousel} = this.props;
+        const { data: { title, subtitle, info}, even , isTourCarousel } = this.props;
 
-       
+    
 
         return (
             <TouchableOpacity
               activeOpacity={1}
               style={styles.slideInnerContainer}
-              onPress={() => { alert(`You've clicked '${title}'`); }}
+              onPress={() => { if(isTourCarousel) { {this.props.dispatch(getCurrentTour(info));}
+              {this.props.navigation.navigate('TourPage');} }      
+                }}
               >
                 <View style={styles.shadow} />
                 <View style={[styles.imageContainer, even ? styles.imageContainerEven : {}]}>
@@ -88,3 +93,17 @@ tourInfo = (isTourCarousel,subtitle, even,title) => {
         );
     }
 }
+
+
+
+const mapStateToProps = (state) => {
+
+        const currentTour = state.TourPage.currentTour;
+ 
+        return {
+          currentTour,
+  }
+}
+
+ export default connect(mapStateToProps)(connectAlert(withNavigation(SliderEntry)));
+

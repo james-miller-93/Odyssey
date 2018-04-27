@@ -8,6 +8,7 @@ import Navigator from './config/routes';
 import { AlertProvider } from './components/Alert';
 import store from './config/store';
 
+
 EStyleSheet.build({
     $secondaryColor: '#F9A602',
     $primaryColor: '#5D87A8',

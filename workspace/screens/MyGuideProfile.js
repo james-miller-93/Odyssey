@@ -11,24 +11,27 @@ import { UserProfileContainer } from '../components/Container';
 import { connectAlert } from '../components/Alert';
 import { TimeDate, OneDateTime } from '../components/TimeDate';
 //import { Switch } from 'react-native-switch';
-
 import HideableView from 'react-native-hideable-view';
 import { Calendar } from 'react-native-calendars';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Icon2 from 'react-native-vector-icons/Entypo';
+import Icon2 from 'react-native-vector-icons/SimpleLineIcons';
+import Icon3 from 'react-native-vector-icons/Entypo';
+import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon5 from 'react-native-vector-icons/MaterialIcons';
 import MapView, { Marker, Callout } from 'react-native-maps';
-
+import {CarouselContainer} from '../components/Carousel';
 import Modal from "react-native-modal";
-
+import {LinearGradient} from 'expo';
 import { changeLoginEmailValue, changeLoginPasswordValue,
         pressLoginSubmit, checkInitialLogin,
          cleanLoginErrorLog } from '../actions/Login';
-
+import {updateAccount} from '../actions/UpdateAccount';
 import { submitNewReservation } from '../actions/Reservation';
 import { checkActiveReservationTourGuide } from '../actions/ActiveReservation';
 import { sendLogOutRequest } from '../actions/LogOut';
 import {isActiveUpdate} from '../actions/IsActive';
+import {getCurrentTour} from '../actions/TourPage';
 
 const headerImage = require('../assets/images/LoginCover.jpg');
 const profilePic = require('../components/Container/profilePic.png');
@@ -78,6 +81,24 @@ class MyGuideProfile extends Component {
           </TouchableOpacity>
           )
     }
+
+    renderOldInfo = (data) => {
+
+    //this.props.dispatch(tourMode('edit'))
+
+    console.log("here");
+
+    const userInfo = {
+
+      city: data.city,
+      description: data.description,
+      phone_number: data.phone_number,
+    }   
+
+    this.props.dispatch(updateAccount(userInfo))
+
+  }
+
 
     logoutButton() {
       const { navigate } = this.props.navigation;
@@ -191,6 +212,10 @@ componentWillReceiveProps(nextProps) {
     console.log(nextProps.activeResult);
     
   }
+  else if(nextProps.userInfo && nextProps.userInfo !== this.props.userInfo) {
+                this.props.navigation.navigate('UpdateAccount');
+              //if success
+  } 
 }
   
 handleRequestPress = () => {
@@ -216,33 +241,32 @@ handleLogout = () => {
     return (
 
       <View >
-        <ImageBackground
-          style={[ 
+        <LinearGradient colors={[ '#C67171', '#fb9481', '#EE9572', '#FF9955', '#EE7942']} start={[0, 0]}
+            end={[1, 1]} style={[ 
             {
               width: 400,
-              height: 280,
+              height: 340,
             },
-            styles.headerBackgroundImage]}
-          blurRadius={10}
-          source={headerImage}
-        >
+            styles.headerBackgroundImage]}>
+
     
+        <View style={styles.settingsBox}>
         
-      
-        <TouchableOpacity 
-        onPress={this._toggleModal}
-         underlayColor="#FFF"
-         style={{ 
-        position: 'absolute',      
-        height: 80,
-        width: 70,
-        top: 15,
-        left: 10,justifyContent: 'flex-end'}}>
-      <Icon name="ios-menu"  size={45} />
-
+        <TouchableOpacity style={{ height: '100%', width: '100%'}}
+        onPress={this._toggleModal} underlayColor="#FFF">
+            <Icon name="ios-menu" style={styles.settingsIcon} size={45} />
          </TouchableOpacity>
+        </View>
+      
 
-        
+
+        <View style={styles.profileEditBox}>
+        <TouchableOpacity style={{ height: '100%', width: '100%'}}
+        underlayColor="#FFF" 
+        onPress={()=> {this.renderOldInfo(this.props.profileInfo)}}>
+            <Icon4 name="dots-vertical" style={styles.proEditIcon} size={32} />
+         </TouchableOpacity>
+        </View>
       
         <Modal isVisible={this.state.isModalVisible}
 
@@ -253,6 +277,8 @@ handleLogout = () => {
         animationOut={'slideOutRight'}
 
         >
+
+
           <View style={styles.settingWindow}>
                     
             {this.profileButton()}
@@ -326,7 +352,7 @@ handleLogout = () => {
               </View>
             </View>
           </View>
-        </ImageBackground>
+        </LinearGradient>
       </View>
     )
   }
@@ -338,6 +364,7 @@ handleLogout = () => {
        
             <View style={styles.innerTelContainer}>
             <View style={styles.iconRow}>
+            
       
             <Icon1
               name="call"
@@ -383,9 +410,9 @@ handleLogout = () => {
   //renders the switch 
   renderSwitch = () => (
 
-    <View style={{ height: 100, width: '100%'}}>
-    <View style={{flexDirection: 'row', top : 20, height: 35, width: '100%'}}>
-    <Text style={{marginLeft: 20, fontSize: 17, top: 5}}> Are you ready to give tours? </Text> 
+    <View style={{ height: 70, width: '100%'}}>
+    <View style={{flexDirection: 'row', top : 20, height: 20, width: '100%'}}>
+    <Text style={{marginLeft: 20, fontSize: 17, top: 5}}> Go Online </Text> 
 
     
     <Switch
@@ -396,18 +423,38 @@ handleLogout = () => {
 
     </View>
     
-    <View>
-    <TouchableOpacity style={{ top: 20, height: 45, width: 35, right: 12, position: 'absolute'}}
-         underlayColor="#FFF"
-         >
-            <Icon2 name="dots-three-horizontal" style={styles.settingsIcon} size={25} 
-            onPress={()=> {this.props.navigation.navigate('ManageTours');}} />
-         </TouchableOpacity>
-    </View>
-    <View style={{padding: 10}}/>
     </View>
 
   )
+
+  renderTourCarousel = (data) => {
+ 
+  console.log(data.length);
+  if(data.length > 0) {
+
+    var entries = [];
+    var index = 0;
+    entries = data.map((y) => (
+      { title: y.title , subtitle : y.description, illustration : y.image, info: y}
+    ));
+    
+    
+
+    console.log("entries:", entries, entries.length);
+  
+
+
+      return (
+      <CarouselContainer
+      location = {"In "+this.props.profileInfo.city}
+      isTourCarousel = {true} 
+      title = {"TOURS"}
+      data = {entries}
+      />
+
+        )
+      }
+}
 
 //renders a border/separator between views
 renderSeparator = () => (
@@ -445,6 +492,75 @@ renderTours = (tourName,tourDuration,tourDescription,tourKey) => (
     </View>
 
 )
+renderAbout = () => (
+
+ <View style={{width: 400, height: 250, 
+              backgroundColor: '#e4e4e4'}}>
+  <View style={styles.aboutContainer}>
+  <View style={styles.aboutBox}>
+   
+    <Text style={styles.titleText}>
+      ABOUT
+    </Text>
+    <View style={{flexDirection : 'row'}}>
+    <View style={styles.languageIcon}>
+     <Icon3
+            name="language"
+            underlayColor="transparent"
+            size= {18}
+  
+    />
+    </View>
+    <Text style={styles.infoText}>
+      Japanese, Chinese, English
+    </Text>
+    </View>
+      <View style={{flexDirection : 'row'}}>
+        <View style={styles.languageIcon}>
+         <Icon3
+                name="suitcase"
+                underlayColor="transparent"
+                size= {18}
+      
+        />
+        </View>
+        <Text style={styles.infoText}>
+          Student
+        </Text>
+        </View>
+        <View style={{flexDirection : 'row'}}>
+      <View style={styles.languageIcon}>
+     <Icon4
+            name="gender-transgender"
+            underlayColor="transparent"
+            size= {18}
+  
+    />
+    </View>
+    <Text style={styles.infoText}>
+      Female
+    </Text>
+    </View>
+
+    <View style={{flexDirection : 'row'}}>
+    <View style={styles.languageIcon}>
+     <Icon5
+            name="description"
+            underlayColor="transparent"
+            size= {18}
+  
+    />
+    </View>
+    <Text style={styles.infoText}>
+      {this.props.profileInfo.description}
+    </Text>
+    </View>
+
+    </View>
+    </View>
+</View>
+
+  )
 
 //renders the entire profile page
   render() {
@@ -457,7 +573,7 @@ renderTours = (tourName,tourDuration,tourDescription,tourKey) => (
 
 
           <Card containerStyle={styles.cardContainer}>
-
+            
 
             {this.renderHeader()}
             {this.renderTel()}
@@ -465,14 +581,10 @@ renderTours = (tourName,tourDuration,tourDescription,tourKey) => (
             {this.renderEmail()}
             {this.renderSeparator()}
             {this.renderSwitch()}
-            {this.props.tours.map((data) => {
-              
-              return (
-                <View key={data.id} >
-                {this.renderTours(data.title,data.duration,data.description)}
-                </View>
-              )
-            })}
+            {this.renderAbout()}
+            {this.renderTourCarousel(this.props.tours)}
+           
+            
           </Card>
         </View>
       </ScrollView>
@@ -502,9 +614,11 @@ const mapStateToProps = (state) => {
     const active = state.IsActive.active;
     const activeError = state.IsActive.errors;
     const activeResult = state.IsActive.result;
+    const userInfo = state.UpdateAccount.userInfo;
 
     return {
         profileInfo,
+        userInfo,
         profileID,
         traveler,
         tourInfo,

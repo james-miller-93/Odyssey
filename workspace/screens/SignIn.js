@@ -11,6 +11,7 @@ import { connectAlert } from '../components/Alert';
 import { changeLoginEmailValue, changeLoginPasswordValue,
         pressLoginSubmit, checkInitialLogin,
          cleanLoginErrorLog } from '../actions/Login';
+import { LinearGradient } from 'expo';
 
 
 class SignIn extends Component {
@@ -65,13 +66,16 @@ class SignIn extends Component {
     render() {
         return (
 
-        <ImageBackground
-            style={styles.loginBackground}
-            source={require('../assets/images/LoginCover.jpg')}
-        >
+        <LinearGradient colors={[ '#C67171', '#fb9481', '#EE9572', '#FF9955', '#EE7942']} start={[0, 0]}
+            end={[1, 1]} style={[ 
+            {
+              width: 400,
+              height: 340,
+            },
+            styles.headerBackgroundImage]}>
      
         <View
-            style={styles.transparentCover}
+            
             >
 
             <SignInContainer 
@@ -83,7 +87,7 @@ class SignIn extends Component {
 
         </View>
 
-        </ImageBackground>
+        </LinearGradient>
 
         );
     };

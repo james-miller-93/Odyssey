@@ -52,14 +52,14 @@ export default EStyleSheet.create({
       title: {
         textAlign: 'center',
         fontSize: 40,
-        margin: 5,
+        marginRight: 5,
         color: '$black',
     },
 
       loginTitle: {
         textAlign: 'center',
         fontSize: 40,
-        margin: 5,
+        margin: 10,
 
         color: '$black',
         position: 'absolute',
@@ -83,5 +83,14 @@ export default EStyleSheet.create({
         position: 'absolute',
         top: 60,
         right: 15
+    },
+
+     buttonText: {
+        textAlign: 'center',
+        margin: 10,
+        color: '$black',
+        fontSize: 20,
+        fontWeight: 'bold',
+        
     },
 });
